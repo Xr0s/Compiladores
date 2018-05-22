@@ -5,16 +5,16 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TSoma extends Token
+public final class TMenorq extends Token
 {
-    public TSoma()
+    public TMenorq()
     {
-        super.setText("+");
+        super.setText("<=");
     }
 
-    public TSoma(int line, int pos)
+    public TMenorq(int line, int pos)
     {
-        super.setText("+");
+        super.setText("<=");
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,18 @@ public final class TSoma extends Token
     @Override
     public Object clone()
     {
-      return new TSoma(getLine(), getPos());
+      return new TMenorq(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTSoma(this);
+        ((Analysis) sw).caseTMenorq(this);
     }
 
     @Override
     public void setText(@SuppressWarnings("unused") String text)
     {
-        throw new RuntimeException("Cannot change TSoma text.");
+        throw new RuntimeException("Cannot change TMenorq text.");
     }
 }

@@ -5,16 +5,16 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TSoma extends Token
+public final class TAbreColchete extends Token
 {
-    public TSoma()
+    public TAbreColchete()
     {
-        super.setText("+");
+        super.setText("[");
     }
 
-    public TSoma(int line, int pos)
+    public TAbreColchete(int line, int pos)
     {
-        super.setText("+");
+        super.setText("[");
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,18 @@ public final class TSoma extends Token
     @Override
     public Object clone()
     {
-      return new TSoma(getLine(), getPos());
+      return new TAbreColchete(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTSoma(this);
+        ((Analysis) sw).caseTAbreColchete(this);
     }
 
     @Override
     public void setText(@SuppressWarnings("unused") String text)
     {
-        throw new RuntimeException("Cannot change TSoma text.");
+        throw new RuntimeException("Cannot change TAbreColchete text.");
     }
 }

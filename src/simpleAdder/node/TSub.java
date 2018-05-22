@@ -7,14 +7,14 @@ import simpleAdder.analysis.*;
 @SuppressWarnings("nls")
 public final class TSub extends Token
 {
-    public TSub(String text)
+    public TSub()
     {
-        setText(text);
+        super.setText("-");
     }
 
-    public TSub(String text, int line, int pos)
+    public TSub(int line, int pos)
     {
-        setText(text);
+        super.setText("-");
         setLine(line);
         setPos(pos);
     }
@@ -22,12 +22,18 @@ public final class TSub extends Token
     @Override
     public Object clone()
     {
-      return new TSub(getText(), getLine(), getPos());
+      return new TSub(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTSub(this);
+    }
+
+    @Override
+    public void setText(@SuppressWarnings("unused") String text)
+    {
+        throw new RuntimeException("Cannot change TSub text.");
     }
 }

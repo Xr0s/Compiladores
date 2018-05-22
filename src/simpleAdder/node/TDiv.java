@@ -7,14 +7,14 @@ import simpleAdder.analysis.*;
 @SuppressWarnings("nls")
 public final class TDiv extends Token
 {
-    public TDiv(String text)
+    public TDiv()
     {
-        setText(text);
+        super.setText("/");
     }
 
-    public TDiv(String text, int line, int pos)
+    public TDiv(int line, int pos)
     {
-        setText(text);
+        super.setText("/");
         setLine(line);
         setPos(pos);
     }
@@ -22,12 +22,18 @@ public final class TDiv extends Token
     @Override
     public Object clone()
     {
-      return new TDiv(getText(), getLine(), getPos());
+      return new TDiv(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTDiv(this);
+    }
+
+    @Override
+    public void setText(@SuppressWarnings("unused") String text)
+    {
+        throw new RuntimeException("Cannot change TDiv text.");
     }
 }

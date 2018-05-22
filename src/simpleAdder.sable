@@ -7,38 +7,65 @@ Helpers
  	cr = 13; 
  	nl = 10;
  	eol = nl | cr | cr nl; 
-    sp = 32; 
+    sp = 32; /*Espaço */
 
     letra = [ ['A' .. 'Z'] + ['a' .. 'z'] ] ;
     underscore = '_' ;
     
   
 Tokens 
-    /* Our simple token definition(s). */ 
     pontovirgula = ';' nl?;
     branco = (sp|tab|eol)+; 
+ 
+  /* 	Tipos de Comentarios 		*/
+	comentario_de_linha = '//' [0 .. 0x9] [0xB .. 0xffff] + nl ;//tudo menos o nl
+	comentario_de_bloco_inicio = '/*'  ;
+	comentario_de_bloco_fim = '*/' ;
+
+//	Identificadores
+	id = (letra | underscore) (letra | underscore | numero0)+;
+    
   
- /* Operadores */ 
-	soma = '+' sp*; 
-    igual = '=' sp*;
-    sub = '-' sp*;
-    mult = '*' sp*;
-    div = '/' sp*; 
+ ///* Operadores aritmeticos*/ 
+	soma = '+' ; 
+    sub = '-' ;
+    mult = '*';
+    div = '/' ; 
+
+/* 	Operadores relacionais */
+	igual = '='	;
+	maiorq = '>=' ;
+	menorq = '<=' ;
+	maior = '>' ;
+	menor = '<' ;
+	
+/* 	Simbolos			*/
+	abre_colchete = '[' ;
+	abre_parentese = '(' ;
+	fecha_colchete = ']' ;
+	fecha_parentese = ')' ;
+	
+/* 	Operadores boleanos 		*/
+	nao = 'nao';
+	ou = 'ou' ;
+	e = 'e' ;
+ 
 	  
  /*	Palavras reservadas  */
- 	inteiro = numero + sp*; 
+ 	inteiro =  numero+ sp*;
+ 	real =  ('+' | '-') numero+ ',' numero+ ;
    	caractere = letra;
-   	string = ''' letra*  ''';
- 	se = 'se' ;
+   	string = ''' letra+  ''';
+ 	operador_se = 'se' ;
  	senao = 'senao';
  	inicio = 'inicio';
  	fim = 'fim';
  	para = 'para';
  	avalie = 'avalie';
  	caso = 'caso';
- 	booleano = 'booleano';
  	verdadeiro = 'verdadeiro';
  	falso = 'falso';
+ 	booleano = 'booleano';
  	
  Productions 
     /* Our super-simple grammar */
