@@ -1,0 +1,46 @@
+/* simpleAdder.sable - A very simple program that recognizes two integers being added. */ 
+Package simpleAdder ; 
+     
+Helpers 
+    /* Our helpers */ 
+    numero = ['0' .. '9'] ; 
+   	tab = 9;
+ 	cr = 13; 
+ 	nl = 10;
+ 	eol = nl | cr | cr nl; 
+    sp = 32; 
+
+    letra = [ ['A' .. 'Z'] + ['a' .. 'z'] ] ;
+    underscore = '_' ;
+    
+  
+Tokens 
+    /* Our simple token definition(s). */ 
+    pontovirgula = ';' nl?;
+    branco = (sp|tab|eol)+; 
+  
+ /* Operadores */ 
+	soma = '+' sp*; 
+    igual = '=' sp*;
+    sub = '-' sp*;
+    mult = '*' sp*;
+    div = '/' sp*; 
+	  
+ /*	Palavras reservadas  */
+ 	inteiro = numero + sp*; 
+   	caractere = letra;
+   	string = ''' letra*  ''';
+ 	se = 'se' ;
+ 	senao = 'senao';
+ 	inicio = 'inicio';
+ 	fim = 'fim';
+ 	para = 'para';
+ 	avalie = 'avalie';
+ 	caso = 'caso';
+ 	booleano = 'booleano';
+ 	verdadeiro = 'verdadeiro';
+ 	falso = 'falso';
+ 	
+ Productions 
+    /* Our super-simple grammar */
+	program = [left]:inteiro soma [right]:inteiro pontovirgula;
