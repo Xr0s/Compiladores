@@ -1,4 +1,3 @@
-/* simpleAdder.sable - A very simple program that recognizes two integers being added. */ 
 Package simpleAdder ; 
      
 Helpers 
