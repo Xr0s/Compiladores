@@ -29,14 +29,11 @@ public interface Analysis extends Switch
     void caseTInteiroReservada(TInteiroReservada node);
     void caseTRealReservada(TRealReservada node);
     void caseTCaractereReservada(TCaractereReservada node);
-    void caseTVerdadeiroReservada(TVerdadeiroReservada node);
-    void caseTFalsoReservada(TFalsoReservada node);
     void caseTBooleanoReservada(TBooleanoReservada node);
     void caseTVetorReservada(TVetorReservada node);
     void caseTComentarioDeLinha(TComentarioDeLinha node);
     void caseTComentarioDeBlocoInicio(TComentarioDeBlocoInicio node);
     void caseTComentarioDeBlocoFim(TComentarioDeBlocoFim node);
-    void caseTId(TId node);
     void caseTSoma(TSoma node);
     void caseTSub(TSub node);
     void caseTMult(TMult node);
@@ -63,6 +60,7 @@ public interface Analysis extends Switch
     void caseTBooleano(TBooleano node);
     void caseTVetor(TVetor node);
     void caseTTipo(TTipo node);
+    void caseTId(TId node);
     void caseEOF(EOF node);
     void caseInvalidToken(InvalidToken node);
 }

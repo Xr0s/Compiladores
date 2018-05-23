@@ -34,20 +34,13 @@ Tokens
   	inteiro_reservada =  'inteiro';
  	real_reservada =  'real';
    	caractere_reservada = 'caractere';
-   	verdadeiro_reservada = 'verdadeiro';
-   	falso_reservada = 'falso';
    	booleano_reservada = 'booleano';
    	vetor_reservada = 'vetor';
 	
-	//aqui volta tokens 	  
- 
   /* 	Tipos de Comentarios 		*/
 	comentario_de_linha = '//'[[0..9]+[11..255]]*;  //tudo menos o nl
 	comentario_de_bloco_inicio = '/*';
 	comentario_de_bloco_fim = '*/';
-
-//	Identificadores
-	id = (letra (letra | underscore | numero)* ) | (underscore (letra | underscore | numero)+) ;    
   
  /* Operadores aritmeticos*/ 
 	soma = '+' ; 
@@ -85,6 +78,9 @@ Tokens
    	booleano = verdadeiro | falso; 
 	vetor = '['(('''letra''' (',' '''letra''')*) | '['(('+' | '-')* numero+ (',' ('+' | '-')* numero+)*)| (('+' | '-')* numero+ ',' numero+ (',' ('+' | '-')* numero+ ',' numero+)*) | ('verdadeiro' | 'falso' (',' 'verdadeiro' | 'falso')*))']';
 	tipo = 'inteiro' | 'real' | 'caractere' | 'booleano' ;
+
+//	Identificadores
+	id = (letra (letra | underscore | numero)* ) | (underscore (letra | underscore | numero)+) ;    
 
  Productions 
     /* Our super-simple grammar */
