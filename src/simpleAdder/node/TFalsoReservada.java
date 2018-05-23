@@ -5,14 +5,14 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TFalso extends Token
+public final class TFalsoReservada extends Token
 {
-    public TFalso()
+    public TFalsoReservada()
     {
         super.setText("falso");
     }
 
-    public TFalso(int line, int pos)
+    public TFalsoReservada(int line, int pos)
     {
         super.setText("falso");
         setLine(line);
@@ -22,18 +22,18 @@ public final class TFalso extends Token
     @Override
     public Object clone()
     {
-      return new TFalso(getLine(), getPos());
+      return new TFalsoReservada(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTFalso(this);
+        ((Analysis) sw).caseTFalsoReservada(this);
     }
 
     @Override
     public void setText(@SuppressWarnings("unused") String text)
     {
-        throw new RuntimeException("Cannot change TFalso text.");
+        throw new RuntimeException("Cannot change TFalsoReservada text.");
     }
 }

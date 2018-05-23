@@ -147,18 +147,6 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseTVerdadeiro(TVerdadeiro node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTFalso(TFalso node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
     public void caseTComentarioDeLinhaReservada(TComentarioDeLinhaReservada node)
     {
         defaultCase(node);
@@ -292,6 +280,24 @@ public class AnalysisAdapter implements Analysis
 
     @Override
     public void caseTCaractereReservada(TCaractereReservada node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTVerdadeiroReservada(TVerdadeiroReservada node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTFalsoReservada(TFalsoReservada node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTBooleanoReservada(TBooleanoReservada node)
     {
         defaultCase(node);
     }
@@ -466,6 +472,12 @@ public class AnalysisAdapter implements Analysis
 
     @Override
     public void caseTVetor(TVetor node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTTipo(TTipo node)
     {
         defaultCase(node);
     }

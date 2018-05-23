@@ -10,7 +10,9 @@ Helpers
     sp = 32; /*Espaço */
 	letra = [ ['A' .. 'Z'] + ['a' .. 'z'] ] ;
     underscore = '_' ;
-
+    verdadeiro = 'verdadeiro';
+    falso = 'falso';
+    
 Tokens 
     tabulacao = tab;
     enter = eol;
@@ -25,8 +27,6 @@ Tokens
  	para = 'para';
  	avalie = 'avalie';
  	caso = 'caso';
-    verdadeiro = 'verdadeiro';
-    falso = 'falso';
 	
 	//Reservadas com comandos
 	
@@ -53,6 +53,9 @@ Tokens
  	inteiro_reservada =  'inteiro';
  	real_reservada =  'real';
    	caractere_reservada = 'caractere';
+   	verdadeiro_reservada = 'verdadeiro';
+   	falso_reservada = 'falso';
+   	booleano_reservada = 'booleano';
    	vetor_reservada = 'vetor';
 	
 	//aqui volta tokens 	  
@@ -63,7 +66,7 @@ Tokens
 	comentario_de_bloco_fim = '*/';
 
 //	Identificadores
-	id = (letra | underscore) (letra | underscore | numero)+;    
+	id = (letra (letra | underscore | numero)* ) | (underscore (letra | underscore | numero)+) ;    
   
  /* Operadores aritmeticos*/ 
 	soma = '+' ; 
@@ -98,8 +101,8 @@ Tokens
  	real =  ('+' | '-')* numero+ ',' numero+ ;
    	caractere = '''letra''';
    	booleano = 'booleano'; //duvida
-	vetor = ('caractere'|'real'|'booleano'|'inteiro') ':' sp (letra|underscore)(letra|underscore|numero)+ '['numero+']';
-		  
+	vetor = '['  ('''letra''' (',' '''letra''')*) | (('+' | '-')* numero+ (',' ('+' | '-')* numero+)*) | (('+' | '-')* numero+ ',' numero+ (',' ('+' | '-')* numero+ ',' numero+)*) | ('verdadeiro' | 'falso' (',' 'verdadeiro' | 'falso')*)	 ']';
+	tipo = 'inteiro' | 'real' | 'caractere' | 'booleano' ;
 
  Productions 
     /* Our super-simple grammar */

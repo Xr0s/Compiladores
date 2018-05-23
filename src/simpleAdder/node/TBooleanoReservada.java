@@ -5,16 +5,16 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TVerdadeiro extends Token
+public final class TBooleanoReservada extends Token
 {
-    public TVerdadeiro()
+    public TBooleanoReservada()
     {
-        super.setText("verdadeiro");
+        super.setText("booleano");
     }
 
-    public TVerdadeiro(int line, int pos)
+    public TBooleanoReservada(int line, int pos)
     {
-        super.setText("verdadeiro");
+        super.setText("booleano");
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,18 @@ public final class TVerdadeiro extends Token
     @Override
     public Object clone()
     {
-      return new TVerdadeiro(getLine(), getPos());
+      return new TBooleanoReservada(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTVerdadeiro(this);
+        ((Analysis) sw).caseTBooleanoReservada(this);
     }
 
     @Override
     public void setText(@SuppressWarnings("unused") String text)
     {
-        throw new RuntimeException("Cannot change TVerdadeiro text.");
+        throw new RuntimeException("Cannot change TBooleanoReservada text.");
     }
 }
