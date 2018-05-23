@@ -7,11 +7,12 @@ ola
 	10
 sim12
 
-inteiro teste = 10;
-vetor inteiro teste[10] = [1,2,3,4,5,6,7,8,9,0];
-
+inteiro teste := 10;
+vetor inteiro teste[10] := [1,2,3,4,5,6,7,8,9,0];
+[1,2,3,1,3,2,3,1] //inteiros ou reais?
+['a','b','c']
 
 caractere
 
 a
-_
+_a

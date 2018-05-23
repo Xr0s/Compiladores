@@ -147,121 +147,7 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseTComentarioDeLinhaReservada(TComentarioDeLinhaReservada node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTComentarioDeBlocoInicioReservada(TComentarioDeBlocoInicioReservada node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTComentarioDeBlocoFimReservada(TComentarioDeBlocoFimReservada node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
     public void caseTIdReservada(TIdReservada node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTSomaReservada(TSomaReservada node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTSubReservada(TSubReservada node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTMultReservada(TMultReservada node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTDivReservada(TDivReservada node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTIgualReservada(TIgualReservada node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTMaiorigReservada(TMaiorigReservada node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTMenorigReservada(TMenorigReservada node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTMaiorReservada(TMaiorReservada node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTMenorReservada(TMenorReservada node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTAbreColcheteReservada(TAbreColcheteReservada node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTAbreParenteseReservada(TAbreParenteseReservada node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTFechaColcheteReservada(TFechaColcheteReservada node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTFechaParenteseReservada(TFechaParenteseReservada node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTAtribuicaoReservada(TAtribuicaoReservada node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTDoispontosReservada(TDoispontosReservada node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTPontovirgulaReservada(TPontovirgulaReservada node)
     {
         defaultCase(node);
     }
@@ -424,6 +310,12 @@ public class AnalysisAdapter implements Analysis
 
     @Override
     public void caseTPontovirgula(TPontovirgula node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTVirgula(TVirgula node)
     {
         defaultCase(node);
     }

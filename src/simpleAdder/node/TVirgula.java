@@ -5,16 +5,16 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TDivReservada extends Token
+public final class TVirgula extends Token
 {
-    public TDivReservada()
+    public TVirgula()
     {
-        super.setText("div");
+        super.setText(",");
     }
 
-    public TDivReservada(int line, int pos)
+    public TVirgula(int line, int pos)
     {
-        super.setText("div");
+        super.setText(",");
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,18 @@ public final class TDivReservada extends Token
     @Override
     public Object clone()
     {
-      return new TDivReservada(getLine(), getPos());
+      return new TVirgula(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTDivReservada(this);
+        ((Analysis) sw).caseTVirgula(this);
     }
 
     @Override
     public void setText(@SuppressWarnings("unused") String text)
     {
-        throw new RuntimeException("Cannot change TDivReservada text.");
+        throw new RuntimeException("Cannot change TVirgula text.");
     }
 }

@@ -30,27 +30,8 @@ Tokens
 	
 	//Reservadas com comandos
 	
-	comentario_de_linha_reservada = 'comentario_de_linha';
-	comentario_de_bloco_inicio_reservada = 'comentario_de_bloco_inicio';
-	comentario_de_bloco_fim_reservada = 'comentario_de_bloco_fim';
 	id_reservada = 'id';    
-  	soma_reservada = 'soma'; 
-    sub_reservada = 'sub';
-    mult_reservada = 'mult';
-    div_reservada = 'div'; 
-	igual_reservada = 'igual';
-	maiorig_reservada = 'maiorig';
-	menorig_reservada = 'menorig';
-	maior_reservada = 'maior';
-	menor_reservada = 'menor';
-	abre_colchete_reservada = 'abre_colchete' ;
-	abre_parentese_reservada = 'abre_parentese' ;
-	fecha_colchete_reservada = 'fecha_colchete' ;
-	fecha_parentese_reservada = 'fecha_parentese' ;
-	atribuicao_reservada = 'atribuicao' ;
-    doispontos_reservada = 'doispontos' ;
-	pontovirgula_reservada = 'pontovirgula' ;
- 	inteiro_reservada =  'inteiro';
+  	inteiro_reservada =  'inteiro';
  	real_reservada =  'real';
    	caractere_reservada = 'caractere';
    	verdadeiro_reservada = 'verdadeiro';
@@ -89,6 +70,7 @@ Tokens
 	atribuicao = ':=' ;
     doispontos = ':' ;
 	pontovirgula = ';' ;
+	virgula = ',';
     
 	
 /* 	Operadores boleanos 		*/
@@ -100,8 +82,8 @@ Tokens
 	inteiro =  ('+' | '-')* numero+;
  	real =  ('+' | '-')* numero+ ',' numero+ ;
    	caractere = '''letra''';
-   	booleano = 'booleano'; //duvida
-	vetor = '['  ('''letra''' (',' '''letra''')*) | (('+' | '-')* numero+ (',' ('+' | '-')* numero+)*) | (('+' | '-')* numero+ ',' numero+ (',' ('+' | '-')* numero+ ',' numero+)*) | ('verdadeiro' | 'falso' (',' 'verdadeiro' | 'falso')*)	 ']';
+   	booleano = verdadeiro | falso; 
+	vetor = '['(('''letra''' (',' '''letra''')*) | '['(('+' | '-')* numero+ (',' ('+' | '-')* numero+)*)| (('+' | '-')* numero+ ',' numero+ (',' ('+' | '-')* numero+ ',' numero+)*) | ('verdadeiro' | 'falso' (',' 'verdadeiro' | 'falso')*))']';
 	tipo = 'inteiro' | 'real' | 'caractere' | 'booleano' ;
 
  Productions 
