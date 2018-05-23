@@ -19,8 +19,14 @@ public class Main {
 	
 	public static void verificador(String token_name) {
 		switch(token_name) {
-			case "TBranco":
+			case "TEnter":
 				System.out.print("\n");
+				return;
+			case "TEspaco":
+				System.out.print(" ");
+				return;
+			case "TTabulacao":
+				System.out.print("\t");
 				return;
 			case "EOF":
 			//	System.out.print("\nfimPrograma");

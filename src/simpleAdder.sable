@@ -8,34 +8,73 @@ Helpers
  	nl = 10;
  	eol = nl | cr | cr nl; 
     sp = 32; /*Espaço */
-
-    letra = [ ['A' .. 'Z'] + ['a' .. 'z'] ] ;
+	letra = [ ['A' .. 'Z'] + ['a' .. 'z'] ] ;
     underscore = '_' ;
-    
-  
+
 Tokens 
-    pontovirgula = ';' nl?;
-    branco = (sp|tab|eol)+; 
+    tabulacao = tab;
+    enter = eol;
+    espaco = sp;
+   
+ /*	Palavras reservadas  */  //palavras reservadas devem vir primeiro que id para evitar conflito 
+ 	se = 'se';
+ 	senao = 'senao';
+ 	inicio = 'inicio';
+ 	fim = 'fim';
+ 	enquanto = 'enquanto';
+ 	para = 'para';
+ 	avalie = 'avalie';
+ 	caso = 'caso';
+    verdadeiro = 'verdadeiro';
+    falso = 'falso';
+	
+	//Reservadas com comandos
+	
+	comentario_de_linha_reservada = 'comentario_de_linha';
+	comentario_de_bloco_inicio_reservada = 'comentario_de_bloco_inicio';
+	comentario_de_bloco_fim_reservada = 'comentario_de_bloco_fim';
+	id_reservada = 'id';    
+  	soma_reservada = 'soma'; 
+    sub_reservada = 'sub';
+    mult_reservada = 'mult';
+    div_reservada = 'div'; 
+	igual_reservada = 'igual';
+	maiorig_reservada = 'maiorig';
+	menorig_reservada = 'menorig';
+	maior_reservada = 'maior';
+	menor_reservada = 'menor';
+	abre_colchete_reservada = 'abre_colchete' ;
+	abre_parentese_reservada = 'abre_parentese' ;
+	fecha_colchete_reservada = 'fecha_colchete' ;
+	fecha_parentese_reservada = 'fecha_parentese' ;
+	atribuicao_reservada = 'atribuicao' ;
+    doispontos_reservada = 'doispontos' ;
+	pontovirgula_reservada = 'pontovirgula' ;
+ 	inteiro_reservada =  'inteiro';
+ 	real_reservada =  'real';
+   	caractere_reservada = 'caractere';
+   	vetor_reservada = 'vetor';
+	
+	//aqui volta tokens 	  
  
   /* 	Tipos de Comentarios 		*/
-	comentario_de_linha = '//' [0 .. 0x9] [0xB .. 0xffff] + nl ;//tudo menos o nl
-	comentario_de_bloco_inicio = '/*'  ;
-	comentario_de_bloco_fim = '*/' ;
+	comentario_de_linha = '//'[[0..9]+[11..255]]*;  //tudo menos o nl
+	comentario_de_bloco_inicio = '/*';
+	comentario_de_bloco_fim = '*/';
 
 //	Identificadores
-	id = (letra | underscore) (letra | underscore | numero0)+;
-    
+	id = (letra | underscore) (letra | underscore | numero)+;    
   
- ///* Operadores aritmeticos*/ 
+ /* Operadores aritmeticos*/ 
 	soma = '+' ; 
     sub = '-' ;
     mult = '*';
     div = '/' ; 
 
 /* 	Operadores relacionais */
-	igual = '='	;
-	maiorq = '>=' ;
-	menorq = '<=' ;
+	igual = '=';
+	maiorig = '>=';
+	menorig = '<=';
 	maior = '>' ;
 	menor = '<' ;
 	
@@ -44,29 +83,24 @@ Tokens
 	abre_parentese = '(' ;
 	fecha_colchete = ']' ;
 	fecha_parentese = ')' ;
+	atribuicao = ':=' ;
+    doispontos = ':' ;
+	pontovirgula = ';' ;
+    
 	
 /* 	Operadores boleanos 		*/
 	nao = 'nao';
 	ou = 'ou' ;
 	e = 'e' ;
  
-	  
- /*	Palavras reservadas  */
- 	inteiro =  numero+ sp*;
- 	real =  ('+' | '-') numero+ ',' numero+ ;
-   	caractere = letra;
-   	string = ''' letra+  ''';
- 	operador_se = 'se' ;
- 	senao = 'senao';
- 	inicio = 'inicio';
- 	fim = 'fim';
- 	para = 'para';
- 	avalie = 'avalie';
- 	caso = 'caso';
- 	verdadeiro = 'verdadeiro';
- 	falso = 'falso';
- 	booleano = 'booleano';
- 	
+/*	Tipos de variaveis*/
+	inteiro =  ('+' | '-')* numero+;
+ 	real =  ('+' | '-')* numero+ ',' numero+ ;
+   	caractere = '''letra''';
+   	booleano = 'booleano'; //duvida
+	vetor = ('caractere'|'real'|'booleano'|'inteiro') ':' sp (letra|underscore)(letra|underscore|numero)+ '['numero+']';
+		  
+
  Productions 
     /* Our super-simple grammar */
 	program = [left]:inteiro soma [right]:inteiro pontovirgula;

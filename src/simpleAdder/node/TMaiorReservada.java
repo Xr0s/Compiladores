@@ -5,16 +5,16 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TMenorq extends Token
+public final class TMaiorReservada extends Token
 {
-    public TMenorq()
+    public TMaiorReservada()
     {
-        super.setText("<=");
+        super.setText("maior");
     }
 
-    public TMenorq(int line, int pos)
+    public TMaiorReservada(int line, int pos)
     {
-        super.setText("<=");
+        super.setText("maior");
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,18 @@ public final class TMenorq extends Token
     @Override
     public Object clone()
     {
-      return new TMenorq(getLine(), getPos());
+      return new TMaiorReservada(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTMenorq(this);
+        ((Analysis) sw).caseTMaiorReservada(this);
     }
 
     @Override
     public void setText(@SuppressWarnings("unused") String text)
     {
-        throw new RuntimeException("Cannot change TMenorq text.");
+        throw new RuntimeException("Cannot change TMaiorReservada text.");
     }
 }

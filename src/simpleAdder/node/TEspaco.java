@@ -5,14 +5,14 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TString extends Token
+public final class TEspaco extends Token
 {
-    public TString(String text)
+    public TEspaco(String text)
     {
         setText(text);
     }
 
-    public TString(String text, int line, int pos)
+    public TEspaco(String text, int line, int pos)
     {
         setText(text);
         setLine(line);
@@ -22,12 +22,12 @@ public final class TString extends Token
     @Override
     public Object clone()
     {
-      return new TString(getText(), getLine(), getPos());
+      return new TEspaco(getText(), getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTString(this);
+        ((Analysis) sw).caseTEspaco(this);
     }
 }

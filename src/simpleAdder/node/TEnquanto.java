@@ -5,16 +5,16 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TPontovirgula extends Token
+public final class TEnquanto extends Token
 {
-    public TPontovirgula()
+    public TEnquanto()
     {
-        super.setText(";");
+        super.setText("enquanto");
     }
 
-    public TPontovirgula(int line, int pos)
+    public TEnquanto(int line, int pos)
     {
-        super.setText(";");
+        super.setText("enquanto");
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,18 @@ public final class TPontovirgula extends Token
     @Override
     public Object clone()
     {
-      return new TPontovirgula(getLine(), getPos());
+      return new TEnquanto(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTPontovirgula(this);
+        ((Analysis) sw).caseTEnquanto(this);
     }
 
     @Override
     public void setText(@SuppressWarnings("unused") String text)
     {
-        throw new RuntimeException("Cannot change TPontovirgula text.");
+        throw new RuntimeException("Cannot change TEnquanto text.");
     }
 }

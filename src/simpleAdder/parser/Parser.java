@@ -240,11 +240,11 @@ public class Parser
 
     private static int[][][] actionTable;
 /*      {
-			{{-1, ERROR, 0}, {22, SHIFT, 1}, },
-			{{-1, ERROR, 1}, {6, SHIFT, 3}, },
-			{{-1, ERROR, 2}, {36, ACCEPT, -1}, },
-			{{-1, ERROR, 3}, {22, SHIFT, 4}, },
-			{{-1, ERROR, 4}, {0, SHIFT, 5}, },
+			{{-1, ERROR, 0}, {60, SHIFT, 1}, },
+			{{-1, ERROR, 1}, {41, SHIFT, 3}, },
+			{{-1, ERROR, 2}, {65, ACCEPT, -1}, },
+			{{-1, ERROR, 3}, {60, SHIFT, 4}, },
+			{{-1, ERROR, 4}, {56, SHIFT, 5}, },
 			{{-1, REDUCE, 0}, },
         };*/
     private static int[][][] gotoTable;
@@ -256,7 +256,7 @@ public class Parser
 			"expecting: inteiro",
 			"expecting: '+'",
 			"expecting: EOF",
-			"expecting: pontovirgula",
+			"expecting: ';'",
         };*/
     private static int[] errors;
 /*      {

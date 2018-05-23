@@ -5,14 +5,14 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TBranco extends Token
+public final class TEnter extends Token
 {
-    public TBranco(String text)
+    public TEnter(String text)
     {
         setText(text);
     }
 
-    public TBranco(String text, int line, int pos)
+    public TEnter(String text, int line, int pos)
     {
         setText(text);
         setLine(line);
@@ -22,12 +22,12 @@ public final class TBranco extends Token
     @Override
     public Object clone()
     {
-      return new TBranco(getText(), getLine(), getPos());
+      return new TEnter(getText(), getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTBranco(this);
+        ((Analysis) sw).caseTEnter(this);
     }
 }

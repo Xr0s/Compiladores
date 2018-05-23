@@ -5,16 +5,16 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TOperadorSe extends Token
+public final class TDivReservada extends Token
 {
-    public TOperadorSe()
+    public TDivReservada()
     {
-        super.setText("se");
+        super.setText("div");
     }
 
-    public TOperadorSe(int line, int pos)
+    public TDivReservada(int line, int pos)
     {
-        super.setText("se");
+        super.setText("div");
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,18 @@ public final class TOperadorSe extends Token
     @Override
     public Object clone()
     {
-      return new TOperadorSe(getLine(), getPos());
+      return new TDivReservada(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTOperadorSe(this);
+        ((Analysis) sw).caseTDivReservada(this);
     }
 
     @Override
     public void setText(@SuppressWarnings("unused") String text)
     {
-        throw new RuntimeException("Cannot change TOperadorSe text.");
+        throw new RuntimeException("Cannot change TDivReservada text.");
     }
 }
