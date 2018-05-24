@@ -76,55 +76,55 @@ class TokenIndex extends AnalysisAdapter
     }
 
     @Override
-    public void caseTIdReservada(@SuppressWarnings("unused") TIdReservada node)
+    public void caseTInteiroReservada(@SuppressWarnings("unused") TInteiroReservada node)
     {
         this.index = 11;
     }
 
     @Override
-    public void caseTInteiroReservada(@SuppressWarnings("unused") TInteiroReservada node)
+    public void caseTRealReservada(@SuppressWarnings("unused") TRealReservada node)
     {
         this.index = 12;
     }
 
     @Override
-    public void caseTRealReservada(@SuppressWarnings("unused") TRealReservada node)
+    public void caseTCaractereReservada(@SuppressWarnings("unused") TCaractereReservada node)
     {
         this.index = 13;
     }
 
     @Override
-    public void caseTCaractereReservada(@SuppressWarnings("unused") TCaractereReservada node)
+    public void caseTBooleanoReservada(@SuppressWarnings("unused") TBooleanoReservada node)
     {
         this.index = 14;
     }
 
     @Override
-    public void caseTBooleanoReservada(@SuppressWarnings("unused") TBooleanoReservada node)
+    public void caseTVetorReservada(@SuppressWarnings("unused") TVetorReservada node)
     {
         this.index = 15;
     }
 
     @Override
-    public void caseTVetorReservada(@SuppressWarnings("unused") TVetorReservada node)
+    public void caseTComentarioDeLinha(@SuppressWarnings("unused") TComentarioDeLinha node)
     {
         this.index = 16;
     }
 
     @Override
-    public void caseTComentarioDeLinha(@SuppressWarnings("unused") TComentarioDeLinha node)
+    public void caseTComentarioDeBlocoInicio(@SuppressWarnings("unused") TComentarioDeBlocoInicio node)
     {
         this.index = 17;
     }
 
     @Override
-    public void caseTComentarioDeBlocoInicio(@SuppressWarnings("unused") TComentarioDeBlocoInicio node)
+    public void caseTComentarioDeBlocoFim(@SuppressWarnings("unused") TComentarioDeBlocoFim node)
     {
         this.index = 18;
     }
 
     @Override
-    public void caseTComentarioDeBlocoFim(@SuppressWarnings("unused") TComentarioDeBlocoFim node)
+    public void caseTComentarioDeBloco(@SuppressWarnings("unused") TComentarioDeBloco node)
     {
         this.index = 19;
     }

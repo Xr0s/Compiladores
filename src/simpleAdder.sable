@@ -30,7 +30,7 @@ Tokens
 	
 	//Reservadas com comandos
 	
-	id_reservada = 'id';    
+//	id_reservada = 'id';     //acho que desnecessario
   	inteiro_reservada =  'inteiro';
  	real_reservada =  'real';
    	caractere_reservada = 'caractere';
@@ -41,6 +41,7 @@ Tokens
 	comentario_de_linha = '//'[[0..9]+[11..255]]*;  //tudo menos o nl
 	comentario_de_bloco_inicio = '/*';
 	comentario_de_bloco_fim = '*/';
+  	comentario_de_bloco =  '/*' [0 .. 255]* '*/' ;
   
  /* Operadores aritmeticos*/ 
 	soma = '+' ; 
@@ -72,7 +73,7 @@ Tokens
  
 /*	Tipos de variaveis*/
 	inteiro =  ('+'numero+)|('-'numero+)|(numero+);
- 	real =  ('+'numero+)|('-'numero+)|(numero+) ',' numero+ ;
+ 	real =  ( ('+'numero+) | ('-'numero+) | (numero+) ) ',' numero+ ;
    	caractere = '''letra''';
    	booleano = verdadeiro | falso; 
 	vetor = '['(('''letra''' (';' '''letra''')*) | ((('+'numero+) | ('-'numero+) | (numero+)) (';' (('+'numero+) | ('-'numero+) | (numero+)))*)| ((('+'numero+) | ('-'numero+) | (numero+)) ',' numero+ (';' (('+'numero+) | ('-'numero+) | (numero+)) ',' numero+)*) | ((verdadeiro|falso) (';' (verdadeiro | falso))*))']';

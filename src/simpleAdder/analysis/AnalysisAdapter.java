@@ -147,12 +147,6 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseTIdReservada(TIdReservada node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
     public void caseTInteiroReservada(TInteiroReservada node)
     {
         defaultCase(node);
@@ -196,6 +190,12 @@ public class AnalysisAdapter implements Analysis
 
     @Override
     public void caseTComentarioDeBlocoFim(TComentarioDeBlocoFim node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTComentarioDeBloco(TComentarioDeBloco node)
     {
         defaultCase(node);
     }
