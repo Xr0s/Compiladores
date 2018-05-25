@@ -1,12 +1,15 @@
 /* Create an AST, then invoke our interpreter. */ 
 package simpleAdder.interpret; 
-import simpleAdder.interpret.Interpreter; 
+import simpleAdder.interpret.*; 
 import simpleAdder.parser.* ; 
 import simpleAdder.lexer.* ; 
 import simpleAdder.node.* ; 
   
 import java.io.* ;
-import java.util.regex.Pattern; 
+import java.util.Stack;
+import java.util.regex.Pattern;
+
+import javax.swing.JOptionPane; 
   
 public class Main {
 	
@@ -17,7 +20,7 @@ public class Main {
 		return token_name;
 	}
 	
-	public static void verificador(String token_name) {
+	public static void verificador(String token_name, Token t) {
 		switch(token_name) {
 			case "TEnter":
 				System.out.print("\n");
@@ -28,6 +31,10 @@ public class Main {
 			case "TTabulacao":
 				System.out.print("\t");
 				return;
+			case "TComentarioDeBloco":
+//				System.out.print(token_name);
+				checkAninhado(t);
+				break;
 			case "EOF":
 			//	System.out.print("\nfimPrograma");
 				return;
@@ -38,8 +45,53 @@ public class Main {
 		
 	}
 	
-   	public static void main(String[] args) { 
+   	private static void checkAninhado(Token t) {
+		String comentario = t.getText();
+		int tamanho = comentario.length();
+		
+		Stack pilha = new Stack();
+		
+		for(int i = 0; i < tamanho ; i++) {
+//			  System.out.print(comentario.charAt(i));
+			  if(comentario.charAt(i) == '/' & comentario.charAt(i+1) == '*') {
+				  i++;
+				  pilha.push(1);
+				  System.out.print("TComentarioBlocoInicio");
+			  }else//fim do comentario
+				  if(comentario.charAt(i) == '*' & comentario.charAt(i+1) == '/') {
+					  i++;
+					  pilha.pop();
+					  System.out.print("TComentarioBlocoFim");	
+				  }
+				  else {
+					  switch(comentario.charAt(i)) {
+					  		case 10://quebra de linha
+					  			System.out.println();
+					  			break;
+					  		case 32://espaco em branco
+					  			System.out.print(" ");
+					  			break;
+					  		case 9://tab
+					  			System.out.print("\t");
+					  			break;
+					  		
+					  }//fim do switch
+					  
+					  
+				  }
+				  
+			  
+		}//fim for
+		if( pilha.size() > 0) {
+			JOptionPane.showMessageDialog(null, "Erro comentario de bloco não aninhado");
+			
+		}
+		
+	}
+
+	public static void main(String[] args) { 
 	   String token_name;
+	   Token t;
 	   if (args.length > 0) { 
          try { 
             /* Form our AST */ 
@@ -56,8 +108,9 @@ public class Main {
 */			
       //      System.out.print("Inicio do programa:\n\n");
             do {
-            	token_name = getTokenName(lexer.next().getClass().toString());
-            	verificador(token_name);
+            	t = lexer.next();
+            	token_name = getTokenName(t.getClass().toString());
+            	verificador(token_name,t);
             	
            	}while(!token_name.equals("EOF"));
          } 
