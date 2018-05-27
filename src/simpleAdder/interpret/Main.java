@@ -20,7 +20,7 @@ public class Main {
 		return token_name;
 	}
 	
-	public static void verificador(String token_name, Token t) {
+	public static void verificador(String token_name, Token t, PushbackReader pb) {
 		switch(token_name) {
 			case "TEnter":
 				System.out.print("\n");
@@ -33,7 +33,7 @@ public class Main {
 				return;
 			case "TComentarioDeBloco":
 //				System.out.print(token_name);
-				checkAninhado(t);
+				checkAninhado(t, pb);
 				break;
 			case "EOF":
 			//	System.out.print("\nfimPrograma");
@@ -45,7 +45,7 @@ public class Main {
 		
 	}
 	
-   	private static void checkAninhado(Token t) {
+   	private static void checkAninhado(Token t,PushbackReader pb) {
 		String comentario = t.getText();
 		int tamanho = comentario.length();
 		
@@ -82,9 +82,21 @@ public class Main {
 				  
 			  
 		}//fim for
-		if( pilha.size() > 0) {
-			JOptionPane.showMessageDialog(null, "Erro comentario de bloco não aninhado");
+		if( pilha.size() > 0) {//comentario não aninhado
+			try {
+				Comentario_Aninhado objComent = new Comentario_Aninhado(pb);
+				objComent.setLine(t.getLine());
+				objComent.setPos(t.getPos());
+				objComent.setText(t.getText());
+				objComent.filter();
 			
+			} catch (LexerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			System.exit(1);
+
 		}
 		
 	}
@@ -95,8 +107,9 @@ public class Main {
 	   if (args.length > 0) { 
          try { 
             /* Form our AST */ 
-            Lexer lexer = new Lexer (new PushbackReader( 
-               new FileReader(args[0]), 1024)); 	
+      	   PushbackReader pb = new PushbackReader( 
+                   new FileReader(args[0]), 1024);
+            Lexer lexer = new Lexer (pb); 	
             
             //	Professor mandou tirar essa parte abaixo	 
 /*
@@ -110,7 +123,7 @@ public class Main {
             do {
             	t = lexer.next();
             	token_name = getTokenName(t.getClass().toString());
-            	verificador(token_name,t);
+            	verificador(token_name,t,pb);
             	
            	}while(!token_name.equals("EOF"));
          } 
