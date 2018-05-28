@@ -5,16 +5,16 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TComentarioDeBlocoFim extends Token
+public final class TComment extends Token
 {
-    public TComentarioDeBlocoFim()
+    public TComment()
     {
-        super.setText("*/");
+        super.setText("/*");
     }
 
-    public TComentarioDeBlocoFim(int line, int pos)
+    public TComment(int line, int pos)
     {
-        super.setText("*/");
+        super.setText("/*");
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,18 @@ public final class TComentarioDeBlocoFim extends Token
     @Override
     public Object clone()
     {
-      return new TComentarioDeBlocoFim(getLine(), getPos());
+      return new TComment(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTComentarioDeBlocoFim(this);
+        ((Analysis) sw).caseTComment(this);
     }
 
     @Override
     public void setText(@SuppressWarnings("unused") String text)
     {
-        throw new RuntimeException("Cannot change TComentarioDeBlocoFim text.");
+        throw new RuntimeException("Cannot change TComment text.");
     }
 }

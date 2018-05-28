@@ -5,14 +5,14 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TComentarioDeBloco extends Token
+public final class TCommentBody extends Token
 {
-    public TComentarioDeBloco(String text)
+    public TCommentBody(String text)
     {
         setText(text);
     }
 
-    public TComentarioDeBloco(String text, int line, int pos)
+    public TCommentBody(String text, int line, int pos)
     {
         setText(text);
         setLine(line);
@@ -22,12 +22,12 @@ public final class TComentarioDeBloco extends Token
     @Override
     public Object clone()
     {
-      return new TComentarioDeBloco(getText(), getLine(), getPos());
+      return new TCommentBody(getText(), getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTComentarioDeBloco(this);
+        ((Analysis) sw).caseTCommentBody(this);
     }
 }

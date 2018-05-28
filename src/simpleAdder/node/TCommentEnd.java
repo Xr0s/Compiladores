@@ -5,16 +5,16 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TAbreChave extends Token
+public final class TCommentEnd extends Token
 {
-    public TAbreChave()
+    public TCommentEnd()
     {
-        super.setText("{");
+        super.setText("*/");
     }
 
-    public TAbreChave(int line, int pos)
+    public TCommentEnd(int line, int pos)
     {
-        super.setText("{");
+        super.setText("*/");
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,18 @@ public final class TAbreChave extends Token
     @Override
     public Object clone()
     {
-      return new TAbreChave(getLine(), getPos());
+      return new TCommentEnd(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTAbreChave(this);
+        ((Analysis) sw).caseTCommentEnd(this);
     }
 
     @Override
     public void setText(@SuppressWarnings("unused") String text)
     {
-        throw new RuntimeException("Cannot change TAbreChave text.");
+        throw new RuntimeException("Cannot change TCommentEnd text.");
     }
 }

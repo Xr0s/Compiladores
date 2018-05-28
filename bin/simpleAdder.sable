@@ -2,6 +2,7 @@ Package simpleAdder ;
      
 Helpers 
     /* Our helpers */ 
+    all = [0 .. 0xffff];
     numero = ['0' .. '9'] ; 
    	tab = 9;
  	cr = 13; 
@@ -13,81 +14,85 @@ Helpers
     verdadeiro = 'verdadeiro';
     falso = 'falso';
     
+States
+  normal,comment;
+
+    
 Tokens 
-    tabulacao = tab;
-    enter = eol;
-    espaco = sp;
-    branco = eol | tab | sp;
+    {normal} tabulacao = tab;
+    {normal} enter = eol;
+    {normal} espaco = sp;
+    {normal} branco = eol | tab | sp;
    
  /*	Palavras reservadas  */  //palavras reservadas devem vir primeiro que id para evitar conflito 
- 	programa = 'programa';
- 	se = 'se';
- 	senao = 'senao';
- 	inicio = 'inicio';
- 	fim = 'fim.';
- 	enquanto = 'enquanto';
- 	para = 'para';
- 	avalie = 'avalie';
- 	caso = 'caso';
- 	leia = 'leia';
- 	escreva = 'escreva';
+ 	{normal} programa = 'programa';
+ 	{normal} se = 'se';
+ 	{normal} senao = 'senao';
+ 	{normal} inicio = 'inicio';
+ 	{normal} fim = 'fim.';
+ 	{normal} enquanto = 'enquanto';
+ 	{normal} para = 'para';
+ 	{normal} avalie = 'avalie';
+ 	{normal} caso = 'caso';
+ 	{normal} leia = 'leia';
+ 	{normal} escreva = 'escreva';
 	
 	//Reservadas com comandos
 	
-//	id_reservada = 'id';     //acho que desnecessario
-  	inteiro_reservada =  'inteiro';
- 	real_reservada =  'real';
-   	caractere_reservada = 'caractere';
-   	booleano_reservada = 'booleano';
+  	{normal} inteiro_reservada =  'inteiro';
+ 	{normal} real_reservada =  'real';
+   	{normal} caractere_reservada = 'caractere';
+   	{normal} booleano_reservada = 'booleano';
    	
   /* 	Tipos de Comentarios 		*/
-	comentario_de_linha = '//'[[0..9]+[11..255]]*;  //tudo menos o nl
-	comentario_de_bloco_inicio = '/*';
-	comentario_de_bloco_fim = '*/';
-  	comentario_de_bloco =  '/*' [0 .. 255]* '*/' ;
+	{normal} comentario_de_linha = '//'[[0..9]+[11..255]]*;  //tudo menos o nl
+  	{normal->comment, comment}
+     comment = '/*';
+	{comment} comment_end = '*/';
+	{comment} comment_body = [all -['*' + '/']]*;
+	{comment} star = '*';
+	{comment} slash = '/';    
+  	
   
  /* Operadores aritmeticos*/ 
-	soma = '+' ; 
-    sub = '-' ;
-    mult = '*';
-    div = '/' ; 
+	{normal} soma = '+' ; 
+    {normal} sub = '-' ;
+    {normal} mult = '*';
+    {normal} div = '/' ; 
 
 /* 	Operadores relacionais */
-	igual = '=';
-	diferente = '<>';
-	maiorig = '>=';
-	menorig = '<=';
-	maior = '>' ;
-	menor = '<' ;
+	{normal} igual = '=';
+	{normal} diferente = '<>';
+	{normal} maiorig = '>=';
+	{normal} menorig = '<=';
+	{normal} maior = '>' ;
+	{normal} menor = '<' ;
 	
 /* 	Simbolos			*/
-	abre_colchete = '[' ;
-	abre_parentese = '(' ;
-	fecha_colchete = ']' ;
-	fecha_parentese = ')' ;
-	atribuicao = ':=' ;
-    doispontos = ':' ;
-	pontovirgula = ';' ;
-    virgula = ',';
-   //duvida 
-    abre_chave = '{' ;
-    fecha_chave = '}';
+	{normal} abre_colchete = '[' ;
+	{normal} abre_parentese = '(' ;
+	{normal} fecha_colchete = ']' ;
+	{normal} fecha_parentese = ')' ;
+	{normal} atribuicao = ':=' ;
+    {normal} doispontos = ':' ;
+	{normal} pontovirgula = ';' ;
+    {normal} virgula = ',';
 	
 /* 	Operadores boleanos 		*/
-	nao = 'nao';
-	ou = 'ou' ;
-	e = 'e' ;
+	{normal} nao = 'nao';
+	{normal} ou = 'ou' ;
+	{normal} e = 'e' ;
  
 /*	Tipos de variaveis*/
-	inteiro =  ('+'numero+)|('-'numero+)|(numero+);
- 	real =  ( ('+'numero+) | ('-'numero+) | (numero+) ) ',' numero+ ;
-   	caractere = '''letra''';
-   	booleano = verdadeiro | falso; 
-	vetor = '['(('''letra''' (';' '''letra''')*) | ((('+'numero+) | ('-'numero+) | (numero+)) (';' (('+'numero+) | ('-'numero+) | (numero+)))*)| ((('+'numero+) | ('-'numero+) | (numero+)) ',' numero+ (';' (('+'numero+) | ('-'numero+) | (numero+)) ',' numero+)*) | ((verdadeiro|falso) (';' (verdadeiro | falso))*))']';
-	tipo = 'inteiro' | 'real' | 'caractere' | 'booleano' ;
+	{normal} inteiro =  ('+'numero+)|('-'numero+)|(numero+);
+ 	{normal} real =  ( ('+'numero+) | ('-'numero+) | (numero+) ) ',' numero+ ;
+   	{normal} caractere = '''letra''';
+   	{normal} booleano = verdadeiro | falso; 
+	{normal} vetor = '['(('''letra''' (';' '''letra''')*) | ((('+'numero+) | ('-'numero+) | (numero+)) (';' (('+'numero+) | ('-'numero+) | (numero+)))*)| ((('+'numero+) | ('-'numero+) | (numero+)) ',' numero+ (';' (('+'numero+) | ('-'numero+) | (numero+)) ',' numero+)*) | ((verdadeiro|falso) (';' (verdadeiro | falso))*))']';
+	{normal} tipo = 'inteiro' | 'real' | 'caractere' | 'booleano' ;
 
 //	Identificadores
-	id = (letra (letra | underscore | numero)* ) | (underscore (letra | underscore | numero)+) ;    
+	{normal} id = (letra (letra | underscore | numero)* ) | (underscore (letra | underscore | numero)+) ;    
 
 Ignored Tokens
 	branco;

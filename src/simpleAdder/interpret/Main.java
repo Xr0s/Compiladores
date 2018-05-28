@@ -22,13 +22,17 @@ public class Main {
 				return;
 			case "TComentarioDeBloco":
 				System.out.print(token_name);
-				checkAninhado(t, pb);
+				//checkAninhado(t, pb);
 				break;
 			case "TComentarioDeBlocoFim":	
-				lancarExcecao(t,pb);
+				System.out.print("comentario de fim");
+				
+		//		lancarExcecao(t,pb);
 				break;
 			case "TComentarioDeBlocoInicio":
-				lancarExcecao(t,pb);
+				System.out.print("comentario de inicio");
+				
+		//		lancarExcecao(t,pb);
 				break;
 			case "EOF":
 			//	System.out.print("\nfimPrograma");
@@ -42,6 +46,8 @@ public class Main {
 	
    	private static void checkAninhado(Token t,PushbackReader pb) {
 		String comentario = t.getText();
+		System.out.println("começa aqui\n"+comentario+"\ntermina aqui");
+		
 		int tamanho = comentario.length();
 		Stack<Integer> pilha = new Stack<Integer>();
 		
@@ -54,11 +60,19 @@ public class Main {
 				  if(comentario.charAt(i) == '*' & comentario.charAt(i+1) == '/') {
 					  i++;
 					  if(pilha.size() == 0) { // fim de comentario de bloco a mais
-						  lancarExcecao(t,pb);
+			//			  lancarExcecao(t,pb);
 					  }
 					  pilha.pop();
-//					  System.out.print("TComentarioBlocoFim");	
+					  if(pilha.size() != 0) {
+						  System.out.println("TComentarioBloco");
+					  }
+					  	
 				  }
+			  
+			  
+			  
+			  
+			  
 /*				  else {
 					  switch(comentario.charAt(i)) {
 					  		case 10://quebra de linha
@@ -79,12 +93,12 @@ public class Main {
 			  
 		}//fim for
 		if( pilha.size() != 0) {//comentario não aninhado
-			lancarExcecao(t, pb);
+	//		lancarExcecao(t, pb);
 
 		}
 		
 	}
-
+/*
 	public static void lancarExcecao(Token t, PushbackReader pb) {
 		try {
 				Comentario_Aninhado objComent = new Comentario_Aninhado(pb);
@@ -97,10 +111,8 @@ public class Main {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			System.exit(1);
 	}
-
+*/
 	public static void main(String[] args) { 
 	   String token_name;
 	   Token t;

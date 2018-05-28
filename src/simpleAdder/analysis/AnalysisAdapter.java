@@ -201,19 +201,31 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseTComentarioDeBlocoInicio(TComentarioDeBlocoInicio node)
+    public void caseTComment(TComment node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseTComentarioDeBlocoFim(TComentarioDeBlocoFim node)
+    public void caseTCommentEnd(TCommentEnd node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseTComentarioDeBloco(TComentarioDeBloco node)
+    public void caseTCommentBody(TCommentBody node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTStar(TStar node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTSlash(TSlash node)
     {
         defaultCase(node);
     }
@@ -322,18 +334,6 @@ public class AnalysisAdapter implements Analysis
 
     @Override
     public void caseTVirgula(TVirgula node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTAbreChave(TAbreChave node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTFechaChave(TFechaChave node)
     {
         defaultCase(node);
     }
