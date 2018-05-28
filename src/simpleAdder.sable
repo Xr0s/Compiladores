@@ -17,16 +17,20 @@ Tokens
     tabulacao = tab;
     enter = eol;
     espaco = sp;
+    branco = eol | tab | sp;
    
  /*	Palavras reservadas  */  //palavras reservadas devem vir primeiro que id para evitar conflito 
+ 	programa = 'programa';
  	se = 'se';
  	senao = 'senao';
  	inicio = 'inicio';
- 	fim = 'fim';
+ 	fim = 'fim.';
  	enquanto = 'enquanto';
  	para = 'para';
  	avalie = 'avalie';
  	caso = 'caso';
+ 	leia = 'leia';
+ 	escreva = 'escreva';
 	
 	//Reservadas com comandos
 	
@@ -50,6 +54,7 @@ Tokens
 
 /* 	Operadores relacionais */
 	igual = '=';
+	diferente = '<>';
 	maiorig = '>=';
 	menorig = '<=';
 	maior = '>' ;
@@ -64,6 +69,9 @@ Tokens
     doispontos = ':' ;
 	pontovirgula = ';' ;
     virgula = ',';
+   //duvida 
+    abre_chave = '{' ;
+    fecha_chave = '}';
 	
 /* 	Operadores boleanos 		*/
 	nao = 'nao';
@@ -80,6 +88,9 @@ Tokens
 
 //	Identificadores
 	id = (letra (letra | underscore | numero)* ) | (underscore (letra | underscore | numero)+) ;    
+
+Ignored Tokens
+	branco;
 
  Productions 
     /* Our super-simple grammar */

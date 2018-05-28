@@ -99,6 +99,18 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
+    public void caseTBranco(TBranco node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTPrograma(TPrograma node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
     public void caseTSe(TSe node)
     {
         defaultCase(node);
@@ -142,6 +154,18 @@ public class AnalysisAdapter implements Analysis
 
     @Override
     public void caseTCaso(TCaso node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTLeia(TLeia node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTEscreva(TEscreva node)
     {
         defaultCase(node);
     }
@@ -225,6 +249,12 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
+    public void caseTDiferente(TDiferente node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
     public void caseTMaiorig(TMaiorig node)
     {
         defaultCase(node);
@@ -292,6 +322,18 @@ public class AnalysisAdapter implements Analysis
 
     @Override
     public void caseTVirgula(TVirgula node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTAbreChave(TAbreChave node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTFechaChave(TFechaChave node)
     {
         defaultCase(node);
     }

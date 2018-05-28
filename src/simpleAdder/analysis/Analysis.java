@@ -17,6 +17,8 @@ public interface Analysis extends Switch
     void caseTTabulacao(TTabulacao node);
     void caseTEnter(TEnter node);
     void caseTEspaco(TEspaco node);
+    void caseTBranco(TBranco node);
+    void caseTPrograma(TPrograma node);
     void caseTSe(TSe node);
     void caseTSenao(TSenao node);
     void caseTInicio(TInicio node);
@@ -25,6 +27,8 @@ public interface Analysis extends Switch
     void caseTPara(TPara node);
     void caseTAvalie(TAvalie node);
     void caseTCaso(TCaso node);
+    void caseTLeia(TLeia node);
+    void caseTEscreva(TEscreva node);
     void caseTInteiroReservada(TInteiroReservada node);
     void caseTRealReservada(TRealReservada node);
     void caseTCaractereReservada(TCaractereReservada node);
@@ -38,6 +42,7 @@ public interface Analysis extends Switch
     void caseTMult(TMult node);
     void caseTDiv(TDiv node);
     void caseTIgual(TIgual node);
+    void caseTDiferente(TDiferente node);
     void caseTMaiorig(TMaiorig node);
     void caseTMenorig(TMenorig node);
     void caseTMaior(TMaior node);
@@ -50,6 +55,8 @@ public interface Analysis extends Switch
     void caseTDoispontos(TDoispontos node);
     void caseTPontovirgula(TPontovirgula node);
     void caseTVirgula(TVirgula node);
+    void caseTAbreChave(TAbreChave node);
+    void caseTFechaChave(TFechaChave node);
     void caseTNao(TNao node);
     void caseTOu(TOu node);
     void caseTE(TE node);

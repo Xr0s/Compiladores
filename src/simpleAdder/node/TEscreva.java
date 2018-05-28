@@ -5,16 +5,16 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TFim extends Token
+public final class TEscreva extends Token
 {
-    public TFim()
+    public TEscreva()
     {
-        super.setText("fim.");
+        super.setText("escreva");
     }
 
-    public TFim(int line, int pos)
+    public TEscreva(int line, int pos)
     {
-        super.setText("fim.");
+        super.setText("escreva");
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,18 @@ public final class TFim extends Token
     @Override
     public Object clone()
     {
-      return new TFim(getLine(), getPos());
+      return new TEscreva(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTFim(this);
+        ((Analysis) sw).caseTEscreva(this);
     }
 
     @Override
     public void setText(@SuppressWarnings("unused") String text)
     {
-        throw new RuntimeException("Cannot change TFim text.");
+        throw new RuntimeException("Cannot change TEscreva text.");
     }
 }
