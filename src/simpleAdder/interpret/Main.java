@@ -121,7 +121,7 @@ public class Main {
             /* Form our AST */ 
       	   PushbackReader pb = new PushbackReader( 
                    new FileReader(args[0]), 1024);
-            Lexer lexer = new Lexer (pb); 	
+            Comentario_Aninhado lexer = new Comentario_Aninhado (pb); 	
             
             //	Professor mandou tirar essa parte abaixo	 
 /*
