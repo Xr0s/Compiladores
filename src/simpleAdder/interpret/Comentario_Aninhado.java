@@ -32,7 +32,7 @@ public class Comentario_Aninhado extends Lexer
         	count--;
         }
         if(token instanceof EOF) {
-        	
+        	lancarExcecao("",tokenAnterior);
         	System.exit(1);        	
         }
         
@@ -50,13 +50,15 @@ public class Comentario_Aninhado extends Lexer
     }
   }
   
-  public void lancarExcecao() {
+  public void lancarExcecao(String mensagem_extra, Token token_especial) {
 	try {
 		throw new LexerException(new InvalidToken(
-				tokenAnterior.getText(),
-				tokenAnterior.getLine(), 
-				tokenAnterior.getPos()            ),	
-				" Comment Not Nested." 
+				token_especial.getText(),
+				token_especial.getLine(), 
+				token_especial.getPos()),
+				"Erro de comentario de bloco. Linha:"+ token_especial.getLine()+", posicao: "
+				+token_especial.getPos()+"."+mensagem_extra
+				
 				);
 	} catch (LexerException e) {
 		// TODO Auto-generated catch block

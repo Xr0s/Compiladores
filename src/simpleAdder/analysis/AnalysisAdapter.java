@@ -171,6 +171,72 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
+    public void caseTEntao(TEntao node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTFaca(TFaca node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTRepita(TRepita node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTAte(TAte node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTXor(TXor node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTDe(TDe node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTPasso(TPasso node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTFimAvalie(TFimAvalie node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTFimSe(TFimSe node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTFimPara(TFimPara node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTFimEnquanto(TFimEnquanto node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
     public void caseTInteiroReservada(TInteiroReservada node)
     {
         defaultCase(node);
@@ -190,6 +256,12 @@ public class AnalysisAdapter implements Analysis
 
     @Override
     public void caseTBooleanoReservada(TBooleanoReservada node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTFimComentario(TFimComentario node)
     {
         defaultCase(node);
     }
@@ -352,6 +424,24 @@ public class AnalysisAdapter implements Analysis
 
     @Override
     public void caseTE(TE node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTNInt(TNInt node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTNReal(TNReal node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTString(TString node)
     {
         defaultCase(node);
     }

@@ -36,6 +36,17 @@ Tokens
  	{normal} caso = 'caso';
  	{normal} leia = 'leia';
  	{normal} escreva = 'escreva';
+	{normal} entao = 'entao';
+	{normal} faca = 'faca';
+	{normal} repita = 'repita';
+	{normal} ate = 'ate';
+	{normal} xor = 'xor';
+	{normal} de = 'de';
+	{normal} passo = 'passo';
+	{normal} fim_avalie = 'fim avalie';
+	{normal} fim_se = 'fim se';
+	{normal} fim_para = 'fim para';
+	{normal} fim_enquanto = 'fim enquanto';
 	
 	//Reservadas com comandos
 	
@@ -45,6 +56,7 @@ Tokens
    	{normal} booleano_reservada = 'booleano';
    	
   /* 	Tipos de Comentarios 		*/
+  	{normal} fim_comentario = '*/';
 	{normal} comentario_de_linha = '//'[[0..9]+[11..255]]*;  //tudo menos o nl
   	{normal->comment, comment}
      comment = '/*';
@@ -84,13 +96,16 @@ Tokens
 	{normal} e = 'e' ;
  
 /*	Tipos de variaveis*/
+	{normal} n_int = ('+'|) numero+;
+	{normal} n_real = ('+'|) numero+ ',' numero+;
+	{normal} string = '''(letra|numero)*''';
 	{normal} inteiro =  ('+'numero+)|('-'numero+)|(numero+);
  	{normal} real =  ( ('+'numero+) | ('-'numero+) | (numero+) ) ',' numero+ ;
    	{normal} caractere = '''letra''';
    	{normal} booleano = verdadeiro | falso; 
 	{normal} vetor = '['(('''letra''' (';' '''letra''')*) | ((('+'numero+) | ('-'numero+) | (numero+)) (';' (('+'numero+) | ('-'numero+) | (numero+)))*)| ((('+'numero+) | ('-'numero+) | (numero+)) ',' numero+ (';' (('+'numero+) | ('-'numero+) | (numero+)) ',' numero+)*) | ((verdadeiro|falso) (';' (verdadeiro | falso))*))']';
 	{normal} tipo = 'inteiro' | 'real' | 'caractere' | 'booleano' ;
-
+	
 //	Identificadores
 	{normal} id = (letra (letra | underscore | numero)* ) | (underscore (letra | underscore | numero)+) ;    
 
