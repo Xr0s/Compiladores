@@ -171,12 +171,6 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseTVetorReservada(TVetorReservada node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
     public void caseTComentarioDeLinha(TComentarioDeLinha node)
     {
         defaultCase(node);

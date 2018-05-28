@@ -35,8 +35,7 @@ Tokens
  	real_reservada =  'real';
    	caractere_reservada = 'caractere';
    	booleano_reservada = 'booleano';
-   	vetor_reservada = 'vetor';
-	
+   	
   /* 	Tipos de Comentarios 		*/
 	comentario_de_linha = '//'[[0..9]+[11..255]]*;  //tudo menos o nl
 	comentario_de_bloco_inicio = '/*';

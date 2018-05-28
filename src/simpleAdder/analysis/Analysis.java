@@ -29,7 +29,6 @@ public interface Analysis extends Switch
     void caseTRealReservada(TRealReservada node);
     void caseTCaractereReservada(TCaractereReservada node);
     void caseTBooleanoReservada(TBooleanoReservada node);
-    void caseTVetorReservada(TVetorReservada node);
     void caseTComentarioDeLinha(TComentarioDeLinha node);
     void caseTComentarioDeBlocoInicio(TComentarioDeBlocoInicio node);
     void caseTComentarioDeBlocoFim(TComentarioDeBlocoFim node);

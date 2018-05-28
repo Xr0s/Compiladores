@@ -1,22 +1,13 @@
 /* Create an AST, then invoke our interpreter. */ 
-package simpleAdder.interpret; 
-import simpleAdder.interpret.*; 
-import simpleAdder.parser.* ; 
+package simpleAdder.interpret;
+
 import simpleAdder.lexer.* ; 
 import simpleAdder.node.* ; 
   
 import java.io.* ;
 import java.util.Stack;
-import java.util.regex.Pattern;
-
-import javax.swing.JOptionPane; 
   
 public class Main {
-	
-	public static String getTokenName(String nameClass) {
-		String[] quebraEspaco = nameClass.split(" "); 
-		return quebraEspaco[1].split (Pattern.quote ("."))[2];
-	}
 	
 	public static void verificador(String token_name, Token t, PushbackReader pb) {
 		switch(token_name) {
@@ -52,20 +43,20 @@ public class Main {
    	private static void checkAninhado(Token t,PushbackReader pb) {
 		String comentario = t.getText();
 		int tamanho = comentario.length();
-		int pilha = 0;
+		Stack<Integer> pilha = new Stack<Integer>();
 		
 		for(int i = 0; i < tamanho ; i++) {
 			  if(comentario.charAt(i) == '/' & comentario.charAt(i+1) == '*') {
 				  i++;
-				  pilha++;
+				  pilha.push(1);
 //				  System.out.print("TComentarioBlocoInicio");
 			  }else//fim do comentario
 				  if(comentario.charAt(i) == '*' & comentario.charAt(i+1) == '/') {
 					  i++;
-					  if(pilha == 0) { // fim de comentario de bloco a mais
+					  if(pilha.size() == 0) { // fim de comentario de bloco a mais
 						  lancarExcecao(t,pb);
 					  }
-					  pilha--;
+					  pilha.pop();
 //					  System.out.print("TComentarioBlocoFim");	
 				  }
 /*				  else {
@@ -87,7 +78,7 @@ public class Main {
 */				  
 			  
 		}//fim for
-		if( pilha != 0) {//comentario não aninhado
+		if( pilha.size() != 0) {//comentario não aninhado
 			lancarExcecao(t, pb);
 
 		}
@@ -101,7 +92,7 @@ public class Main {
 				objComent.setPos(t.getPos());
 				objComent.setText(t.getText());
 				objComent.filter();
-			
+				
 			} catch (LexerException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -131,7 +122,7 @@ public class Main {
       //      System.out.print("Inicio do programa:\n\n");
             do {
             	t = lexer.next();
-            	token_name = getTokenName(t.getClass().toString());
+            	token_name = t.getClass().getSimpleName();
             	verificador(token_name,t,pb);
             	
            	}while(!token_name.equals("EOF"));

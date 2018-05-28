@@ -1,7 +1,5 @@
 package simpleAdder.interpret;
 
-import javax.swing.JOptionPane;
-
 import simpleAdder.lexer.LexerException;
 import simpleAdder.node.InvalidToken;
 
