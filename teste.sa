@@ -4,14 +4,14 @@ ola
 
 /* teste 
    /* Aninhado
-*/ /
+*/ 
 */	
 
 //ola pessoas
 	_oi
 <=
 'c'
-	10
+
 sim12
 1,2
 -----2 +10 10
@@ -27,3 +27,6 @@ falso
 a
 _a
 fim ()
+
+
+inteiro

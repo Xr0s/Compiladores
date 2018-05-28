@@ -15,9 +15,7 @@ public class Main {
 	
 	public static String getTokenName(String nameClass) {
 		String[] quebraEspaco = nameClass.split(" "); 
-		String token_name = quebraEspaco[1].split (Pattern.quote ("."))[2];
-
-		return token_name;
+		return quebraEspaco[1].split (Pattern.quote ("."))[2];
 	}
 	
 	public static void verificador(String token_name, Token t, PushbackReader pb) {
@@ -36,6 +34,9 @@ public class Main {
 				checkAninhado(t, pb);
 				break;
 			case "TComentarioDeBlocoFim":	
+				lancarExcecao(t,pb);
+				break;
+			case "TComentarioDeBlocoInicio":
 				lancarExcecao(t,pb);
 				break;
 			case "EOF":
