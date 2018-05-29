@@ -99,10 +99,10 @@ Tokens
 	{normal} e = 'e' ;
  
 /*	Tipos de variaveis*/
-	{normal} n_int = ('+'|) numero+;
-	{normal} n_real = ('+'|) numero+ ',' numero+;
-	{normal} inteiro =  ('+'|'-'|) numero+;
- 	{normal} real =  ('+'|'-'|) numero+ ',' numero+ ;
+	{normal} inteiro =  numero+;
+ 	{normal} real =   numero+ ',' numero+ ;
+//	{normal} n_int = ('+'|) numero+;
+//	{normal} n_real = ('+'|) numero+ ',' numero+;
    	{normal} caractere = '''caracteres_permitidos''';
    	{normal} booleano = verdadeiro | falso;
 	
