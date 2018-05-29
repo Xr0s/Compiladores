@@ -41,7 +41,6 @@ public class Comentario_Aninhado extends Lexer
         }
         if(token instanceof EOF) {
         	lancarExcecao("",pilha_tokens.elementAt(0));
-        	pilha_tokens.clear();
         	System.exit(1);        	
         }
         
