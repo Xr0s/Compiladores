@@ -26,12 +26,7 @@ public class Main {
 			case "TFimComentario":	
 				lexer.lancarExcecao(" : TComentarioBlocoFimErrado", t);
 				break;
-			case "TAbreChave":
-				lexer.lancarExcecao(t);
-				break;
-			case "TFechaChave":
-				lexer.lancarExcecao(t);
-				break;
+
 			case "EOF":
 				return;
 			default:
@@ -42,11 +37,10 @@ public class Main {
 	}
 	
 
-	public static void main(String[] args) { 
-	   String token_name;
+	public static void main(String[] args) throws IOException { 
+	   String token_name = null;
 	   Token t;
-	   if (args.length > 0) { 
-         try { 
+	   if (args.length > 0) {
             /* Form our AST */ 
       	   PushbackReader pb = new PushbackReader( 
                    new FileReader(args[0]), 1024);
@@ -62,15 +56,15 @@ public class Main {
 */			
       //      System.out.print("Inicio do programa:\n\n");
             do {
-            	t = lexer.next();
-            	token_name = t.getClass().getSimpleName();
-            	verificador(token_name,lexer,t);
-            	
+            	try {
+            		t = lexer.next();
+            		token_name = t.getClass().getSimpleName();
+            		verificador(token_name,lexer,t);
+            	}catch(LexerException e) {
+            		System.out.print( e.getMessage() );
+            	}
            	}while(!token_name.equals("EOF"));
-         } 
-         catch (Exception e) { 
-            System.out.println (e) ; 
-         } 
+         
       } else { 
          System.err.println("usage: java simpleAdder inputFile"); 
          System.exit(1); 

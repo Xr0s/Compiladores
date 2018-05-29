@@ -92,8 +92,6 @@ Tokens
     {normal} doispontos = ':' ;
 	{normal} pontovirgula = ';' ;
     {normal} virgula = ',';
-	{normal} abre_chave = '{';
-	{normal} fecha_chave = '}';
 	
 /* 	Operadores boleanos 		*/
 	{normal} nao = 'nao';

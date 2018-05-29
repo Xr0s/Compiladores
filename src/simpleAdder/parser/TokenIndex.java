@@ -346,80 +346,68 @@ class TokenIndex extends AnalysisAdapter
     }
 
     @Override
-    public void caseTAbreChave(@SuppressWarnings("unused") TAbreChave node)
+    public void caseTNao(@SuppressWarnings("unused") TNao node)
     {
         this.index = 56;
     }
 
     @Override
-    public void caseTFechaChave(@SuppressWarnings("unused") TFechaChave node)
+    public void caseTOu(@SuppressWarnings("unused") TOu node)
     {
         this.index = 57;
     }
 
     @Override
-    public void caseTNao(@SuppressWarnings("unused") TNao node)
+    public void caseTE(@SuppressWarnings("unused") TE node)
     {
         this.index = 58;
     }
 
     @Override
-    public void caseTOu(@SuppressWarnings("unused") TOu node)
+    public void caseTNInt(@SuppressWarnings("unused") TNInt node)
     {
         this.index = 59;
     }
 
     @Override
-    public void caseTE(@SuppressWarnings("unused") TE node)
+    public void caseTNReal(@SuppressWarnings("unused") TNReal node)
     {
         this.index = 60;
     }
 
     @Override
-    public void caseTNInt(@SuppressWarnings("unused") TNInt node)
+    public void caseTInteiro(@SuppressWarnings("unused") TInteiro node)
     {
         this.index = 61;
     }
 
     @Override
-    public void caseTNReal(@SuppressWarnings("unused") TNReal node)
+    public void caseTReal(@SuppressWarnings("unused") TReal node)
     {
         this.index = 62;
     }
 
     @Override
-    public void caseTInteiro(@SuppressWarnings("unused") TInteiro node)
+    public void caseTCaractere(@SuppressWarnings("unused") TCaractere node)
     {
         this.index = 63;
     }
 
     @Override
-    public void caseTReal(@SuppressWarnings("unused") TReal node)
+    public void caseTBooleano(@SuppressWarnings("unused") TBooleano node)
     {
         this.index = 64;
     }
 
     @Override
-    public void caseTCaractere(@SuppressWarnings("unused") TCaractere node)
+    public void caseTId(@SuppressWarnings("unused") TId node)
     {
         this.index = 65;
     }
 
     @Override
-    public void caseTBooleano(@SuppressWarnings("unused") TBooleano node)
-    {
-        this.index = 66;
-    }
-
-    @Override
-    public void caseTId(@SuppressWarnings("unused") TId node)
-    {
-        this.index = 67;
-    }
-
-    @Override
     public void caseEOF(@SuppressWarnings("unused") EOF node)
     {
-        this.index = 68;
+        this.index = 66;
     }
 }
