@@ -2,6 +2,7 @@ Package simpleAdder ;
      
 Helpers 
     /* Our helpers */ 
+    caracteres_permitidos = [32..126];
     all = [0 .. 0xffff];
     numero = ['0' .. '9'] ; 
    	tab = 9;
@@ -52,6 +53,8 @@ Tokens
 	
   	{normal} inteiro_reservada =  'inteiro';
  	{normal} real_reservada =  'real';
+ 	{normal} n_inteiro_reservada =  'n_inteiro';
+ 	{normal} n_real_reservada =  'n_real';
    	{normal} caractere_reservada = 'caractere';
    	{normal} booleano_reservada = 'booleano';
    	
@@ -85,7 +88,7 @@ Tokens
 	{normal} abre_parentese = '(' ;
 	{normal} fecha_colchete = ']' ;
 	{normal} fecha_parentese = ')' ;
-	{normal} atribuicao = ':=' ;
+	{normal} atribuicao = '<-' ;
     {normal} doispontos = ':' ;
 	{normal} pontovirgula = ';' ;
     {normal} virgula = ',';
@@ -98,13 +101,10 @@ Tokens
 /*	Tipos de variaveis*/
 	{normal} n_int = ('+'|) numero+;
 	{normal} n_real = ('+'|) numero+ ',' numero+;
-	{normal} string = '''(letra|numero)*''';
-	{normal} inteiro =  ('+'numero+)|('-'numero+)|(numero+);
- 	{normal} real =  ( ('+'numero+) | ('-'numero+) | (numero+) ) ',' numero+ ;
-   	{normal} caractere = '''letra''';
-   	{normal} booleano = verdadeiro | falso; 
-	{normal} vetor = '['(('''letra''' (';' '''letra''')*) | ((('+'numero+) | ('-'numero+) | (numero+)) (';' (('+'numero+) | ('-'numero+) | (numero+)))*)| ((('+'numero+) | ('-'numero+) | (numero+)) ',' numero+ (';' (('+'numero+) | ('-'numero+) | (numero+)) ',' numero+)*) | ((verdadeiro|falso) (';' (verdadeiro | falso))*))']';
-	{normal} tipo = 'inteiro' | 'real' | 'caractere' | 'booleano' ;
+	{normal} inteiro =  ('+'|'-'|) numero+;
+ 	{normal} real =  ('+'|'-'|) numero+ ',' numero+ ;
+   	{normal} caractere = '''caracteres_permitidos''';
+   	{normal} booleano = verdadeiro | falso;
 	
 //	Identificadores
 	{normal} id = (letra (letra | underscore | numero)* ) | (underscore (letra | underscore | numero)+) ;    

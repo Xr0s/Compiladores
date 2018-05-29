@@ -5,16 +5,16 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TAtribuicao extends Token
+public final class TNInteiroReservada extends Token
 {
-    public TAtribuicao()
+    public TNInteiroReservada()
     {
-        super.setText("<-");
+        super.setText("n_inteiro");
     }
 
-    public TAtribuicao(int line, int pos)
+    public TNInteiroReservada(int line, int pos)
     {
-        super.setText("<-");
+        super.setText("n_inteiro");
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,18 @@ public final class TAtribuicao extends Token
     @Override
     public Object clone()
     {
-      return new TAtribuicao(getLine(), getPos());
+      return new TNInteiroReservada(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTAtribuicao(this);
+        ((Analysis) sw).caseTNInteiroReservada(this);
     }
 
     @Override
     public void setText(@SuppressWarnings("unused") String text)
     {
-        throw new RuntimeException("Cannot change TAtribuicao text.");
+        throw new RuntimeException("Cannot change TNInteiroReservada text.");
     }
 }
