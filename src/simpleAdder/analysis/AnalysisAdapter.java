@@ -423,6 +423,18 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
+    public void caseTAbreChave(TAbreChave node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTFechaChave(TFechaChave node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
     public void caseTNao(TNao node)
     {
         defaultCase(node);

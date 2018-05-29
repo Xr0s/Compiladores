@@ -26,7 +26,12 @@ public class Main {
 			case "TFimComentario":	
 				lexer.lancarExcecao(" : TComentarioBlocoFimErrado", t);
 				break;
-
+			case "TAbreChave":
+				lexer.lancarExcecao(t);
+				break;
+			case "TFechaChave":
+				lexer.lancarExcecao(t);
+				break;
 			case "EOF":
 				return;
 			default:

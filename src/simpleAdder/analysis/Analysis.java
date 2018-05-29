@@ -71,6 +71,8 @@ public interface Analysis extends Switch
     void caseTDoispontos(TDoispontos node);
     void caseTPontovirgula(TPontovirgula node);
     void caseTVirgula(TVirgula node);
+    void caseTAbreChave(TAbreChave node);
+    void caseTFechaChave(TFechaChave node);
     void caseTNao(TNao node);
     void caseTOu(TOu node);
     void caseTE(TE node);

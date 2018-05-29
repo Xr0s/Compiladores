@@ -33,7 +33,7 @@ public class Comentario_Aninhado extends Lexer
         }
         if(token instanceof EOF) {
         	lancarExcecao("",tokenAnterior);
-        	System.exit(1);        	
+//        	System.exit(1);        	
         }
         
         
@@ -47,7 +47,24 @@ public class Comentario_Aninhado extends Lexer
           comment = null; // We release this reference.
         }
       }
-    }
+    }//fim do primeiro if
+  }
+  
+  public void lancarExcecao(Token t) {
+//	  System.out.print("TESTANDO\n\n");
+	  try {
+			throw new LexerException(
+			          new InvalidToken(t.getText(), t.getLine(), t.getPos()),
+			          "[" + t.getLine() + "," + t.getPos() + "]" +
+			          " Unknown token: " + t.getText());
+		} catch (LexerException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.print("[" + t.getLine() + "," + t.getPos() + "]" +
+			          " Unknown token: " + t.getText());
+		}
+		 
+	  
   }
   
   public void lancarExcecao(String mensagem_extra, Token token_especial) {
