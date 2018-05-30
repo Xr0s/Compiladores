@@ -240,11 +240,11 @@ public class Parser
 
     private static int[][][] actionTable;
 /*      {
-			{{-1, ERROR, 0}, {59, SHIFT, 1}, },
-			{{-1, ERROR, 1}, {38, SHIFT, 3}, },
-			{{-1, ERROR, 2}, {64, ACCEPT, -1}, },
-			{{-1, ERROR, 3}, {59, SHIFT, 4}, },
-			{{-1, ERROR, 4}, {54, SHIFT, 5}, },
+			{{-1, ERROR, 0}, {57, SHIFT, 1}, },
+			{{-1, ERROR, 1}, {36, SHIFT, 3}, },
+			{{-1, ERROR, 2}, {62, ACCEPT, -1}, },
+			{{-1, ERROR, 3}, {57, SHIFT, 4}, },
+			{{-1, ERROR, 4}, {52, SHIFT, 5}, },
 			{{-1, REDUCE, 0}, },
         };*/
     private static int[][][] gotoTable;

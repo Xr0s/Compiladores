@@ -53,8 +53,6 @@ Tokens
 	
   	{normal} inteiro_reservada =  'inteiro';
  	{normal} real_reservada =  'real';
- 	{normal} n_inteiro_reservada =  'n_inteiro';
- 	{normal} n_real_reservada =  'n_real';
    	{normal} caractere_reservada = 'caractere';
    	{normal} booleano_reservada = 'booleano';
    	
@@ -100,9 +98,7 @@ Tokens
  
 /*	Tipos de variaveis*/
 	{normal} inteiro =  numero+;
- 	{normal} real =   numero+ ',' numero+ ;
-//	{normal} n_int = ('+'|) numero+;
-//	{normal} n_real = ('+'|) numero+ ',' numero+;
+ 	{normal} real =   numero+ ',' numero+;
    	{normal} caractere = '''caracteres_permitidos''';
    	{normal} booleano = verdadeiro | falso;
 	

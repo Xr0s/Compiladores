@@ -42,8 +42,6 @@ public interface Analysis extends Switch
     void caseTFimEnquanto(TFimEnquanto node);
     void caseTInteiroReservada(TInteiroReservada node);
     void caseTRealReservada(TRealReservada node);
-    void caseTNInteiroReservada(TNInteiroReservada node);
-    void caseTNRealReservada(TNRealReservada node);
     void caseTCaractereReservada(TCaractereReservada node);
     void caseTBooleanoReservada(TBooleanoReservada node);
     void caseTFimComentario(TFimComentario node);

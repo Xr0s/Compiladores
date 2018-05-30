@@ -249,18 +249,6 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseTNInteiroReservada(TNInteiroReservada node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTNRealReservada(TNRealReservada node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
     public void caseTCaractereReservada(TCaractereReservada node)
     {
         defaultCase(node);
