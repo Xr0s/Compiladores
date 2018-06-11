@@ -237,6 +237,12 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
+    public void caseTConst(TConst node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
     public void caseTInteiroReservada(TInteiroReservada node)
     {
         defaultCase(node);
@@ -448,6 +454,12 @@ public class AnalysisAdapter implements Analysis
 
     @Override
     public void caseTBooleano(TBooleano node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTString(TString node)
     {
         defaultCase(node);
     }

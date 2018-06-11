@@ -40,6 +40,7 @@ public interface Analysis extends Switch
     void caseTFimSe(TFimSe node);
     void caseTFimPara(TFimPara node);
     void caseTFimEnquanto(TFimEnquanto node);
+    void caseTConst(TConst node);
     void caseTInteiroReservada(TInteiroReservada node);
     void caseTRealReservada(TRealReservada node);
     void caseTCaractereReservada(TCaractereReservada node);
@@ -76,6 +77,7 @@ public interface Analysis extends Switch
     void caseTReal(TReal node);
     void caseTCaractere(TCaractere node);
     void caseTBooleano(TBooleano node);
+    void caseTString(TString node);
     void caseTId(TId node);
     void caseEOF(EOF node);
     void caseInvalidToken(InvalidToken node);
