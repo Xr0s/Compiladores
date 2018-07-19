@@ -31,41 +31,50 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseStart(Start node)
     {
         inStart(node);
-        node.getPProgram().apply(this);
+        node.getPValor().apply(this);
         node.getEOF().apply(this);
         outStart(node);
     }
 
-    public void inAProgram(AProgram node)
+    public void inARealValor(ARealValor node)
     {
         defaultIn(node);
     }
 
-    public void outAProgram(AProgram node)
+    public void outARealValor(ARealValor node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAProgram(AProgram node)
+    public void caseARealValor(ARealValor node)
     {
-        inAProgram(node);
-        if(node.getLeft() != null)
+        inARealValor(node);
+        if(node.getRealReservada() != null)
         {
-            node.getLeft().apply(this);
+            node.getRealReservada().apply(this);
         }
-        if(node.getSoma() != null)
+        outARealValor(node);
+    }
+
+    public void inABooleanoValor(ABooleanoValor node)
+    {
+        defaultIn(node);
+    }
+
+    public void outABooleanoValor(ABooleanoValor node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseABooleanoValor(ABooleanoValor node)
+    {
+        inABooleanoValor(node);
+        if(node.getNao() != null)
         {
-            node.getSoma().apply(this);
+            node.getNao().apply(this);
         }
-        if(node.getRight() != null)
-        {
-            node.getRight().apply(this);
-        }
-        if(node.getPontovirgula() != null)
-        {
-            node.getPontovirgula().apply(this);
-        }
-        outAProgram(node);
+        outABooleanoValor(node);
     }
 }

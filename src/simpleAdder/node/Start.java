@@ -7,7 +7,7 @@ import simpleAdder.analysis.*;
 @SuppressWarnings("nls")
 public final class Start extends Node
 {
-    private PProgram _pProgram_;
+    private PValor _pValor_;
     private EOF _eof_;
 
     public Start()
@@ -16,10 +16,10 @@ public final class Start extends Node
     }
 
     public Start(
-        @SuppressWarnings("hiding") PProgram _pProgram_,
+        @SuppressWarnings("hiding") PValor _pValor_,
         @SuppressWarnings("hiding") EOF _eof_)
     {
-        setPProgram(_pProgram_);
+        setPValor(_pValor_);
         setEOF(_eof_);
     }
 
@@ -27,7 +27,7 @@ public final class Start extends Node
     public Object clone()
     {
         return new Start(
-            cloneNode(this._pProgram_),
+            cloneNode(this._pValor_),
             cloneNode(this._eof_));
     }
 
@@ -37,16 +37,16 @@ public final class Start extends Node
         ((Analysis) sw).caseStart(this);
     }
 
-    public PProgram getPProgram()
+    public PValor getPValor()
     {
-        return this._pProgram_;
+        return this._pValor_;
     }
 
-    public void setPProgram(PProgram node)
+    public void setPValor(PValor node)
     {
-        if(this._pProgram_ != null)
+        if(this._pValor_ != null)
         {
-            this._pProgram_.parent(null);
+            this._pValor_.parent(null);
         }
 
         if(node != null)
@@ -59,7 +59,7 @@ public final class Start extends Node
             node.parent(this);
         }
 
-        this._pProgram_ = node;
+        this._pValor_ = node;
     }
 
     public EOF getEOF()
@@ -90,9 +90,9 @@ public final class Start extends Node
     @Override
     void removeChild(Node child)
     {
-        if(this._pProgram_ == child)
+        if(this._pValor_ == child)
         {
-            this._pProgram_ = null;
+            this._pValor_ = null;
             return;
         }
 
@@ -108,9 +108,9 @@ public final class Start extends Node
     @Override
     void replaceChild(Node oldChild, Node newChild)
     {
-        if(this._pProgram_ == oldChild)
+        if(this._pValor_ == oldChild)
         {
-            setPProgram((PProgram) newChild);
+            setPValor((PValor) newChild);
             return;
         }
 
@@ -127,7 +127,7 @@ public final class Start extends Node
     public String toString()
     {
         return "" +
-            toString(this._pProgram_) +
+            toString(this._pValor_) +
             toString(this._eof_);
     }
 }

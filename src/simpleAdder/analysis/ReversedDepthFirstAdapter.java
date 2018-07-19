@@ -32,40 +32,49 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     {
         inStart(node);
         node.getEOF().apply(this);
-        node.getPProgram().apply(this);
+        node.getPValor().apply(this);
         outStart(node);
     }
 
-    public void inAProgram(AProgram node)
+    public void inARealValor(ARealValor node)
     {
         defaultIn(node);
     }
 
-    public void outAProgram(AProgram node)
+    public void outARealValor(ARealValor node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAProgram(AProgram node)
+    public void caseARealValor(ARealValor node)
     {
-        inAProgram(node);
-        if(node.getPontovirgula() != null)
+        inARealValor(node);
+        if(node.getRealReservada() != null)
         {
-            node.getPontovirgula().apply(this);
+            node.getRealReservada().apply(this);
         }
-        if(node.getRight() != null)
+        outARealValor(node);
+    }
+
+    public void inABooleanoValor(ABooleanoValor node)
+    {
+        defaultIn(node);
+    }
+
+    public void outABooleanoValor(ABooleanoValor node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseABooleanoValor(ABooleanoValor node)
+    {
+        inABooleanoValor(node);
+        if(node.getNao() != null)
         {
-            node.getRight().apply(this);
+            node.getNao().apply(this);
         }
-        if(node.getSoma() != null)
-        {
-            node.getSoma().apply(this);
-        }
-        if(node.getLeft() != null)
-        {
-            node.getLeft().apply(this);
-        }
-        outAProgram(node);
+        outABooleanoValor(node);
     }
 }

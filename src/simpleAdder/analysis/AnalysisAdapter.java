@@ -75,7 +75,13 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseAProgram(AProgram node)
+    public void caseARealValor(ARealValor node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseABooleanoValor(ABooleanoValor node)
     {
         defaultCase(node);
     }

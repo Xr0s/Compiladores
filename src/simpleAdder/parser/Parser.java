@@ -182,7 +182,7 @@ public class Parser
                 case ACCEPT:
                     {
                         EOF node2 = (EOF) this.lexer.next();
-                        PProgram node1 = (PProgram) pop().get(0);
+                        PValor node1 = (PValor) pop().get(0);
                         Start node = new Start(node1, node2);
                         return node;
                     }
@@ -198,9 +198,15 @@ public class Parser
     {
         switch(reduction)
         {
-            case 0: /* reduce AProgram */
+            case 0: /* reduce ARealValor */
             {
                 ArrayList<Object> list = new0();
+                push(goTo(0), list, false);
+            }
+            break;
+            case 1: /* reduce ABooleanoValor */
+            {
+                ArrayList<Object> list = new1();
                 push(goTo(0), list, false);
             }
             break;
@@ -210,29 +216,40 @@ public class Parser
 
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    ArrayList<Object> new0() /* reduce AProgram */
+    ArrayList<Object> new0() /* reduce ARealValor */
     {
         @SuppressWarnings("hiding") ArrayList<Object> nodeList = new ArrayList<Object>();
 
-        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList4 = pop();
-        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList2 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList1 = pop();
-        PProgram pprogramNode1;
+        PValor pvalorNode1;
         {
             // Block
-        TInteiro tinteiroNode2;
-        TSoma tsomaNode3;
-        TInteiro tinteiroNode4;
-        TPontovirgula tpontovirgulaNode5;
-        tinteiroNode2 = (TInteiro)nodeArrayList1.get(0);
-        tsomaNode3 = (TSoma)nodeArrayList2.get(0);
-        tinteiroNode4 = (TInteiro)nodeArrayList3.get(0);
-        tpontovirgulaNode5 = (TPontovirgula)nodeArrayList4.get(0);
+        TRealReservada trealreservadaNode2;
+        trealreservadaNode2 = (TRealReservada)nodeArrayList1.get(0);
 
-        pprogramNode1 = new AProgram(tinteiroNode2, tsomaNode3, tinteiroNode4, tpontovirgulaNode5);
+        pvalorNode1 = new ARealValor(trealreservadaNode2);
         }
-	nodeList.add(pprogramNode1);
+	nodeList.add(pvalorNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    ArrayList<Object> new1() /* reduce ABooleanoValor */
+    {
+        @SuppressWarnings("hiding") ArrayList<Object> nodeList = new ArrayList<Object>();
+
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList1 = pop();
+        PValor pvalorNode1;
+        {
+            // Block
+        TNao tnaoNode2;
+        tnaoNode2 = (TNao)nodeArrayList1.get(0);
+
+        pvalorNode1 = new ABooleanoValor(tnaoNode2);
+        }
+	nodeList.add(pvalorNode1);
         return nodeList;
     }
 
@@ -240,27 +257,23 @@ public class Parser
 
     private static int[][][] actionTable;
 /*      {
-			{{-1, ERROR, 0}, {58, SHIFT, 1}, },
-			{{-1, ERROR, 1}, {37, SHIFT, 3}, },
-			{{-1, ERROR, 2}, {64, ACCEPT, -1}, },
-			{{-1, ERROR, 3}, {58, SHIFT, 4}, },
-			{{-1, ERROR, 4}, {53, SHIFT, 5}, },
+			{{-1, ERROR, 0}, {27, SHIFT, 1}, {54, SHIFT, 2}, },
 			{{-1, REDUCE, 0}, },
+			{{-1, REDUCE, 1}, },
+			{{-1, ERROR, 3}, {63, ACCEPT, -1}, },
         };*/
     private static int[][][] gotoTable;
 /*      {
-			{{-1, 2}, },
+			{{-1, 3}, },
         };*/
     private static String[] errorMessages;
 /*      {
-			"expecting: inteiro",
-			"expecting: '+'",
+			"expecting: 'real', 'nao'",
 			"expecting: EOF",
-			"expecting: ';'",
         };*/
     private static int[] errors;
 /*      {
-			0, 1, 2, 0, 3, 2, 
+			0, 1, 1, 1, 
         };*/
 
     static 

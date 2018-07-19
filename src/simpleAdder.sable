@@ -109,8 +109,7 @@ Tokens
 	{normal} id = (letra (letra | underscore | numero)* ) | (underscore (letra | underscore | numero)+) ;    
 
 Ignored Tokens
-	branco;
+	branco,comment;
 
  Productions 
-    /* Our super-simple grammar */
-	program = [left]:inteiro soma [right]:inteiro pontovirgula;
+	valor = {real}real_reservada| {booleano}nao;
