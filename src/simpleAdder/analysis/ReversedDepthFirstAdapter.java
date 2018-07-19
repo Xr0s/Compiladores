@@ -32,8 +32,50 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     {
         inStart(node);
         node.getEOF().apply(this);
-        node.getPValor().apply(this);
+        node.getPTeste().apply(this);
         outStart(node);
+    }
+
+    public void inAValorTeste(AValorTeste node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAValorTeste(AValorTeste node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAValorTeste(AValorTeste node)
+    {
+        inAValorTeste(node);
+        if(node.getValor() != null)
+        {
+            node.getValor().apply(this);
+        }
+        outAValorTeste(node);
+    }
+
+    public void inAVddTeste(AVddTeste node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAVddTeste(AVddTeste node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAVddTeste(AVddTeste node)
+    {
+        inAVddTeste(node);
+        if(node.getBooleano() != null)
+        {
+            node.getBooleano().apply(this);
+        }
+        outAVddTeste(node);
     }
 
     public void inARealValor(ARealValor node)

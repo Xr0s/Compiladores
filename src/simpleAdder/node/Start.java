@@ -7,7 +7,7 @@ import simpleAdder.analysis.*;
 @SuppressWarnings("nls")
 public final class Start extends Node
 {
-    private PValor _pValor_;
+    private PTeste _pTeste_;
     private EOF _eof_;
 
     public Start()
@@ -16,10 +16,10 @@ public final class Start extends Node
     }
 
     public Start(
-        @SuppressWarnings("hiding") PValor _pValor_,
+        @SuppressWarnings("hiding") PTeste _pTeste_,
         @SuppressWarnings("hiding") EOF _eof_)
     {
-        setPValor(_pValor_);
+        setPTeste(_pTeste_);
         setEOF(_eof_);
     }
 
@@ -27,7 +27,7 @@ public final class Start extends Node
     public Object clone()
     {
         return new Start(
-            cloneNode(this._pValor_),
+            cloneNode(this._pTeste_),
             cloneNode(this._eof_));
     }
 
@@ -37,16 +37,16 @@ public final class Start extends Node
         ((Analysis) sw).caseStart(this);
     }
 
-    public PValor getPValor()
+    public PTeste getPTeste()
     {
-        return this._pValor_;
+        return this._pTeste_;
     }
 
-    public void setPValor(PValor node)
+    public void setPTeste(PTeste node)
     {
-        if(this._pValor_ != null)
+        if(this._pTeste_ != null)
         {
-            this._pValor_.parent(null);
+            this._pTeste_.parent(null);
         }
 
         if(node != null)
@@ -59,7 +59,7 @@ public final class Start extends Node
             node.parent(this);
         }
 
-        this._pValor_ = node;
+        this._pTeste_ = node;
     }
 
     public EOF getEOF()
@@ -90,9 +90,9 @@ public final class Start extends Node
     @Override
     void removeChild(Node child)
     {
-        if(this._pValor_ == child)
+        if(this._pTeste_ == child)
         {
-            this._pValor_ = null;
+            this._pTeste_ = null;
             return;
         }
 
@@ -108,9 +108,9 @@ public final class Start extends Node
     @Override
     void replaceChild(Node oldChild, Node newChild)
     {
-        if(this._pValor_ == oldChild)
+        if(this._pTeste_ == oldChild)
         {
-            setPValor((PValor) newChild);
+            setPTeste((PTeste) newChild);
             return;
         }
 
@@ -127,7 +127,7 @@ public final class Start extends Node
     public String toString()
     {
         return "" +
-            toString(this._pValor_) +
+            toString(this._pTeste_) +
             toString(this._eof_);
     }
 }

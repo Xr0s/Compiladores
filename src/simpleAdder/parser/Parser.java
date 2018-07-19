@@ -182,7 +182,7 @@ public class Parser
                 case ACCEPT:
                     {
                         EOF node2 = (EOF) this.lexer.next();
-                        PValor node1 = (PValor) pop().get(0);
+                        PTeste node1 = (PTeste) pop().get(0);
                         Start node = new Start(node1, node2);
                         return node;
                     }
@@ -198,16 +198,28 @@ public class Parser
     {
         switch(reduction)
         {
-            case 0: /* reduce ARealValor */
+            case 0: /* reduce AValorTeste */
             {
                 ArrayList<Object> list = new0();
                 push(goTo(0), list, false);
             }
             break;
-            case 1: /* reduce ABooleanoValor */
+            case 1: /* reduce AVddTeste */
             {
                 ArrayList<Object> list = new1();
                 push(goTo(0), list, false);
+            }
+            break;
+            case 2: /* reduce ARealValor */
+            {
+                ArrayList<Object> list = new2();
+                push(goTo(1), list, false);
+            }
+            break;
+            case 3: /* reduce ABooleanoValor */
+            {
+                ArrayList<Object> list = new3();
+                push(goTo(1), list, false);
             }
             break;
         }
@@ -216,7 +228,47 @@ public class Parser
 
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    ArrayList<Object> new0() /* reduce ARealValor */
+    ArrayList<Object> new0() /* reduce AValorTeste */
+    {
+        @SuppressWarnings("hiding") ArrayList<Object> nodeList = new ArrayList<Object>();
+
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList1 = pop();
+        PTeste ptesteNode1;
+        {
+            // Block
+        PValor pvalorNode2;
+        pvalorNode2 = (PValor)nodeArrayList1.get(0);
+
+        ptesteNode1 = new AValorTeste(pvalorNode2);
+        }
+	nodeList.add(ptesteNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    ArrayList<Object> new1() /* reduce AVddTeste */
+    {
+        @SuppressWarnings("hiding") ArrayList<Object> nodeList = new ArrayList<Object>();
+
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList1 = pop();
+        PTeste ptesteNode1;
+        {
+            // Block
+        TBooleano tbooleanoNode2;
+        tbooleanoNode2 = (TBooleano)nodeArrayList1.get(0);
+
+        ptesteNode1 = new AVddTeste(tbooleanoNode2);
+        }
+	nodeList.add(ptesteNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    ArrayList<Object> new2() /* reduce ARealValor */
     {
         @SuppressWarnings("hiding") ArrayList<Object> nodeList = new ArrayList<Object>();
 
@@ -236,7 +288,7 @@ public class Parser
 
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    ArrayList<Object> new1() /* reduce ABooleanoValor */
+    ArrayList<Object> new3() /* reduce ABooleanoValor */
     {
         @SuppressWarnings("hiding") ArrayList<Object> nodeList = new ArrayList<Object>();
 
@@ -257,23 +309,26 @@ public class Parser
 
     private static int[][][] actionTable;
 /*      {
-			{{-1, ERROR, 0}, {27, SHIFT, 1}, {53, SHIFT, 2}, },
-			{{-1, REDUCE, 0}, },
+			{{-1, ERROR, 0}, {27, SHIFT, 1}, {53, SHIFT, 2}, {59, SHIFT, 3}, },
+			{{-1, REDUCE, 2}, },
+			{{-1, REDUCE, 3}, },
 			{{-1, REDUCE, 1}, },
-			{{-1, ERROR, 3}, {62, ACCEPT, -1}, },
+			{{-1, ERROR, 4}, {62, ACCEPT, -1}, },
+			{{-1, REDUCE, 0}, },
         };*/
     private static int[][][] gotoTable;
 /*      {
-			{{-1, 3}, },
+			{{-1, 4}, },
+			{{-1, 5}, },
         };*/
     private static String[] errorMessages;
 /*      {
-			"expecting: 'real', 'nao'",
+			"expecting: 'real', 'nao', booleano",
 			"expecting: EOF",
         };*/
     private static int[] errors;
 /*      {
-			0, 1, 1, 1, 
+			0, 1, 1, 1, 1, 1, 
         };*/
 
     static 

@@ -75,6 +75,18 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
+    public void caseAValorTeste(AValorTeste node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAVddTeste(AVddTeste node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
     public void caseARealValor(ARealValor node)
     {
         defaultCase(node);

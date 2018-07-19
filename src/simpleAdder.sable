@@ -112,4 +112,5 @@ Ignored Tokens
 	branco,comment, comentario_de_linha;
 
  Productions 
+ 	teste = {valor}valor|{vdd}booleano;
 	valor = {real}real_reservada| {booleano}nao;
