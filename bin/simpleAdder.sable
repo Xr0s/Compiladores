@@ -59,7 +59,7 @@ Tokens
    	
   /* 	Tipos de Comentarios 		*/
   	{normal} fim_comentario = '*/';
-	{normal} comentario_de_linha = '//'[[0..9]+[11..255]]*;  //tudo menos o nl
+	{normal} comentario_de_linha = '//'[[[0..9]+[11..12]]+[14..255]]*;  //tudo menos o nl
   	{normal->comment, comment}
      comment = '/*';
 	{comment} comment_end = '*/';
@@ -109,7 +109,7 @@ Tokens
 	{normal} id = (letra (letra | underscore | numero)* ) | (underscore (letra | underscore | numero)+) ;    
 
 Ignored Tokens
-	branco,comment;
+	branco,comment, comentario_de_linha;
 
  Productions 
 	valor = {real}real_reservada| {booleano}nao;
