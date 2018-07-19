@@ -31,92 +31,73 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseStart(Start node)
     {
         inStart(node);
-        node.getPTeste().apply(this);
+        node.getPProgram().apply(this);
         node.getEOF().apply(this);
         outStart(node);
     }
 
-    public void inAValorTeste(AValorTeste node)
+    public void inAProgram(AProgram node)
     {
         defaultIn(node);
     }
 
-    public void outAValorTeste(AValorTeste node)
+    public void outAProgram(AProgram node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAValorTeste(AValorTeste node)
+    public void caseAProgram(AProgram node)
     {
-        inAValorTeste(node);
-        if(node.getValor() != null)
+        inAProgram(node);
+        if(node.getPrograma() != null)
         {
-            node.getValor().apply(this);
+            node.getPrograma().apply(this);
         }
-        outAValorTeste(node);
+        if(node.getId() != null)
+        {
+            node.getId().apply(this);
+        }
+        if(node.getInicio() != null)
+        {
+            node.getInicio().apply(this);
+        }
+        {
+            List<PDeclaracao> copy = new ArrayList<PDeclaracao>(node.getDeclaracao());
+            for(PDeclaracao e : copy)
+            {
+                e.apply(this);
+            }
+        }
+        if(node.getFim() != null)
+        {
+            node.getFim().apply(this);
+        }
+        outAProgram(node);
     }
 
-    public void inAVddTeste(AVddTeste node)
+    public void inADeclaracao(ADeclaracao node)
     {
         defaultIn(node);
     }
 
-    public void outAVddTeste(AVddTeste node)
+    public void outADeclaracao(ADeclaracao node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAVddTeste(AVddTeste node)
+    public void caseADeclaracao(ADeclaracao node)
     {
-        inAVddTeste(node);
-        if(node.getBooleano() != null)
+        inADeclaracao(node);
+        if(node.getInteiro() != null)
         {
-            node.getBooleano().apply(this);
+            node.getInteiro().apply(this);
         }
-        outAVddTeste(node);
-    }
-
-    public void inARealValor(ARealValor node)
-    {
-        defaultIn(node);
-    }
-
-    public void outARealValor(ARealValor node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseARealValor(ARealValor node)
-    {
-        inARealValor(node);
-        if(node.getRealReservada() != null)
+        if(node.getPontovirgula() != null)
         {
-            node.getRealReservada().apply(this);
+            node.getPontovirgula().apply(this);
         }
-        outARealValor(node);
-    }
-
-    public void inABooleanoValor(ABooleanoValor node)
-    {
-        defaultIn(node);
-    }
-
-    public void outABooleanoValor(ABooleanoValor node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseABooleanoValor(ABooleanoValor node)
-    {
-        inABooleanoValor(node);
-        if(node.getNao() != null)
-        {
-            node.getNao().apply(this);
-        }
-        outABooleanoValor(node);
+        outADeclaracao(node);
     }
 }

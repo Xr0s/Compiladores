@@ -75,25 +75,19 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseAValorTeste(AValorTeste node)
+    public void caseAProgram(AProgram node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAVddTeste(AVddTeste node)
+    public void caseADeclaracao(ADeclaracao node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseARealValor(ARealValor node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseABooleanoValor(ABooleanoValor node)
+    public void caseTBranco(TBranco node)
     {
         defaultCase(node);
     }
@@ -112,12 +106,6 @@ public class AnalysisAdapter implements Analysis
 
     @Override
     public void caseTEspaco(TEspaco node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTBranco(TBranco node)
     {
         defaultCase(node);
     }

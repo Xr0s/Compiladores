@@ -12,15 +12,13 @@ public interface Analysis extends Switch
     void setOut(Node node, Object o);
 
     void caseStart(Start node);
-    void caseAValorTeste(AValorTeste node);
-    void caseAVddTeste(AVddTeste node);
-    void caseARealValor(ARealValor node);
-    void caseABooleanoValor(ABooleanoValor node);
+    void caseAProgram(AProgram node);
+    void caseADeclaracao(ADeclaracao node);
 
+    void caseTBranco(TBranco node);
     void caseTTabulacao(TTabulacao node);
     void caseTEnter(TEnter node);
     void caseTEspaco(TEspaco node);
-    void caseTBranco(TBranco node);
     void caseTPrograma(TPrograma node);
     void caseTSe(TSe node);
     void caseTSenao(TSenao node);

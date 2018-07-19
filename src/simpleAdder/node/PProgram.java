@@ -2,7 +2,7 @@
 
 package simpleAdder.node;
 
-public abstract class PTeste extends Node
+public abstract class PProgram extends Node
 {
     // Empty body
 }

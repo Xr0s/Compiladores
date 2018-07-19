@@ -20,10 +20,10 @@ States
 
     
 Tokens 
+    {normal} branco = eol | tab | sp;
     {normal} tabulacao = tab;
     {normal} enter = eol;
     {normal} espaco = sp;
-    {normal} branco = eol | tab | sp;
    
  /*	Palavras reservadas  */  //palavras reservadas devem vir primeiro que id para evitar conflito 
  	{normal} programa = 'programa';
@@ -112,5 +112,8 @@ Ignored Tokens
 	branco,comment, comentario_de_linha;
 
  Productions 
- 	teste = {valor}valor|{vdd}booleano;
-	valor = {real}real_reservada| {booleano}nao;
+	 program = programa  id  inicio declaracao* fim;
+	 declaracao = inteiro pontovirgula;
+
+	
+	

@@ -182,7 +182,7 @@ public class Parser
                 case ACCEPT:
                     {
                         EOF node2 = (EOF) this.lexer.next();
-                        PTeste node1 = (PTeste) pop().get(0);
+                        PProgram node1 = (PProgram) pop().get(0);
                         Start node = new Start(node1, node2);
                         return node;
                     }
@@ -198,28 +198,34 @@ public class Parser
     {
         switch(reduction)
         {
-            case 0: /* reduce AValorTeste */
+            case 0: /* reduce AAprogram1Program */
             {
                 ArrayList<Object> list = new0();
                 push(goTo(0), list, false);
             }
             break;
-            case 1: /* reduce AVddTeste */
+            case 1: /* reduce AAprogram2Program */
             {
                 ArrayList<Object> list = new1();
                 push(goTo(0), list, false);
             }
             break;
-            case 2: /* reduce ARealValor */
+            case 2: /* reduce ADeclaracao */
             {
                 ArrayList<Object> list = new2();
                 push(goTo(1), list, false);
             }
             break;
-            case 3: /* reduce ABooleanoValor */
+            case 3: /* reduce ATerminal$Declaracao */
             {
                 ArrayList<Object> list = new3();
-                push(goTo(1), list, false);
+                push(goTo(2), list, true);
+            }
+            break;
+            case 4: /* reduce ANonTerminal$Declaracao */
+            {
+                ArrayList<Object> list = new4();
+                push(goTo(2), list, true);
             }
             break;
         }
@@ -228,80 +234,147 @@ public class Parser
 
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    ArrayList<Object> new0() /* reduce AValorTeste */
+    ArrayList<Object> new0() /* reduce AAprogram1Program */
     {
         @SuppressWarnings("hiding") ArrayList<Object> nodeList = new ArrayList<Object>();
 
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList4 = pop();
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList3 = pop();
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList2 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList1 = pop();
-        PTeste ptesteNode1;
+        PProgram pprogramNode1;
         {
             // Block
-        PValor pvalorNode2;
-        pvalorNode2 = (PValor)nodeArrayList1.get(0);
-
-        ptesteNode1 = new AValorTeste(pvalorNode2);
+        TPrograma tprogramaNode2;
+        TId tidNode3;
+        TInicio tinicioNode4;
+        LinkedList<Object> listNode5 = new LinkedList<Object>();
+        TFim tfimNode6;
+        tprogramaNode2 = (TPrograma)nodeArrayList1.get(0);
+        tidNode3 = (TId)nodeArrayList2.get(0);
+        tinicioNode4 = (TInicio)nodeArrayList3.get(0);
+        {
+            // Block
         }
-	nodeList.add(ptesteNode1);
+        tfimNode6 = (TFim)nodeArrayList4.get(0);
+
+        pprogramNode1 = new AProgram(tprogramaNode2, tidNode3, tinicioNode4, listNode5, tfimNode6);
+        }
+	nodeList.add(pprogramNode1);
         return nodeList;
     }
 
 
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    ArrayList<Object> new1() /* reduce AVddTeste */
+    ArrayList<Object> new1() /* reduce AAprogram2Program */
     {
         @SuppressWarnings("hiding") ArrayList<Object> nodeList = new ArrayList<Object>();
 
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList5 = pop();
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList4 = pop();
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList3 = pop();
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList2 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList1 = pop();
-        PTeste ptesteNode1;
+        PProgram pprogramNode1;
         {
             // Block
-        TBooleano tbooleanoNode2;
-        tbooleanoNode2 = (TBooleano)nodeArrayList1.get(0);
-
-        ptesteNode1 = new AVddTeste(tbooleanoNode2);
+        TPrograma tprogramaNode2;
+        TId tidNode3;
+        TInicio tinicioNode4;
+        LinkedList<Object> listNode6 = new LinkedList<Object>();
+        TFim tfimNode7;
+        tprogramaNode2 = (TPrograma)nodeArrayList1.get(0);
+        tidNode3 = (TId)nodeArrayList2.get(0);
+        tinicioNode4 = (TInicio)nodeArrayList3.get(0);
+        {
+            // Block
+        LinkedList<Object> listNode5 = new LinkedList<Object>();
+        listNode5 = (LinkedList)nodeArrayList4.get(0);
+	if(listNode5 != null)
+	{
+	  listNode6.addAll(listNode5);
+	}
         }
-	nodeList.add(ptesteNode1);
+        tfimNode7 = (TFim)nodeArrayList5.get(0);
+
+        pprogramNode1 = new AProgram(tprogramaNode2, tidNode3, tinicioNode4, listNode6, tfimNode7);
+        }
+	nodeList.add(pprogramNode1);
         return nodeList;
     }
 
 
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    ArrayList<Object> new2() /* reduce ARealValor */
+    ArrayList<Object> new2() /* reduce ADeclaracao */
     {
         @SuppressWarnings("hiding") ArrayList<Object> nodeList = new ArrayList<Object>();
 
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList2 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList1 = pop();
-        PValor pvalorNode1;
+        PDeclaracao pdeclaracaoNode1;
         {
             // Block
-        TRealReservada trealreservadaNode2;
-        trealreservadaNode2 = (TRealReservada)nodeArrayList1.get(0);
+        TInteiro tinteiroNode2;
+        TPontovirgula tpontovirgulaNode3;
+        tinteiroNode2 = (TInteiro)nodeArrayList1.get(0);
+        tpontovirgulaNode3 = (TPontovirgula)nodeArrayList2.get(0);
 
-        pvalorNode1 = new ARealValor(trealreservadaNode2);
+        pdeclaracaoNode1 = new ADeclaracao(tinteiroNode2, tpontovirgulaNode3);
         }
-	nodeList.add(pvalorNode1);
+	nodeList.add(pdeclaracaoNode1);
         return nodeList;
     }
 
 
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    ArrayList<Object> new3() /* reduce ABooleanoValor */
+    ArrayList<Object> new3() /* reduce ATerminal$Declaracao */
     {
         @SuppressWarnings("hiding") ArrayList<Object> nodeList = new ArrayList<Object>();
 
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList1 = pop();
-        PValor pvalorNode1;
+        LinkedList<Object> listNode2 = new LinkedList<Object>();
         {
             // Block
-        TNao tnaoNode2;
-        tnaoNode2 = (TNao)nodeArrayList1.get(0);
-
-        pvalorNode1 = new ABooleanoValor(tnaoNode2);
+        PDeclaracao pdeclaracaoNode1;
+        pdeclaracaoNode1 = (PDeclaracao)nodeArrayList1.get(0);
+	if(pdeclaracaoNode1 != null)
+	{
+	  listNode2.add(pdeclaracaoNode1);
+	}
         }
-	nodeList.add(pvalorNode1);
+	nodeList.add(listNode2);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    ArrayList<Object> new4() /* reduce ANonTerminal$Declaracao */
+    {
+        @SuppressWarnings("hiding") ArrayList<Object> nodeList = new ArrayList<Object>();
+
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList2 = pop();
+        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList1 = pop();
+        LinkedList<Object> listNode3 = new LinkedList<Object>();
+        {
+            // Block
+        LinkedList<Object> listNode1 = new LinkedList<Object>();
+        PDeclaracao pdeclaracaoNode2;
+        listNode1 = (LinkedList)nodeArrayList1.get(0);
+        pdeclaracaoNode2 = (PDeclaracao)nodeArrayList2.get(0);
+	if(listNode1 != null)
+	{
+	  listNode3.addAll(listNode1);
+	}
+	if(pdeclaracaoNode2 != null)
+	{
+	  listNode3.add(pdeclaracaoNode2);
+	}
+        }
+	nodeList.add(listNode3);
         return nodeList;
     }
 
@@ -309,26 +382,37 @@ public class Parser
 
     private static int[][][] actionTable;
 /*      {
-			{{-1, ERROR, 0}, {27, SHIFT, 1}, {53, SHIFT, 2}, {59, SHIFT, 3}, },
-			{{-1, REDUCE, 2}, },
-			{{-1, REDUCE, 3}, },
-			{{-1, REDUCE, 1}, },
-			{{-1, ERROR, 4}, {62, ACCEPT, -1}, },
+			{{-1, ERROR, 0}, {3, SHIFT, 1}, },
+			{{-1, ERROR, 1}, {61, SHIFT, 3}, },
+			{{-1, ERROR, 2}, {62, ACCEPT, -1}, },
+			{{-1, ERROR, 3}, {6, SHIFT, 4}, },
+			{{-1, ERROR, 4}, {7, SHIFT, 5}, {56, SHIFT, 6}, },
 			{{-1, REDUCE, 0}, },
+			{{-1, ERROR, 6}, {51, SHIFT, 9}, },
+			{{-1, REDUCE, 3}, },
+			{{-1, ERROR, 8}, {7, SHIFT, 10}, {56, SHIFT, 6}, },
+			{{-1, REDUCE, 2}, },
+			{{-1, REDUCE, 1}, },
+			{{-1, REDUCE, 4}, },
         };*/
     private static int[][][] gotoTable;
 /*      {
-			{{-1, 4}, },
-			{{-1, 5}, },
+			{{-1, 2}, },
+			{{-1, 7}, {8, 11}, },
+			{{-1, 8}, },
         };*/
     private static String[] errorMessages;
 /*      {
-			"expecting: 'real', 'nao', booleano",
+			"expecting: 'programa'",
+			"expecting: id",
 			"expecting: EOF",
+			"expecting: 'inicio'",
+			"expecting: 'fim.', inteiro",
+			"expecting: ';'",
         };*/
     private static int[] errors;
 /*      {
-			0, 1, 1, 1, 1, 1, 
+			0, 1, 2, 3, 4, 2, 5, 4, 4, 4, 2, 4, 
         };*/
 
     static 

@@ -1118,10 +1118,10 @@ public class Lexer
         }
     }
 
-    Token new0(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TTabulacao(text, line, pos); }
-    Token new1(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TEnter(text, line, pos); }
-    Token new2(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TEspaco(text, line, pos); }
-    Token new3(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TBranco(text, line, pos); }
+    Token new0(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TBranco(text, line, pos); }
+    Token new1(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TTabulacao(text, line, pos); }
+    Token new2(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TEnter(text, line, pos); }
+    Token new3(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TEspaco(text, line, pos); }
     Token new4(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TPrograma(line, pos); }
     Token new5(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TSe(line, pos); }
     Token new6(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TSenao(line, pos); }
@@ -1441,7 +1441,7 @@ public class Lexer
     private static int[][] accept;
 /*  {
         // NORMAL
-        {-1, 0, 1, 1, 2, -1, 49, 51, 40, 38, 55, 39, 41, 59, 53, 54, 47, 42, 46, 64, 48, 50, -1, 64, 64, 64, 64, 58, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 1, -1, 31, 33, 32, -1, 52, 45, 43, 44, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 20, 64, 64, 64, 64, 64, 64, 64, 57, 64, 64, 64, 5, 64, 64, -1, 61, 32, 60, 18, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 56, 64, 64, 64, 64, 64, 64, 64, 19, 63, 64, 64, 64, 12, 64, 64, 64, 64, 16, 64, -1, 8, 64, 64, 13, 10, 64, 64, 28, 64, 64, 64, 64, 64, 64, 26, 64, 15, 64, 62, -1, -1, -1, -1, 64, 64, 21, 64, 64, 6, 64, 11, 64, 64, 64, 64, -1, -1, -1, 23, 7, 64, 64, 17, 64, 64, 64, 64, 14, -1, -1, -1, 27, 64, 64, 30, 64, 9, -1, -1, 24, 4, 64, 29, -1, -1, 64, 22, -1, 62, -1, 25, },
+        {-1, 0, 0, 0, 0, -1, 49, 51, 40, 38, 55, 39, 41, 59, 53, 54, 47, 42, 46, 64, 48, 50, -1, 64, 64, 64, 64, 58, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 0, -1, 31, 33, 32, -1, 52, 45, 43, 44, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 20, 64, 64, 64, 64, 64, 64, 64, 57, 64, 64, 64, 5, 64, 64, -1, 61, 32, 60, 18, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 56, 64, 64, 64, 64, 64, 64, 64, 19, 63, 64, 64, 64, 12, 64, 64, 64, 64, 16, 64, -1, 8, 64, 64, 13, 10, 64, 64, 28, 64, 64, 64, 64, 64, 64, 26, 64, 15, 64, 62, -1, -1, -1, -1, 64, 64, 21, 64, 64, 6, 64, 11, 64, 64, 64, 64, -1, -1, -1, 23, 7, 64, 64, 17, 64, 64, 64, 64, 14, -1, -1, -1, 27, 64, 64, 30, 64, 9, -1, -1, 24, 4, 64, 29, -1, -1, 64, 22, -1, 62, -1, 25, },
         // COMMENT
         {35, 35, 36, 37, 34, 33, },
 

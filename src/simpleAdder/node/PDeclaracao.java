@@ -2,7 +2,7 @@
 
 package simpleAdder.node;
 
-public abstract class PValor extends Node
+public abstract class PDeclaracao extends Node
 {
     // Empty body
 }
