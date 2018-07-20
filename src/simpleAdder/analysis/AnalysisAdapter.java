@@ -153,6 +153,18 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
+    public void caseAUnicoComandoParaSem(AUnicoComandoParaSem node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAVariosComandoParaSem(AVariosComandoParaSem node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
     public void caseACasos(ACasos node)
     {
         defaultCase(node);

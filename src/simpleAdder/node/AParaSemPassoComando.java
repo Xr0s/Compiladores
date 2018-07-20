@@ -2,7 +2,6 @@
 
 package simpleAdder.node;
 
-import java.util.*;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
@@ -15,7 +14,7 @@ public final class AParaSemPassoComando extends PComando
     private TAte _ate_;
     private TInteiro _direita_;
     private TFaca _faca_;
-    private final LinkedList<PComando> _comando_ = new LinkedList<PComando>();
+    private PComandoParaSem _comandoParaSem_;
     private TFimPara _fimPara_;
     private TPontovirgula _pontovirgula_;
 
@@ -32,7 +31,7 @@ public final class AParaSemPassoComando extends PComando
         @SuppressWarnings("hiding") TAte _ate_,
         @SuppressWarnings("hiding") TInteiro _direita_,
         @SuppressWarnings("hiding") TFaca _faca_,
-        @SuppressWarnings("hiding") List<?> _comando_,
+        @SuppressWarnings("hiding") PComandoParaSem _comandoParaSem_,
         @SuppressWarnings("hiding") TFimPara _fimPara_,
         @SuppressWarnings("hiding") TPontovirgula _pontovirgula_)
     {
@@ -51,7 +50,7 @@ public final class AParaSemPassoComando extends PComando
 
         setFaca(_faca_);
 
-        setComando(_comando_);
+        setComandoParaSem(_comandoParaSem_);
 
         setFimPara(_fimPara_);
 
@@ -70,7 +69,7 @@ public final class AParaSemPassoComando extends PComando
             cloneNode(this._ate_),
             cloneNode(this._direita_),
             cloneNode(this._faca_),
-            cloneList(this._comando_),
+            cloneNode(this._comandoParaSem_),
             cloneNode(this._fimPara_),
             cloneNode(this._pontovirgula_));
     }
@@ -256,30 +255,29 @@ public final class AParaSemPassoComando extends PComando
         this._faca_ = node;
     }
 
-    public LinkedList<PComando> getComando()
+    public PComandoParaSem getComandoParaSem()
     {
-        return this._comando_;
+        return this._comandoParaSem_;
     }
 
-    public void setComando(List<?> list)
+    public void setComandoParaSem(PComandoParaSem node)
     {
-        for(PComando e : this._comando_)
+        if(this._comandoParaSem_ != null)
         {
-            e.parent(null);
+            this._comandoParaSem_.parent(null);
         }
-        this._comando_.clear();
 
-        for(Object obj_e : list)
+        if(node != null)
         {
-            PComando e = (PComando) obj_e;
-            if(e.parent() != null)
+            if(node.parent() != null)
             {
-                e.parent().removeChild(e);
+                node.parent().removeChild(node);
             }
 
-            e.parent(this);
-            this._comando_.add(e);
+            node.parent(this);
         }
+
+        this._comandoParaSem_ = node;
     }
 
     public TFimPara getFimPara()
@@ -343,7 +341,7 @@ public final class AParaSemPassoComando extends PComando
             + toString(this._ate_)
             + toString(this._direita_)
             + toString(this._faca_)
-            + toString(this._comando_)
+            + toString(this._comandoParaSem_)
             + toString(this._fimPara_)
             + toString(this._pontovirgula_);
     }
@@ -394,8 +392,9 @@ public final class AParaSemPassoComando extends PComando
             return;
         }
 
-        if(this._comando_.remove(child))
+        if(this._comandoParaSem_ == child)
         {
+            this._comandoParaSem_ = null;
             return;
         }
 
@@ -460,22 +459,10 @@ public final class AParaSemPassoComando extends PComando
             return;
         }
 
-        for(ListIterator<PComando> i = this._comando_.listIterator(); i.hasNext();)
+        if(this._comandoParaSem_ == oldChild)
         {
-            if(i.next() == oldChild)
-            {
-                if(newChild != null)
-                {
-                    i.set((PComando) newChild);
-                    newChild.parent(this);
-                    oldChild.parent(null);
-                    return;
-                }
-
-                i.remove();
-                oldChild.parent(null);
-                return;
-            }
+            setComandoParaSem((PComandoParaSem) newChild);
+            return;
         }
 
         if(this._fimPara_ == oldChild)

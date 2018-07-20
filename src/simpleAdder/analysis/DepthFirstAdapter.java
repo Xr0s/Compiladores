@@ -448,12 +448,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getFaca().apply(this);
         }
+        if(node.getComandoParaSem() != null)
         {
-            List<PComando> copy = new ArrayList<PComando>(node.getComando());
-            for(PComando e : copy)
-            {
-                e.apply(this);
-            }
+            node.getComandoParaSem().apply(this);
         }
         if(node.getFimPara() != null)
         {
@@ -580,6 +577,60 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getPontovirgula().apply(this);
         }
         outAAvalieComando(node);
+    }
+
+    public void inAUnicoComandoParaSem(AUnicoComandoParaSem node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAUnicoComandoParaSem(AUnicoComandoParaSem node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAUnicoComandoParaSem(AUnicoComandoParaSem node)
+    {
+        inAUnicoComandoParaSem(node);
+        if(node.getComando() != null)
+        {
+            node.getComando().apply(this);
+        }
+        if(node.getPontovirgula() != null)
+        {
+            node.getPontovirgula().apply(this);
+        }
+        outAUnicoComandoParaSem(node);
+    }
+
+    public void inAVariosComandoParaSem(AVariosComandoParaSem node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAVariosComandoParaSem(AVariosComandoParaSem node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAVariosComandoParaSem(AVariosComandoParaSem node)
+    {
+        inAVariosComandoParaSem(node);
+        if(node.getComando() != null)
+        {
+            node.getComando().apply(this);
+        }
+        if(node.getPontovirgula() != null)
+        {
+            node.getPontovirgula().apply(this);
+        }
+        if(node.getComandoParaSem() != null)
+        {
+            node.getComandoParaSem().apply(this);
+        }
+        outAVariosComandoParaSem(node);
     }
 
     public void inACasos(ACasos node)

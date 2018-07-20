@@ -25,6 +25,8 @@ public interface Analysis extends Switch
     void caseAParaSemPassoComando(AParaSemPassoComando node);
     void caseAParaComPassoComando(AParaComPassoComando node);
     void caseAAvalieComando(AAvalieComando node);
+    void caseAUnicoComandoParaSem(AUnicoComandoParaSem node);
+    void caseAVariosComandoParaSem(AVariosComandoParaSem node);
     void caseACasos(ACasos node);
     void caseAComOpcionalDeclSenao(AComOpcionalDeclSenao node);
     void caseASemOpcionalDeclSenao(ASemOpcionalDeclSenao node);

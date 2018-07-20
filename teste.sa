@@ -1,3 +1,6 @@
+programa teste inicio
+
+
 avalie(3+2,1)
 	caso 1: 
 		casa:=3+2,1;
@@ -11,3 +14,6 @@ avalie(3+2,1)
 		casa:=3+2,1;
 		leia(casa);
 	fim avalie;
+	
+	
+fim.
