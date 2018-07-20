@@ -5,39 +5,34 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ADeclaracao extends PDeclaracao
+public final class AIntValor extends PValor
 {
     private TInteiro _inteiro_;
-    private TPontovirgula _pontovirgula_;
 
-    public ADeclaracao()
+    public AIntValor()
     {
         // Constructor
     }
 
-    public ADeclaracao(
-        @SuppressWarnings("hiding") TInteiro _inteiro_,
-        @SuppressWarnings("hiding") TPontovirgula _pontovirgula_)
+    public AIntValor(
+        @SuppressWarnings("hiding") TInteiro _inteiro_)
     {
         // Constructor
         setInteiro(_inteiro_);
-
-        setPontovirgula(_pontovirgula_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ADeclaracao(
-            cloneNode(this._inteiro_),
-            cloneNode(this._pontovirgula_));
+        return new AIntValor(
+            cloneNode(this._inteiro_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseADeclaracao(this);
+        ((Analysis) sw).caseAIntValor(this);
     }
 
     public TInteiro getInteiro()
@@ -65,37 +60,11 @@ public final class ADeclaracao extends PDeclaracao
         this._inteiro_ = node;
     }
 
-    public TPontovirgula getPontovirgula()
-    {
-        return this._pontovirgula_;
-    }
-
-    public void setPontovirgula(TPontovirgula node)
-    {
-        if(this._pontovirgula_ != null)
-        {
-            this._pontovirgula_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._pontovirgula_ = node;
-    }
-
     @Override
     public String toString()
     {
         return ""
-            + toString(this._inteiro_)
-            + toString(this._pontovirgula_);
+            + toString(this._inteiro_);
     }
 
     @Override
@@ -105,12 +74,6 @@ public final class ADeclaracao extends PDeclaracao
         if(this._inteiro_ == child)
         {
             this._inteiro_ = null;
-            return;
-        }
-
-        if(this._pontovirgula_ == child)
-        {
-            this._pontovirgula_ = null;
             return;
         }
 
@@ -124,12 +87,6 @@ public final class ADeclaracao extends PDeclaracao
         if(this._inteiro_ == oldChild)
         {
             setInteiro((TInteiro) newChild);
-            return;
-        }
-
-        if(this._pontovirgula_ == oldChild)
-        {
-            setPontovirgula((TPontovirgula) newChild);
             return;
         }
 

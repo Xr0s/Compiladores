@@ -81,7 +81,79 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseADeclaracao(ADeclaracao node)
+    public void caseAVariavelDeclaracao(AVariavelDeclaracao node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAConstanteDeclaracao(AConstanteDeclaracao node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAVariasDeclVariavel(AVariasDeclVariavel node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAUnicaDeclVariavel(AUnicaDeclVariavel node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseARealPalavraTipo(ARealPalavraTipo node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAInteiroPalavraTipo(AInteiroPalavraTipo node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseACaracterPalavraTipo(ACaracterPalavraTipo node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseABooleanoPalavraTipo(ABooleanoPalavraTipo node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAIdUnicaVar(AIdUnicaVar node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAVetorVar(AVetorVar node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseACharValor(ACharValor node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAIntValor(AIntValor node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAFloatValor(AFloatValor node)
     {
         defaultCase(node);
     }

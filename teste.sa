@@ -1,7 +1,6 @@
 programa teste 
 	inicio 
-		2;
-		3;
-		4;
-		5;
+		inteiro: x;
+		const n_pessoas 10;
+		//oi
 	fim.

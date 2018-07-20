@@ -113,7 +113,25 @@ Ignored Tokens
 
  Productions 
 	 program = programa  id  inicio declaracao* fim;
-	 declaracao = inteiro pontovirgula;
+	 
+	 declaracao = {variavel} tipo doispontos decl_variavel
+				| {constante} const id valor pontovirgula;
+	 
+	 decl_variavel = {varias} virgula decl_variavel 
+	           	   | {unica} var pontovirgula;
+	 
+	 tipo = {real_palavra} real_reservada 
+	 	  | {inteiro_palavra}inteiro_reservada 
+	 	  | {caracter_palavra}caractere_reservada 
+	 	  | {booleano_palavra}booleano_reservada;
+	 
+	 var = {id_unica} id 
+	 	 | {vetor} id abre_colchete inteiro fecha_colchete;
+	 
+	 valor = {char} caractere 
+	 	   | {int} inteiro
+	 	   | {float} real;
+
 
 	
 	
