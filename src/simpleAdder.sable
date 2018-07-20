@@ -112,7 +112,7 @@ Ignored Tokens
 	branco,comment, comentario_de_linha;
 
  Productions 
-	 program = programa  id  inicio declaracao* comandos* fim;
+	 program = programa  id  inicio declaracao* comando* fim;
 	 
 	 declaracao = {variavel} tipo doispontos decl_variavel
 	 			| {constante} const id valor pontovirgula;

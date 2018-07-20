@@ -75,6 +75,36 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
+    public void caseAProgram(AProgram node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAVariavelDeclaracao(AVariavelDeclaracao node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAConstanteDeclaracao(AConstanteDeclaracao node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAVariasDeclVariavel(AVariasDeclVariavel node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAUnicaDeclVariavel(AUnicaDeclVariavel node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
     public void caseAComando(AComando node)
     {
         defaultCase(node);
@@ -184,6 +214,30 @@ public class AnalysisAdapter implements Analysis
 
     @Override
     public void caseAExpLogica(AExpLogica node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseARealPalavraTipo(ARealPalavraTipo node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAInteiroPalavraTipo(AInteiroPalavraTipo node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseACaracterPalavraTipo(ACaracterPalavraTipo node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseABooleanoPalavraTipo(ABooleanoPalavraTipo node)
     {
         defaultCase(node);
     }
