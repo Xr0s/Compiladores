@@ -5,39 +5,44 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AUnicaDeclVariavel extends PDeclVariavel
+public final class AVariasDeclVarSempontov extends PDeclVarSempontov
 {
     private PVar _var_;
-    private TPontovirgula _pontovirgula_;
+    private TVirgula _virgula_;
+    private PDeclVarSempontov _declVarSempontov_;
 
-    public AUnicaDeclVariavel()
+    public AVariasDeclVarSempontov()
     {
         // Constructor
     }
 
-    public AUnicaDeclVariavel(
+    public AVariasDeclVarSempontov(
         @SuppressWarnings("hiding") PVar _var_,
-        @SuppressWarnings("hiding") TPontovirgula _pontovirgula_)
+        @SuppressWarnings("hiding") TVirgula _virgula_,
+        @SuppressWarnings("hiding") PDeclVarSempontov _declVarSempontov_)
     {
         // Constructor
         setVar(_var_);
 
-        setPontovirgula(_pontovirgula_);
+        setVirgula(_virgula_);
+
+        setDeclVarSempontov(_declVarSempontov_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AUnicaDeclVariavel(
+        return new AVariasDeclVarSempontov(
             cloneNode(this._var_),
-            cloneNode(this._pontovirgula_));
+            cloneNode(this._virgula_),
+            cloneNode(this._declVarSempontov_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAUnicaDeclVariavel(this);
+        ((Analysis) sw).caseAVariasDeclVarSempontov(this);
     }
 
     public PVar getVar()
@@ -65,16 +70,16 @@ public final class AUnicaDeclVariavel extends PDeclVariavel
         this._var_ = node;
     }
 
-    public TPontovirgula getPontovirgula()
+    public TVirgula getVirgula()
     {
-        return this._pontovirgula_;
+        return this._virgula_;
     }
 
-    public void setPontovirgula(TPontovirgula node)
+    public void setVirgula(TVirgula node)
     {
-        if(this._pontovirgula_ != null)
+        if(this._virgula_ != null)
         {
-            this._pontovirgula_.parent(null);
+            this._virgula_.parent(null);
         }
 
         if(node != null)
@@ -87,7 +92,32 @@ public final class AUnicaDeclVariavel extends PDeclVariavel
             node.parent(this);
         }
 
-        this._pontovirgula_ = node;
+        this._virgula_ = node;
+    }
+
+    public PDeclVarSempontov getDeclVarSempontov()
+    {
+        return this._declVarSempontov_;
+    }
+
+    public void setDeclVarSempontov(PDeclVarSempontov node)
+    {
+        if(this._declVarSempontov_ != null)
+        {
+            this._declVarSempontov_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._declVarSempontov_ = node;
     }
 
     @Override
@@ -95,7 +125,8 @@ public final class AUnicaDeclVariavel extends PDeclVariavel
     {
         return ""
             + toString(this._var_)
-            + toString(this._pontovirgula_);
+            + toString(this._virgula_)
+            + toString(this._declVarSempontov_);
     }
 
     @Override
@@ -108,9 +139,15 @@ public final class AUnicaDeclVariavel extends PDeclVariavel
             return;
         }
 
-        if(this._pontovirgula_ == child)
+        if(this._virgula_ == child)
         {
-            this._pontovirgula_ = null;
+            this._virgula_ = null;
+            return;
+        }
+
+        if(this._declVarSempontov_ == child)
+        {
+            this._declVarSempontov_ = null;
             return;
         }
 
@@ -127,9 +164,15 @@ public final class AUnicaDeclVariavel extends PDeclVariavel
             return;
         }
 
-        if(this._pontovirgula_ == oldChild)
+        if(this._virgula_ == oldChild)
         {
-            setPontovirgula((TPontovirgula) newChild);
+            setVirgula((TVirgula) newChild);
+            return;
+        }
+
+        if(this._declVarSempontov_ == oldChild)
+        {
+            setDeclVarSempontov((PDeclVarSempontov) newChild);
             return;
         }
 

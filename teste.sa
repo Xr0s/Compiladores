@@ -1,9 +1,13 @@
-programa teste 
-	inicio 
-		inteiro: x;
-		const n_pessoas 10; //constante
-		booleano: pass, flag;
-		caractere: msgTexto[10], c;
-	fim.
-	
-	
+avalie(3+2,1)
+	caso 1: 
+		casa:=3+2,1;
+		leia(casa);
+		escreva(3+2,1);
+	caso 2:
+		casa:=3+2,1;
+	caso 3:
+		leia(casa);
+	senao:
+		casa:=3+2,1;
+		leia(casa);
+	fim avalie;

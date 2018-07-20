@@ -5,56 +5,56 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AVariasDeclVariavel extends PDeclVariavel
+public final class AVariasExpDeclExp extends PDeclExp
 {
-    private PVar _var_;
+    private PExp _exp_;
     private TVirgula _virgula_;
-    private PDeclVariavel _declVariavel_;
+    private PDeclExp _declExp_;
 
-    public AVariasDeclVariavel()
+    public AVariasExpDeclExp()
     {
         // Constructor
     }
 
-    public AVariasDeclVariavel(
-        @SuppressWarnings("hiding") PVar _var_,
+    public AVariasExpDeclExp(
+        @SuppressWarnings("hiding") PExp _exp_,
         @SuppressWarnings("hiding") TVirgula _virgula_,
-        @SuppressWarnings("hiding") PDeclVariavel _declVariavel_)
+        @SuppressWarnings("hiding") PDeclExp _declExp_)
     {
         // Constructor
-        setVar(_var_);
+        setExp(_exp_);
 
         setVirgula(_virgula_);
 
-        setDeclVariavel(_declVariavel_);
+        setDeclExp(_declExp_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AVariasDeclVariavel(
-            cloneNode(this._var_),
+        return new AVariasExpDeclExp(
+            cloneNode(this._exp_),
             cloneNode(this._virgula_),
-            cloneNode(this._declVariavel_));
+            cloneNode(this._declExp_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAVariasDeclVariavel(this);
+        ((Analysis) sw).caseAVariasExpDeclExp(this);
     }
 
-    public PVar getVar()
+    public PExp getExp()
     {
-        return this._var_;
+        return this._exp_;
     }
 
-    public void setVar(PVar node)
+    public void setExp(PExp node)
     {
-        if(this._var_ != null)
+        if(this._exp_ != null)
         {
-            this._var_.parent(null);
+            this._exp_.parent(null);
         }
 
         if(node != null)
@@ -67,7 +67,7 @@ public final class AVariasDeclVariavel extends PDeclVariavel
             node.parent(this);
         }
 
-        this._var_ = node;
+        this._exp_ = node;
     }
 
     public TVirgula getVirgula()
@@ -95,16 +95,16 @@ public final class AVariasDeclVariavel extends PDeclVariavel
         this._virgula_ = node;
     }
 
-    public PDeclVariavel getDeclVariavel()
+    public PDeclExp getDeclExp()
     {
-        return this._declVariavel_;
+        return this._declExp_;
     }
 
-    public void setDeclVariavel(PDeclVariavel node)
+    public void setDeclExp(PDeclExp node)
     {
-        if(this._declVariavel_ != null)
+        if(this._declExp_ != null)
         {
-            this._declVariavel_.parent(null);
+            this._declExp_.parent(null);
         }
 
         if(node != null)
@@ -117,25 +117,25 @@ public final class AVariasDeclVariavel extends PDeclVariavel
             node.parent(this);
         }
 
-        this._declVariavel_ = node;
+        this._declExp_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._var_)
+            + toString(this._exp_)
             + toString(this._virgula_)
-            + toString(this._declVariavel_);
+            + toString(this._declExp_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._var_ == child)
+        if(this._exp_ == child)
         {
-            this._var_ = null;
+            this._exp_ = null;
             return;
         }
 
@@ -145,9 +145,9 @@ public final class AVariasDeclVariavel extends PDeclVariavel
             return;
         }
 
-        if(this._declVariavel_ == child)
+        if(this._declExp_ == child)
         {
-            this._declVariavel_ = null;
+            this._declExp_ = null;
             return;
         }
 
@@ -158,9 +158,9 @@ public final class AVariasDeclVariavel extends PDeclVariavel
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._var_ == oldChild)
+        if(this._exp_ == oldChild)
         {
-            setVar((PVar) newChild);
+            setExp((PExp) newChild);
             return;
         }
 
@@ -170,9 +170,9 @@ public final class AVariasDeclVariavel extends PDeclVariavel
             return;
         }
 
-        if(this._declVariavel_ == oldChild)
+        if(this._declExp_ == oldChild)
         {
-            setDeclVariavel((PDeclVariavel) newChild);
+            setDeclExp((PDeclExp) newChild);
             return;
         }
 

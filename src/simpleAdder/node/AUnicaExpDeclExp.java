@@ -5,46 +5,46 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AInteiroPalavraTipo extends PTipo
+public final class AUnicaExpDeclExp extends PDeclExp
 {
-    private TInteiroReservada _inteiroReservada_;
+    private PExp _exp_;
 
-    public AInteiroPalavraTipo()
+    public AUnicaExpDeclExp()
     {
         // Constructor
     }
 
-    public AInteiroPalavraTipo(
-        @SuppressWarnings("hiding") TInteiroReservada _inteiroReservada_)
+    public AUnicaExpDeclExp(
+        @SuppressWarnings("hiding") PExp _exp_)
     {
         // Constructor
-        setInteiroReservada(_inteiroReservada_);
+        setExp(_exp_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AInteiroPalavraTipo(
-            cloneNode(this._inteiroReservada_));
+        return new AUnicaExpDeclExp(
+            cloneNode(this._exp_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAInteiroPalavraTipo(this);
+        ((Analysis) sw).caseAUnicaExpDeclExp(this);
     }
 
-    public TInteiroReservada getInteiroReservada()
+    public PExp getExp()
     {
-        return this._inteiroReservada_;
+        return this._exp_;
     }
 
-    public void setInteiroReservada(TInteiroReservada node)
+    public void setExp(PExp node)
     {
-        if(this._inteiroReservada_ != null)
+        if(this._exp_ != null)
         {
-            this._inteiroReservada_.parent(null);
+            this._exp_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class AInteiroPalavraTipo extends PTipo
             node.parent(this);
         }
 
-        this._inteiroReservada_ = node;
+        this._exp_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._inteiroReservada_);
+            + toString(this._exp_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._inteiroReservada_ == child)
+        if(this._exp_ == child)
         {
-            this._inteiroReservada_ = null;
+            this._exp_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class AInteiroPalavraTipo extends PTipo
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._inteiroReservada_ == oldChild)
+        if(this._exp_ == oldChild)
         {
-            setInteiroReservada((TInteiroReservada) newChild);
+            setExp((PExp) newChild);
             return;
         }
 

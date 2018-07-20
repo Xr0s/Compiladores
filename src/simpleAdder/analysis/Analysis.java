@@ -12,21 +12,28 @@ public interface Analysis extends Switch
     void setOut(Node node, Object o);
 
     void caseStart(Start node);
-    void caseAProgram(AProgram node);
-    void caseAVariavelDeclaracao(AVariavelDeclaracao node);
-    void caseAConstanteDeclaracao(AConstanteDeclaracao node);
-    void caseAVariasDeclVariavel(AVariasDeclVariavel node);
-    void caseAUnicaDeclVariavel(AUnicaDeclVariavel node);
-    void caseARealPalavraTipo(ARealPalavraTipo node);
-    void caseAInteiroPalavraTipo(AInteiroPalavraTipo node);
-    void caseACaracterPalavraTipo(ACaracterPalavraTipo node);
-    void caseABooleanoPalavraTipo(ABooleanoPalavraTipo node);
+    void caseAComando(AComando node);
+    void caseALeiaComando(ALeiaComando node);
+    void caseAEscrevaComando(AEscrevaComando node);
+    void caseAEnquantoComando(AEnquantoComando node);
+    void caseARepitaComando(ARepitaComando node);
+    void caseAParaSemPassoComando(AParaSemPassoComando node);
+    void caseAParaComPassoComando(AParaComPassoComando node);
+    void caseAAvalieComando(AAvalieComando node);
+    void caseACasos(ACasos node);
+    void caseAComOpcionalDeclSenao(AComOpcionalDeclSenao node);
+    void caseASemOpcionalDeclSenao(ASemOpcionalDeclSenao node);
+    void caseAVariasDeclVarSempontov(AVariasDeclVarSempontov node);
+    void caseAUnicaDeclVarSempontov(AUnicaDeclVarSempontov node);
+    void caseAVariasExpDeclExp(AVariasExpDeclExp node);
+    void caseAUnicaExpDeclExp(AUnicaExpDeclExp node);
     void caseAIdUnicaVar(AIdUnicaVar node);
     void caseAVetorVar(AVetorVar node);
+    void caseAExp(AExp node);
+    void caseAExpLogica(AExpLogica node);
     void caseACharValor(ACharValor node);
     void caseAIntValor(AIntValor node);
     void caseAFloatValor(AFloatValor node);
-    void caseAComandos(AComandos node);
 
     void caseTBranco(TBranco node);
     void caseTTabulacao(TTabulacao node);

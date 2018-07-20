@@ -5,46 +5,46 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ARealPalavraTipo extends PTipo
+public final class ASemOpcionalDeclSenao extends PDeclSenao
 {
-    private TRealReservada _realReservada_;
+    private TFimAvalie _fimAvalie_;
 
-    public ARealPalavraTipo()
+    public ASemOpcionalDeclSenao()
     {
         // Constructor
     }
 
-    public ARealPalavraTipo(
-        @SuppressWarnings("hiding") TRealReservada _realReservada_)
+    public ASemOpcionalDeclSenao(
+        @SuppressWarnings("hiding") TFimAvalie _fimAvalie_)
     {
         // Constructor
-        setRealReservada(_realReservada_);
+        setFimAvalie(_fimAvalie_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ARealPalavraTipo(
-            cloneNode(this._realReservada_));
+        return new ASemOpcionalDeclSenao(
+            cloneNode(this._fimAvalie_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseARealPalavraTipo(this);
+        ((Analysis) sw).caseASemOpcionalDeclSenao(this);
     }
 
-    public TRealReservada getRealReservada()
+    public TFimAvalie getFimAvalie()
     {
-        return this._realReservada_;
+        return this._fimAvalie_;
     }
 
-    public void setRealReservada(TRealReservada node)
+    public void setFimAvalie(TFimAvalie node)
     {
-        if(this._realReservada_ != null)
+        if(this._fimAvalie_ != null)
         {
-            this._realReservada_.parent(null);
+            this._fimAvalie_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class ARealPalavraTipo extends PTipo
             node.parent(this);
         }
 
-        this._realReservada_ = node;
+        this._fimAvalie_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._realReservada_);
+            + toString(this._fimAvalie_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._realReservada_ == child)
+        if(this._fimAvalie_ == child)
         {
-            this._realReservada_ = null;
+            this._fimAvalie_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class ARealPalavraTipo extends PTipo
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._realReservada_ == oldChild)
+        if(this._fimAvalie_ == oldChild)
         {
-            setRealReservada((TRealReservada) newChild);
+            setFimAvalie((TFimAvalie) newChild);
             return;
         }
 

@@ -5,30 +5,30 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AConstanteDeclaracao extends PDeclaracao
+public final class AComando extends PComando
 {
-    private TConst _const_;
-    private TId _id_;
-    private PValor _valor_;
+    private PVar _var_;
+    private TAtribuicao _atribuicao_;
+    private PExp _exp_;
     private TPontovirgula _pontovirgula_;
 
-    public AConstanteDeclaracao()
+    public AComando()
     {
         // Constructor
     }
 
-    public AConstanteDeclaracao(
-        @SuppressWarnings("hiding") TConst _const_,
-        @SuppressWarnings("hiding") TId _id_,
-        @SuppressWarnings("hiding") PValor _valor_,
+    public AComando(
+        @SuppressWarnings("hiding") PVar _var_,
+        @SuppressWarnings("hiding") TAtribuicao _atribuicao_,
+        @SuppressWarnings("hiding") PExp _exp_,
         @SuppressWarnings("hiding") TPontovirgula _pontovirgula_)
     {
         // Constructor
-        setConst(_const_);
+        setVar(_var_);
 
-        setId(_id_);
+        setAtribuicao(_atribuicao_);
 
-        setValor(_valor_);
+        setExp(_exp_);
 
         setPontovirgula(_pontovirgula_);
 
@@ -37,29 +37,29 @@ public final class AConstanteDeclaracao extends PDeclaracao
     @Override
     public Object clone()
     {
-        return new AConstanteDeclaracao(
-            cloneNode(this._const_),
-            cloneNode(this._id_),
-            cloneNode(this._valor_),
+        return new AComando(
+            cloneNode(this._var_),
+            cloneNode(this._atribuicao_),
+            cloneNode(this._exp_),
             cloneNode(this._pontovirgula_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAConstanteDeclaracao(this);
+        ((Analysis) sw).caseAComando(this);
     }
 
-    public TConst getConst()
+    public PVar getVar()
     {
-        return this._const_;
+        return this._var_;
     }
 
-    public void setConst(TConst node)
+    public void setVar(PVar node)
     {
-        if(this._const_ != null)
+        if(this._var_ != null)
         {
-            this._const_.parent(null);
+            this._var_.parent(null);
         }
 
         if(node != null)
@@ -72,19 +72,19 @@ public final class AConstanteDeclaracao extends PDeclaracao
             node.parent(this);
         }
 
-        this._const_ = node;
+        this._var_ = node;
     }
 
-    public TId getId()
+    public TAtribuicao getAtribuicao()
     {
-        return this._id_;
+        return this._atribuicao_;
     }
 
-    public void setId(TId node)
+    public void setAtribuicao(TAtribuicao node)
     {
-        if(this._id_ != null)
+        if(this._atribuicao_ != null)
         {
-            this._id_.parent(null);
+            this._atribuicao_.parent(null);
         }
 
         if(node != null)
@@ -97,19 +97,19 @@ public final class AConstanteDeclaracao extends PDeclaracao
             node.parent(this);
         }
 
-        this._id_ = node;
+        this._atribuicao_ = node;
     }
 
-    public PValor getValor()
+    public PExp getExp()
     {
-        return this._valor_;
+        return this._exp_;
     }
 
-    public void setValor(PValor node)
+    public void setExp(PExp node)
     {
-        if(this._valor_ != null)
+        if(this._exp_ != null)
         {
-            this._valor_.parent(null);
+            this._exp_.parent(null);
         }
 
         if(node != null)
@@ -122,7 +122,7 @@ public final class AConstanteDeclaracao extends PDeclaracao
             node.parent(this);
         }
 
-        this._valor_ = node;
+        this._exp_ = node;
     }
 
     public TPontovirgula getPontovirgula()
@@ -154,9 +154,9 @@ public final class AConstanteDeclaracao extends PDeclaracao
     public String toString()
     {
         return ""
-            + toString(this._const_)
-            + toString(this._id_)
-            + toString(this._valor_)
+            + toString(this._var_)
+            + toString(this._atribuicao_)
+            + toString(this._exp_)
             + toString(this._pontovirgula_);
     }
 
@@ -164,21 +164,21 @@ public final class AConstanteDeclaracao extends PDeclaracao
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._const_ == child)
+        if(this._var_ == child)
         {
-            this._const_ = null;
+            this._var_ = null;
             return;
         }
 
-        if(this._id_ == child)
+        if(this._atribuicao_ == child)
         {
-            this._id_ = null;
+            this._atribuicao_ = null;
             return;
         }
 
-        if(this._valor_ == child)
+        if(this._exp_ == child)
         {
-            this._valor_ = null;
+            this._exp_ = null;
             return;
         }
 
@@ -195,21 +195,21 @@ public final class AConstanteDeclaracao extends PDeclaracao
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._const_ == oldChild)
+        if(this._var_ == oldChild)
         {
-            setConst((TConst) newChild);
+            setVar((PVar) newChild);
             return;
         }
 
-        if(this._id_ == oldChild)
+        if(this._atribuicao_ == oldChild)
         {
-            setId((TId) newChild);
+            setAtribuicao((TAtribuicao) newChild);
             return;
         }
 
-        if(this._valor_ == oldChild)
+        if(this._exp_ == oldChild)
         {
-            setValor((PValor) newChild);
+            setExp((PExp) newChild);
             return;
         }
 

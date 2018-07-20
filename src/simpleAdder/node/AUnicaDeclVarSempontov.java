@@ -5,46 +5,46 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ABooleanoPalavraTipo extends PTipo
+public final class AUnicaDeclVarSempontov extends PDeclVarSempontov
 {
-    private TBooleanoReservada _booleanoReservada_;
+    private PVar _var_;
 
-    public ABooleanoPalavraTipo()
+    public AUnicaDeclVarSempontov()
     {
         // Constructor
     }
 
-    public ABooleanoPalavraTipo(
-        @SuppressWarnings("hiding") TBooleanoReservada _booleanoReservada_)
+    public AUnicaDeclVarSempontov(
+        @SuppressWarnings("hiding") PVar _var_)
     {
         // Constructor
-        setBooleanoReservada(_booleanoReservada_);
+        setVar(_var_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ABooleanoPalavraTipo(
-            cloneNode(this._booleanoReservada_));
+        return new AUnicaDeclVarSempontov(
+            cloneNode(this._var_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseABooleanoPalavraTipo(this);
+        ((Analysis) sw).caseAUnicaDeclVarSempontov(this);
     }
 
-    public TBooleanoReservada getBooleanoReservada()
+    public PVar getVar()
     {
-        return this._booleanoReservada_;
+        return this._var_;
     }
 
-    public void setBooleanoReservada(TBooleanoReservada node)
+    public void setVar(PVar node)
     {
-        if(this._booleanoReservada_ != null)
+        if(this._var_ != null)
         {
-            this._booleanoReservada_.parent(null);
+            this._var_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class ABooleanoPalavraTipo extends PTipo
             node.parent(this);
         }
 
-        this._booleanoReservada_ = node;
+        this._var_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._booleanoReservada_);
+            + toString(this._var_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._booleanoReservada_ == child)
+        if(this._var_ == child)
         {
-            this._booleanoReservada_ = null;
+            this._var_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class ABooleanoPalavraTipo extends PTipo
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._booleanoReservada_ == oldChild)
+        if(this._var_ == oldChild)
         {
-            setBooleanoReservada((TBooleanoReservada) newChild);
+            setVar((PVar) newChild);
             return;
         }
 

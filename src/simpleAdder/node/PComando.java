@@ -2,7 +2,7 @@
 
 package simpleAdder.node;
 
-public abstract class PTipo extends Node
+public abstract class PComando extends Node
 {
     // Empty body
 }

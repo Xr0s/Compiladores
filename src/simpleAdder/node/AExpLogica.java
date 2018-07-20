@@ -5,46 +5,46 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ACaracterPalavraTipo extends PTipo
+public final class AExpLogica extends PExpLogica
 {
-    private TCaractereReservada _caractereReservada_;
+    private TBooleano _booleano_;
 
-    public ACaracterPalavraTipo()
+    public AExpLogica()
     {
         // Constructor
     }
 
-    public ACaracterPalavraTipo(
-        @SuppressWarnings("hiding") TCaractereReservada _caractereReservada_)
+    public AExpLogica(
+        @SuppressWarnings("hiding") TBooleano _booleano_)
     {
         // Constructor
-        setCaractereReservada(_caractereReservada_);
+        setBooleano(_booleano_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ACaracterPalavraTipo(
-            cloneNode(this._caractereReservada_));
+        return new AExpLogica(
+            cloneNode(this._booleano_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseACaracterPalavraTipo(this);
+        ((Analysis) sw).caseAExpLogica(this);
     }
 
-    public TCaractereReservada getCaractereReservada()
+    public TBooleano getBooleano()
     {
-        return this._caractereReservada_;
+        return this._booleano_;
     }
 
-    public void setCaractereReservada(TCaractereReservada node)
+    public void setBooleano(TBooleano node)
     {
-        if(this._caractereReservada_ != null)
+        if(this._booleano_ != null)
         {
-            this._caractereReservada_.parent(null);
+            this._booleano_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class ACaracterPalavraTipo extends PTipo
             node.parent(this);
         }
 
-        this._caractereReservada_ = node;
+        this._booleano_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._caractereReservada_);
+            + toString(this._booleano_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._caractereReservada_ == child)
+        if(this._booleano_ == child)
         {
-            this._caractereReservada_ = null;
+            this._booleano_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class ACaracterPalavraTipo extends PTipo
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._caractereReservada_ == oldChild)
+        if(this._booleano_ == oldChild)
         {
-            setCaractereReservada((TCaractereReservada) newChild);
+            setBooleano((TBooleano) newChild);
             return;
         }
 
