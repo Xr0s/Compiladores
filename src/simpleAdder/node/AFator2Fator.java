@@ -5,46 +5,46 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ASemOpcionalDeclSenao extends PDeclSenao
+public final class AFator2Fator extends PFator
 {
-    private TFimAvalie _fimAvalie_;
+    private PFator2 _fator2_;
 
-    public ASemOpcionalDeclSenao()
+    public AFator2Fator()
     {
         // Constructor
     }
 
-    public ASemOpcionalDeclSenao(
-        @SuppressWarnings("hiding") TFimAvalie _fimAvalie_)
+    public AFator2Fator(
+        @SuppressWarnings("hiding") PFator2 _fator2_)
     {
         // Constructor
-        setFimAvalie(_fimAvalie_);
+        setFator2(_fator2_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ASemOpcionalDeclSenao(
-            cloneNode(this._fimAvalie_));
+        return new AFator2Fator(
+            cloneNode(this._fator2_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseASemOpcionalDeclSenao(this);
+        ((Analysis) sw).caseAFator2Fator(this);
     }
 
-    public TFimAvalie getFimAvalie()
+    public PFator2 getFator2()
     {
-        return this._fimAvalie_;
+        return this._fator2_;
     }
 
-    public void setFimAvalie(TFimAvalie node)
+    public void setFator2(PFator2 node)
     {
-        if(this._fimAvalie_ != null)
+        if(this._fator2_ != null)
         {
-            this._fimAvalie_.parent(null);
+            this._fator2_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class ASemOpcionalDeclSenao extends PDeclSenao
             node.parent(this);
         }
 
-        this._fimAvalie_ = node;
+        this._fator2_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._fimAvalie_);
+            + toString(this._fator2_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._fimAvalie_ == child)
+        if(this._fator2_ == child)
         {
-            this._fimAvalie_ = null;
+            this._fator2_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class ASemOpcionalDeclSenao extends PDeclSenao
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._fimAvalie_ == oldChild)
+        if(this._fator2_ == oldChild)
         {
-            setFimAvalie((TFimAvalie) newChild);
+            setFator2((PFator2) newChild);
             return;
         }
 

@@ -6,42 +6,50 @@ import java.util.*;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AAvalieComando extends PComando
+public final class ASeComando extends PComando
 {
-    private TAvalie _avalie_;
+    private TSe _se_;
     private TAbreParentese _abreParentese_;
-    private PExp _exp_;
+    private PExpLogica _expLogica_;
     private TFechaParentese _fechaParentese_;
-    private final LinkedList<PCasos> _casos_ = new LinkedList<PCasos>();
-    private PDeclSenaoAvalie _declSenaoAvalie_;
+    private TEntao _entao_;
+    private final LinkedList<PComando> _comando_ = new LinkedList<PComando>();
+    private PDeclSenao _declSenao_;
+    private TFimSe _fimSe_;
     private TPontovirgula _pontovirgula_;
 
-    public AAvalieComando()
+    public ASeComando()
     {
         // Constructor
     }
 
-    public AAvalieComando(
-        @SuppressWarnings("hiding") TAvalie _avalie_,
+    public ASeComando(
+        @SuppressWarnings("hiding") TSe _se_,
         @SuppressWarnings("hiding") TAbreParentese _abreParentese_,
-        @SuppressWarnings("hiding") PExp _exp_,
+        @SuppressWarnings("hiding") PExpLogica _expLogica_,
         @SuppressWarnings("hiding") TFechaParentese _fechaParentese_,
-        @SuppressWarnings("hiding") List<?> _casos_,
-        @SuppressWarnings("hiding") PDeclSenaoAvalie _declSenaoAvalie_,
+        @SuppressWarnings("hiding") TEntao _entao_,
+        @SuppressWarnings("hiding") List<?> _comando_,
+        @SuppressWarnings("hiding") PDeclSenao _declSenao_,
+        @SuppressWarnings("hiding") TFimSe _fimSe_,
         @SuppressWarnings("hiding") TPontovirgula _pontovirgula_)
     {
         // Constructor
-        setAvalie(_avalie_);
+        setSe(_se_);
 
         setAbreParentese(_abreParentese_);
 
-        setExp(_exp_);
+        setExpLogica(_expLogica_);
 
         setFechaParentese(_fechaParentese_);
 
-        setCasos(_casos_);
+        setEntao(_entao_);
 
-        setDeclSenaoAvalie(_declSenaoAvalie_);
+        setComando(_comando_);
+
+        setDeclSenao(_declSenao_);
+
+        setFimSe(_fimSe_);
 
         setPontovirgula(_pontovirgula_);
 
@@ -50,32 +58,34 @@ public final class AAvalieComando extends PComando
     @Override
     public Object clone()
     {
-        return new AAvalieComando(
-            cloneNode(this._avalie_),
+        return new ASeComando(
+            cloneNode(this._se_),
             cloneNode(this._abreParentese_),
-            cloneNode(this._exp_),
+            cloneNode(this._expLogica_),
             cloneNode(this._fechaParentese_),
-            cloneList(this._casos_),
-            cloneNode(this._declSenaoAvalie_),
+            cloneNode(this._entao_),
+            cloneList(this._comando_),
+            cloneNode(this._declSenao_),
+            cloneNode(this._fimSe_),
             cloneNode(this._pontovirgula_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAAvalieComando(this);
+        ((Analysis) sw).caseASeComando(this);
     }
 
-    public TAvalie getAvalie()
+    public TSe getSe()
     {
-        return this._avalie_;
+        return this._se_;
     }
 
-    public void setAvalie(TAvalie node)
+    public void setSe(TSe node)
     {
-        if(this._avalie_ != null)
+        if(this._se_ != null)
         {
-            this._avalie_.parent(null);
+            this._se_.parent(null);
         }
 
         if(node != null)
@@ -88,7 +98,7 @@ public final class AAvalieComando extends PComando
             node.parent(this);
         }
 
-        this._avalie_ = node;
+        this._se_ = node;
     }
 
     public TAbreParentese getAbreParentese()
@@ -116,16 +126,16 @@ public final class AAvalieComando extends PComando
         this._abreParentese_ = node;
     }
 
-    public PExp getExp()
+    public PExpLogica getExpLogica()
     {
-        return this._exp_;
+        return this._expLogica_;
     }
 
-    public void setExp(PExp node)
+    public void setExpLogica(PExpLogica node)
     {
-        if(this._exp_ != null)
+        if(this._expLogica_ != null)
         {
-            this._exp_.parent(null);
+            this._expLogica_.parent(null);
         }
 
         if(node != null)
@@ -138,7 +148,7 @@ public final class AAvalieComando extends PComando
             node.parent(this);
         }
 
-        this._exp_ = node;
+        this._expLogica_ = node;
     }
 
     public TFechaParentese getFechaParentese()
@@ -166,42 +176,16 @@ public final class AAvalieComando extends PComando
         this._fechaParentese_ = node;
     }
 
-    public LinkedList<PCasos> getCasos()
+    public TEntao getEntao()
     {
-        return this._casos_;
+        return this._entao_;
     }
 
-    public void setCasos(List<?> list)
+    public void setEntao(TEntao node)
     {
-        for(PCasos e : this._casos_)
+        if(this._entao_ != null)
         {
-            e.parent(null);
-        }
-        this._casos_.clear();
-
-        for(Object obj_e : list)
-        {
-            PCasos e = (PCasos) obj_e;
-            if(e.parent() != null)
-            {
-                e.parent().removeChild(e);
-            }
-
-            e.parent(this);
-            this._casos_.add(e);
-        }
-    }
-
-    public PDeclSenaoAvalie getDeclSenaoAvalie()
-    {
-        return this._declSenaoAvalie_;
-    }
-
-    public void setDeclSenaoAvalie(PDeclSenaoAvalie node)
-    {
-        if(this._declSenaoAvalie_ != null)
-        {
-            this._declSenaoAvalie_.parent(null);
+            this._entao_.parent(null);
         }
 
         if(node != null)
@@ -214,7 +198,83 @@ public final class AAvalieComando extends PComando
             node.parent(this);
         }
 
-        this._declSenaoAvalie_ = node;
+        this._entao_ = node;
+    }
+
+    public LinkedList<PComando> getComando()
+    {
+        return this._comando_;
+    }
+
+    public void setComando(List<?> list)
+    {
+        for(PComando e : this._comando_)
+        {
+            e.parent(null);
+        }
+        this._comando_.clear();
+
+        for(Object obj_e : list)
+        {
+            PComando e = (PComando) obj_e;
+            if(e.parent() != null)
+            {
+                e.parent().removeChild(e);
+            }
+
+            e.parent(this);
+            this._comando_.add(e);
+        }
+    }
+
+    public PDeclSenao getDeclSenao()
+    {
+        return this._declSenao_;
+    }
+
+    public void setDeclSenao(PDeclSenao node)
+    {
+        if(this._declSenao_ != null)
+        {
+            this._declSenao_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._declSenao_ = node;
+    }
+
+    public TFimSe getFimSe()
+    {
+        return this._fimSe_;
+    }
+
+    public void setFimSe(TFimSe node)
+    {
+        if(this._fimSe_ != null)
+        {
+            this._fimSe_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._fimSe_ = node;
     }
 
     public TPontovirgula getPontovirgula()
@@ -246,12 +306,14 @@ public final class AAvalieComando extends PComando
     public String toString()
     {
         return ""
-            + toString(this._avalie_)
+            + toString(this._se_)
             + toString(this._abreParentese_)
-            + toString(this._exp_)
+            + toString(this._expLogica_)
             + toString(this._fechaParentese_)
-            + toString(this._casos_)
-            + toString(this._declSenaoAvalie_)
+            + toString(this._entao_)
+            + toString(this._comando_)
+            + toString(this._declSenao_)
+            + toString(this._fimSe_)
             + toString(this._pontovirgula_);
     }
 
@@ -259,9 +321,9 @@ public final class AAvalieComando extends PComando
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._avalie_ == child)
+        if(this._se_ == child)
         {
-            this._avalie_ = null;
+            this._se_ = null;
             return;
         }
 
@@ -271,9 +333,9 @@ public final class AAvalieComando extends PComando
             return;
         }
 
-        if(this._exp_ == child)
+        if(this._expLogica_ == child)
         {
-            this._exp_ = null;
+            this._expLogica_ = null;
             return;
         }
 
@@ -283,14 +345,26 @@ public final class AAvalieComando extends PComando
             return;
         }
 
-        if(this._casos_.remove(child))
+        if(this._entao_ == child)
+        {
+            this._entao_ = null;
+            return;
+        }
+
+        if(this._comando_.remove(child))
         {
             return;
         }
 
-        if(this._declSenaoAvalie_ == child)
+        if(this._declSenao_ == child)
         {
-            this._declSenaoAvalie_ = null;
+            this._declSenao_ = null;
+            return;
+        }
+
+        if(this._fimSe_ == child)
+        {
+            this._fimSe_ = null;
             return;
         }
 
@@ -307,9 +381,9 @@ public final class AAvalieComando extends PComando
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._avalie_ == oldChild)
+        if(this._se_ == oldChild)
         {
-            setAvalie((TAvalie) newChild);
+            setSe((TSe) newChild);
             return;
         }
 
@@ -319,9 +393,9 @@ public final class AAvalieComando extends PComando
             return;
         }
 
-        if(this._exp_ == oldChild)
+        if(this._expLogica_ == oldChild)
         {
-            setExp((PExp) newChild);
+            setExpLogica((PExpLogica) newChild);
             return;
         }
 
@@ -331,13 +405,19 @@ public final class AAvalieComando extends PComando
             return;
         }
 
-        for(ListIterator<PCasos> i = this._casos_.listIterator(); i.hasNext();)
+        if(this._entao_ == oldChild)
+        {
+            setEntao((TEntao) newChild);
+            return;
+        }
+
+        for(ListIterator<PComando> i = this._comando_.listIterator(); i.hasNext();)
         {
             if(i.next() == oldChild)
             {
                 if(newChild != null)
                 {
-                    i.set((PCasos) newChild);
+                    i.set((PComando) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
                     return;
@@ -349,9 +429,15 @@ public final class AAvalieComando extends PComando
             }
         }
 
-        if(this._declSenaoAvalie_ == oldChild)
+        if(this._declSenao_ == oldChild)
         {
-            setDeclSenaoAvalie((PDeclSenaoAvalie) newChild);
+            setDeclSenao((PDeclSenao) newChild);
+            return;
+        }
+
+        if(this._fimSe_ == oldChild)
+        {
+            setFimSe((TFimSe) newChild);
             return;
         }
 

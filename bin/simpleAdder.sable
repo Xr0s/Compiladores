@@ -68,8 +68,8 @@ Tokens
 	{comment} slash = '/';    
   	
  /* Operadores aritmeticos*/ 
-	{normal} soma = '+' ; 
-    {normal} sub = '-' ;
+	{normal} mais = '+' ; 
+    {normal} menos = '-' ;
     {normal} mult = '*';
     {normal} div = '/' ; 
 
@@ -104,14 +104,14 @@ Tokens
 	
 // simbolos especiais
 	{normal} string = ''' caracteres_permitidos+ ''';
-			
+	
 //	Identificadores
 	{normal} id = (letra (letra | underscore | numero)* ) | (underscore (letra | underscore | numero)+) ;    
 
 Ignored Tokens
 	branco,comment, comentario_de_linha;
 
- Productions 
+Productions 
 	 program = programa  id  inicio declaracao* comando* fim;
 	 
 	 declaracao = {variavel} tipo doispontos decl_variavel
@@ -121,22 +121,24 @@ Ignored Tokens
 	 				| {unica} var pontovirgula;
 	 
 	 comando = var atribuicao exp pontovirgula
-	 		|{leia} leia abre_parentese decl_var_sempontov fecha_parentese pontovirgula
-			|{escreva} escreva abre_parentese decl_exp fecha_parentese pontovirgula
-			|{enquanto} enquanto abre_parentese exp_logica fecha_parentese faca comando+ fim_enquanto pontovirgula
-			|{repita} repita comando+ ate abre_parentese exp_logica fecha_parentese pontovirgula
-			|{para_sem_passo} para var de [esquerda]:inteiro ate [direita]:inteiro faca comando+ fim_para pontovirgula
-			|{para_com_passo} para var de [primeiro]:inteiro passo [segundo]:inteiro 
-							  ate [terceiro]:inteiro faca comando+ fim_para pontovirgula
-			|{avalie} avalie abre_parentese exp fecha_parentese casos*  decl_senao pontovirgula;
+	 		 |{leia} leia abre_parentese decl_var_sempontov fecha_parentese pontovirgula
+			 |{escreva} escreva abre_parentese decl_exp fecha_parentese pontovirgula
+			 |{se} se abre_parentese exp_logica fecha_parentese entao comando+ decl_senao? fim_se pontovirgula
+			 |{enquanto} enquanto abre_parentese exp_logica fecha_parentese faca comando+ fim_enquanto pontovirgula
+			 |{repita} repita comando+ ate abre_parentese exp_logica fecha_parentese pontovirgula
+			 |{para_sem_passo} para var de [esquerda]:inteiro ate [direita]:inteiro faca comando+ fim_para pontovirgula
+			 |{para_com_passo} para var de [primeiro]:inteiro passo [segundo]:inteiro 
+			   				   ate [terceiro]:inteiro faca comando+ fim_para pontovirgula
+			 |{avalie} avalie abre_parentese exp fecha_parentese casos*  decl_senao_avalie pontovirgula;
 			
-			//falta o se-entao
+	//Estrutura auxiliar para o se
+	decl_senao = senao comando+;	
 	
 	//Estrutura auxiliar para o avalie
 	casos = caso valor doispontos comando+;
 	
-	decl_senao = {com_opcional} senao doispontos comando+ fim_avalie 
-			   | {sem_opcional} fim_avalie;
+	decl_senao_avalie = {com_opcional} senao doispontos comando+ fim_avalie 
+	   			      | {sem_opcional} fim_avalie;
 	
 	//Estrutura auxiliar para o leia		
 	decl_var_sempontov = {varias} var virgula decl_var_sempontov 
@@ -146,27 +148,38 @@ Ignored Tokens
 	decl_exp = {varias_exp} exp virgula decl_exp 
 	 		 | {unica_exp} exp;
 	 
+	//Estrutura do exp	
+	exp = {expsoma} exp soma termo 
+		| {termo} termo ;
 	
-	var = {id_unica} id 
-	    | {vetor} id abre_colchete inteiro fecha_colchete;
-	 	 
-	exp = {terminal} inteiro soma real;
-	 
+	soma = {mais} mais 
+		 | {menos} menos ;
+	
+	termo = {mult} termo mult fator 
+		  | {fator} fator  ;
+	
+	fator = {div} fator div fator2 
+		  | {fator2} fator2;
+	
+	fator2 = {exp} abre_parentese exp fecha_parentese 
+		   | {valor} valor
+		   | exp_logica;
+	    	
 	exp_logica = booleano;        
+
+//declaracao de variaveis, tipos e valor;
+
+	var = {id_unica} id 
+	    | {vetor} id abre_colchete inteiro fecha_colchete;	 	 
+		 
 	 
 	tipo = {real_palavra} real_reservada 
 	     | {inteiro_palavra}inteiro_reservada 
 	     | {caracter_palavra}caractere_reservada 
 	     | {booleano_palavra}booleano_reservada;
 	 
-	 
 	valor = {char} caractere 
 	 	  | {int} inteiro
 	      | {float} real;
 
 	  
-			
-			
-
-	    
-	

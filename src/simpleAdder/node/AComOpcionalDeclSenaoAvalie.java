@@ -6,19 +6,19 @@ import java.util.*;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AComOpcionalDeclSenao extends PDeclSenao
+public final class AComOpcionalDeclSenaoAvalie extends PDeclSenaoAvalie
 {
     private TSenao _senao_;
     private TDoispontos _doispontos_;
     private final LinkedList<PComando> _comando_ = new LinkedList<PComando>();
     private TFimAvalie _fimAvalie_;
 
-    public AComOpcionalDeclSenao()
+    public AComOpcionalDeclSenaoAvalie()
     {
         // Constructor
     }
 
-    public AComOpcionalDeclSenao(
+    public AComOpcionalDeclSenaoAvalie(
         @SuppressWarnings("hiding") TSenao _senao_,
         @SuppressWarnings("hiding") TDoispontos _doispontos_,
         @SuppressWarnings("hiding") List<?> _comando_,
@@ -38,7 +38,7 @@ public final class AComOpcionalDeclSenao extends PDeclSenao
     @Override
     public Object clone()
     {
-        return new AComOpcionalDeclSenao(
+        return new AComOpcionalDeclSenaoAvalie(
             cloneNode(this._senao_),
             cloneNode(this._doispontos_),
             cloneList(this._comando_),
@@ -48,7 +48,7 @@ public final class AComOpcionalDeclSenao extends PDeclSenao
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAComOpcionalDeclSenao(this);
+        ((Analysis) sw).caseAComOpcionalDeclSenaoAvalie(this);
     }
 
     public TSenao getSenao()

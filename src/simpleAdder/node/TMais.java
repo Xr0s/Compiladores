@@ -5,16 +5,16 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TSub extends Token
+public final class TMais extends Token
 {
-    public TSub()
+    public TMais()
     {
-        super.setText("-");
+        super.setText("+");
     }
 
-    public TSub(int line, int pos)
+    public TMais(int line, int pos)
     {
-        super.setText("-");
+        super.setText("+");
         setLine(line);
         setPos(pos);
     }
@@ -22,18 +22,18 @@ public final class TSub extends Token
     @Override
     public Object clone()
     {
-      return new TSub(getLine(), getPos());
+      return new TMais(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTSub(this);
+        ((Analysis) sw).caseTMais(this);
     }
 
     @Override
     public void setText(@SuppressWarnings("unused") String text)
     {
-        throw new RuntimeException("Cannot change TSub text.");
+        throw new RuntimeException("Cannot change TMais text.");
     }
 }

@@ -5,56 +5,56 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ATerminalExp extends PExp
+public final class AExpsomaExp extends PExp
 {
-    private TInteiro _inteiro_;
-    private TSoma _soma_;
-    private TReal _real_;
+    private PExp _exp_;
+    private PSoma _soma_;
+    private PTermo _termo_;
 
-    public ATerminalExp()
+    public AExpsomaExp()
     {
         // Constructor
     }
 
-    public ATerminalExp(
-        @SuppressWarnings("hiding") TInteiro _inteiro_,
-        @SuppressWarnings("hiding") TSoma _soma_,
-        @SuppressWarnings("hiding") TReal _real_)
+    public AExpsomaExp(
+        @SuppressWarnings("hiding") PExp _exp_,
+        @SuppressWarnings("hiding") PSoma _soma_,
+        @SuppressWarnings("hiding") PTermo _termo_)
     {
         // Constructor
-        setInteiro(_inteiro_);
+        setExp(_exp_);
 
         setSoma(_soma_);
 
-        setReal(_real_);
+        setTermo(_termo_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ATerminalExp(
-            cloneNode(this._inteiro_),
+        return new AExpsomaExp(
+            cloneNode(this._exp_),
             cloneNode(this._soma_),
-            cloneNode(this._real_));
+            cloneNode(this._termo_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseATerminalExp(this);
+        ((Analysis) sw).caseAExpsomaExp(this);
     }
 
-    public TInteiro getInteiro()
+    public PExp getExp()
     {
-        return this._inteiro_;
+        return this._exp_;
     }
 
-    public void setInteiro(TInteiro node)
+    public void setExp(PExp node)
     {
-        if(this._inteiro_ != null)
+        if(this._exp_ != null)
         {
-            this._inteiro_.parent(null);
+            this._exp_.parent(null);
         }
 
         if(node != null)
@@ -67,15 +67,15 @@ public final class ATerminalExp extends PExp
             node.parent(this);
         }
 
-        this._inteiro_ = node;
+        this._exp_ = node;
     }
 
-    public TSoma getSoma()
+    public PSoma getSoma()
     {
         return this._soma_;
     }
 
-    public void setSoma(TSoma node)
+    public void setSoma(PSoma node)
     {
         if(this._soma_ != null)
         {
@@ -95,16 +95,16 @@ public final class ATerminalExp extends PExp
         this._soma_ = node;
     }
 
-    public TReal getReal()
+    public PTermo getTermo()
     {
-        return this._real_;
+        return this._termo_;
     }
 
-    public void setReal(TReal node)
+    public void setTermo(PTermo node)
     {
-        if(this._real_ != null)
+        if(this._termo_ != null)
         {
-            this._real_.parent(null);
+            this._termo_.parent(null);
         }
 
         if(node != null)
@@ -117,25 +117,25 @@ public final class ATerminalExp extends PExp
             node.parent(this);
         }
 
-        this._real_ = node;
+        this._termo_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._inteiro_)
+            + toString(this._exp_)
             + toString(this._soma_)
-            + toString(this._real_);
+            + toString(this._termo_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._inteiro_ == child)
+        if(this._exp_ == child)
         {
-            this._inteiro_ = null;
+            this._exp_ = null;
             return;
         }
 
@@ -145,9 +145,9 @@ public final class ATerminalExp extends PExp
             return;
         }
 
-        if(this._real_ == child)
+        if(this._termo_ == child)
         {
-            this._real_ = null;
+            this._termo_ = null;
             return;
         }
 
@@ -158,21 +158,21 @@ public final class ATerminalExp extends PExp
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._inteiro_ == oldChild)
+        if(this._exp_ == oldChild)
         {
-            setInteiro((TInteiro) newChild);
+            setExp((PExp) newChild);
             return;
         }
 
         if(this._soma_ == oldChild)
         {
-            setSoma((TSoma) newChild);
+            setSoma((PSoma) newChild);
             return;
         }
 
-        if(this._real_ == oldChild)
+        if(this._termo_ == oldChild)
         {
-            setReal((TReal) newChild);
+            setTermo((PTermo) newChild);
             return;
         }
 

@@ -220,13 +220,13 @@ class TokenIndex extends AnalysisAdapter
     }
 
     @Override
-    public void caseTSoma(@SuppressWarnings("unused") TSoma node)
+    public void caseTMais(@SuppressWarnings("unused") TMais node)
     {
         this.index = 35;
     }
 
     @Override
-    public void caseTSub(@SuppressWarnings("unused") TSub node)
+    public void caseTMenos(@SuppressWarnings("unused") TMenos node)
     {
         this.index = 36;
     }
