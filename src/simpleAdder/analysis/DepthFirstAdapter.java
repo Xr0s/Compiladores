@@ -69,6 +69,13 @@ public class DepthFirstAdapter extends AnalysisAdapter
                 e.apply(this);
             }
         }
+        {
+            List<PComandos> copy = new ArrayList<PComandos>(node.getComandos());
+            for(PComandos e : copy)
+            {
+                e.apply(this);
+            }
+        }
         if(node.getFim() != null)
         {
             node.getFim().apply(this);
@@ -152,6 +159,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseAVariasDeclVariavel(AVariasDeclVariavel node)
     {
         inAVariasDeclVariavel(node);
+        if(node.getVar() != null)
+        {
+            node.getVar().apply(this);
+        }
         if(node.getVirgula() != null)
         {
             node.getVirgula().apply(this);
@@ -387,5 +398,26 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getReal().apply(this);
         }
         outAFloatValor(node);
+    }
+
+    public void inAComandos(AComandos node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAComandos(AComandos node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAComandos(AComandos node)
+    {
+        inAComandos(node);
+        if(node.getEspaco() != null)
+        {
+            node.getEspaco().apply(this);
+        }
+        outAComandos(node);
     }
 }

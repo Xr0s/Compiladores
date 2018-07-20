@@ -7,6 +7,7 @@ import simpleAdder.analysis.*;
 @SuppressWarnings("nls")
 public final class AVariasDeclVariavel extends PDeclVariavel
 {
+    private PVar _var_;
     private TVirgula _virgula_;
     private PDeclVariavel _declVariavel_;
 
@@ -16,10 +17,13 @@ public final class AVariasDeclVariavel extends PDeclVariavel
     }
 
     public AVariasDeclVariavel(
+        @SuppressWarnings("hiding") PVar _var_,
         @SuppressWarnings("hiding") TVirgula _virgula_,
         @SuppressWarnings("hiding") PDeclVariavel _declVariavel_)
     {
         // Constructor
+        setVar(_var_);
+
         setVirgula(_virgula_);
 
         setDeclVariavel(_declVariavel_);
@@ -30,6 +34,7 @@ public final class AVariasDeclVariavel extends PDeclVariavel
     public Object clone()
     {
         return new AVariasDeclVariavel(
+            cloneNode(this._var_),
             cloneNode(this._virgula_),
             cloneNode(this._declVariavel_));
     }
@@ -38,6 +43,31 @@ public final class AVariasDeclVariavel extends PDeclVariavel
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAVariasDeclVariavel(this);
+    }
+
+    public PVar getVar()
+    {
+        return this._var_;
+    }
+
+    public void setVar(PVar node)
+    {
+        if(this._var_ != null)
+        {
+            this._var_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._var_ = node;
     }
 
     public TVirgula getVirgula()
@@ -94,6 +124,7 @@ public final class AVariasDeclVariavel extends PDeclVariavel
     public String toString()
     {
         return ""
+            + toString(this._var_)
             + toString(this._virgula_)
             + toString(this._declVariavel_);
     }
@@ -102,6 +133,12 @@ public final class AVariasDeclVariavel extends PDeclVariavel
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
+        if(this._var_ == child)
+        {
+            this._var_ = null;
+            return;
+        }
+
         if(this._virgula_ == child)
         {
             this._virgula_ = null;
@@ -121,6 +158,12 @@ public final class AVariasDeclVariavel extends PDeclVariavel
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
+        if(this._var_ == oldChild)
+        {
+            setVar((PVar) newChild);
+            return;
+        }
+
         if(this._virgula_ == oldChild)
         {
             setVirgula((TVirgula) newChild);

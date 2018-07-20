@@ -112,12 +112,12 @@ Ignored Tokens
 	branco,comment, comentario_de_linha;
 
  Productions 
-	 program = programa  id  inicio declaracao* fim;
+	 program = programa  id  inicio declaracao* comandos* fim;
 	 
 	 declaracao = {variavel} tipo doispontos decl_variavel
 				| {constante} const id valor pontovirgula;
 	 
-	 decl_variavel = {varias} virgula decl_variavel 
+	 decl_variavel = {varias} var virgula decl_variavel 
 	           	   | {unica} var pontovirgula;
 	 
 	 tipo = {real_palavra} real_reservada 
@@ -132,6 +132,7 @@ Ignored Tokens
 	 	   | {int} inteiro
 	 	   | {float} real;
 
+	 comandos = espaco;
 
 	
 	

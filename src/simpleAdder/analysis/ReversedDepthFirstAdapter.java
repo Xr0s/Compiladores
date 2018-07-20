@@ -55,6 +55,14 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
             node.getFim().apply(this);
         }
         {
+            List<PComandos> copy = new ArrayList<PComandos>(node.getComandos());
+            Collections.reverse(copy);
+            for(PComandos e : copy)
+            {
+                e.apply(this);
+            }
+        }
+        {
             List<PDeclaracao> copy = new ArrayList<PDeclaracao>(node.getDeclaracao());
             Collections.reverse(copy);
             for(PDeclaracao e : copy)
@@ -160,6 +168,10 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         if(node.getVirgula() != null)
         {
             node.getVirgula().apply(this);
+        }
+        if(node.getVar() != null)
+        {
+            node.getVar().apply(this);
         }
         outAVariasDeclVariavel(node);
     }
@@ -388,5 +400,26 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
             node.getReal().apply(this);
         }
         outAFloatValor(node);
+    }
+
+    public void inAComandos(AComandos node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAComandos(AComandos node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAComandos(AComandos node)
+    {
+        inAComandos(node);
+        if(node.getEspaco() != null)
+        {
+            node.getEspaco().apply(this);
+        }
+        outAComandos(node);
     }
 }

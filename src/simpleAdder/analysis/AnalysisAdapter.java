@@ -159,6 +159,12 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
+    public void caseAComandos(AComandos node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
     public void caseTBranco(TBranco node)
     {
         defaultCase(node);

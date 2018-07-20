@@ -12,6 +12,7 @@ public final class AProgram extends PProgram
     private TId _id_;
     private TInicio _inicio_;
     private final LinkedList<PDeclaracao> _declaracao_ = new LinkedList<PDeclaracao>();
+    private final LinkedList<PComandos> _comandos_ = new LinkedList<PComandos>();
     private TFim _fim_;
 
     public AProgram()
@@ -24,6 +25,7 @@ public final class AProgram extends PProgram
         @SuppressWarnings("hiding") TId _id_,
         @SuppressWarnings("hiding") TInicio _inicio_,
         @SuppressWarnings("hiding") List<?> _declaracao_,
+        @SuppressWarnings("hiding") List<?> _comandos_,
         @SuppressWarnings("hiding") TFim _fim_)
     {
         // Constructor
@@ -34,6 +36,8 @@ public final class AProgram extends PProgram
         setInicio(_inicio_);
 
         setDeclaracao(_declaracao_);
+
+        setComandos(_comandos_);
 
         setFim(_fim_);
 
@@ -47,6 +51,7 @@ public final class AProgram extends PProgram
             cloneNode(this._id_),
             cloneNode(this._inicio_),
             cloneList(this._declaracao_),
+            cloneList(this._comandos_),
             cloneNode(this._fim_));
     }
 
@@ -157,6 +162,32 @@ public final class AProgram extends PProgram
         }
     }
 
+    public LinkedList<PComandos> getComandos()
+    {
+        return this._comandos_;
+    }
+
+    public void setComandos(List<?> list)
+    {
+        for(PComandos e : this._comandos_)
+        {
+            e.parent(null);
+        }
+        this._comandos_.clear();
+
+        for(Object obj_e : list)
+        {
+            PComandos e = (PComandos) obj_e;
+            if(e.parent() != null)
+            {
+                e.parent().removeChild(e);
+            }
+
+            e.parent(this);
+            this._comandos_.add(e);
+        }
+    }
+
     public TFim getFim()
     {
         return this._fim_;
@@ -190,6 +221,7 @@ public final class AProgram extends PProgram
             + toString(this._id_)
             + toString(this._inicio_)
             + toString(this._declaracao_)
+            + toString(this._comandos_)
             + toString(this._fim_);
     }
 
@@ -216,6 +248,11 @@ public final class AProgram extends PProgram
         }
 
         if(this._declaracao_.remove(child))
+        {
+            return;
+        }
+
+        if(this._comandos_.remove(child))
         {
             return;
         }
@@ -258,6 +295,24 @@ public final class AProgram extends PProgram
                 if(newChild != null)
                 {
                     i.set((PDeclaracao) newChild);
+                    newChild.parent(this);
+                    oldChild.parent(null);
+                    return;
+                }
+
+                i.remove();
+                oldChild.parent(null);
+                return;
+            }
+        }
+
+        for(ListIterator<PComandos> i = this._comandos_.listIterator(); i.hasNext();)
+        {
+            if(i.next() == oldChild)
+            {
+                if(newChild != null)
+                {
+                    i.set((PComandos) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
                     return;

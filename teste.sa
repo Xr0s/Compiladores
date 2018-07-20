@@ -1,6 +1,9 @@
 programa teste 
 	inicio 
 		inteiro: x;
-		const n_pessoas 10;
-		//oi
+		const n_pessoas 10; //constante
+		booleano: pass, flag;
+		caractere: msgTexto[10], c;
 	fim.
+	
+	

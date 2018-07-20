@@ -26,6 +26,7 @@ public interface Analysis extends Switch
     void caseACharValor(ACharValor node);
     void caseAIntValor(AIntValor node);
     void caseAFloatValor(AFloatValor node);
+    void caseAComandos(AComandos node);
 
     void caseTBranco(TBranco node);
     void caseTTabulacao(TTabulacao node);
