@@ -448,9 +448,12 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getFaca().apply(this);
         }
-        if(node.getComandoParaSem() != null)
         {
-            node.getComandoParaSem().apply(this);
+            List<PComando> copy = new ArrayList<PComando>(node.getComando());
+            for(PComando e : copy)
+            {
+                e.apply(this);
+            }
         }
         if(node.getFimPara() != null)
         {
@@ -577,60 +580,6 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getPontovirgula().apply(this);
         }
         outAAvalieComando(node);
-    }
-
-    public void inAUnicoComandoParaSem(AUnicoComandoParaSem node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAUnicoComandoParaSem(AUnicoComandoParaSem node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAUnicoComandoParaSem(AUnicoComandoParaSem node)
-    {
-        inAUnicoComandoParaSem(node);
-        if(node.getComando() != null)
-        {
-            node.getComando().apply(this);
-        }
-        if(node.getPontovirgula() != null)
-        {
-            node.getPontovirgula().apply(this);
-        }
-        outAUnicoComandoParaSem(node);
-    }
-
-    public void inAVariosComandoParaSem(AVariosComandoParaSem node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAVariosComandoParaSem(AVariosComandoParaSem node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAVariosComandoParaSem(AVariosComandoParaSem node)
-    {
-        inAVariosComandoParaSem(node);
-        if(node.getComando() != null)
-        {
-            node.getComando().apply(this);
-        }
-        if(node.getPontovirgula() != null)
-        {
-            node.getPontovirgula().apply(this);
-        }
-        if(node.getComandoParaSem() != null)
-        {
-            node.getComandoParaSem().apply(this);
-        }
-        outAVariosComandoParaSem(node);
     }
 
     public void inACasos(ACasos node)
@@ -880,20 +829,20 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outAVetorVar(node);
     }
 
-    public void inAExp(AExp node)
+    public void inATerminalExp(ATerminalExp node)
     {
         defaultIn(node);
     }
 
-    public void outAExp(AExp node)
+    public void outATerminalExp(ATerminalExp node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAExp(AExp node)
+    public void caseATerminalExp(ATerminalExp node)
     {
-        inAExp(node);
+        inATerminalExp(node);
         if(node.getInteiro() != null)
         {
             node.getInteiro().apply(this);
@@ -906,7 +855,7 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getReal().apply(this);
         }
-        outAExp(node);
+        outATerminalExp(node);
     }
 
     public void inAExpLogica(AExpLogica node)

@@ -5,18 +5,18 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AExp extends PExp
+public final class ATerminalExp extends PExp
 {
     private TInteiro _inteiro_;
     private TSoma _soma_;
     private TReal _real_;
 
-    public AExp()
+    public ATerminalExp()
     {
         // Constructor
     }
 
-    public AExp(
+    public ATerminalExp(
         @SuppressWarnings("hiding") TInteiro _inteiro_,
         @SuppressWarnings("hiding") TSoma _soma_,
         @SuppressWarnings("hiding") TReal _real_)
@@ -33,7 +33,7 @@ public final class AExp extends PExp
     @Override
     public Object clone()
     {
-        return new AExp(
+        return new ATerminalExp(
             cloneNode(this._inteiro_),
             cloneNode(this._soma_),
             cloneNode(this._real_));
@@ -42,7 +42,7 @@ public final class AExp extends PExp
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAExp(this);
+        ((Analysis) sw).caseATerminalExp(this);
     }
 
     public TInteiro getInteiro()

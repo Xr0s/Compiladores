@@ -432,9 +432,13 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getFimPara().apply(this);
         }
-        if(node.getComandoParaSem() != null)
         {
-            node.getComandoParaSem().apply(this);
+            List<PComando> copy = new ArrayList<PComando>(node.getComando());
+            Collections.reverse(copy);
+            for(PComando e : copy)
+            {
+                e.apply(this);
+            }
         }
         if(node.getFaca() != null)
         {
@@ -583,60 +587,6 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
             node.getAvalie().apply(this);
         }
         outAAvalieComando(node);
-    }
-
-    public void inAUnicoComandoParaSem(AUnicoComandoParaSem node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAUnicoComandoParaSem(AUnicoComandoParaSem node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAUnicoComandoParaSem(AUnicoComandoParaSem node)
-    {
-        inAUnicoComandoParaSem(node);
-        if(node.getPontovirgula() != null)
-        {
-            node.getPontovirgula().apply(this);
-        }
-        if(node.getComando() != null)
-        {
-            node.getComando().apply(this);
-        }
-        outAUnicoComandoParaSem(node);
-    }
-
-    public void inAVariosComandoParaSem(AVariosComandoParaSem node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAVariosComandoParaSem(AVariosComandoParaSem node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAVariosComandoParaSem(AVariosComandoParaSem node)
-    {
-        inAVariosComandoParaSem(node);
-        if(node.getComandoParaSem() != null)
-        {
-            node.getComandoParaSem().apply(this);
-        }
-        if(node.getPontovirgula() != null)
-        {
-            node.getPontovirgula().apply(this);
-        }
-        if(node.getComando() != null)
-        {
-            node.getComando().apply(this);
-        }
-        outAVariosComandoParaSem(node);
     }
 
     public void inACasos(ACasos node)
@@ -888,20 +838,20 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outAVetorVar(node);
     }
 
-    public void inAExp(AExp node)
+    public void inATerminalExp(ATerminalExp node)
     {
         defaultIn(node);
     }
 
-    public void outAExp(AExp node)
+    public void outATerminalExp(ATerminalExp node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAExp(AExp node)
+    public void caseATerminalExp(ATerminalExp node)
     {
-        inAExp(node);
+        inATerminalExp(node);
         if(node.getReal() != null)
         {
             node.getReal().apply(this);
@@ -914,7 +864,7 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getInteiro().apply(this);
         }
-        outAExp(node);
+        outATerminalExp(node);
     }
 
     public void inAExpLogica(AExpLogica node)

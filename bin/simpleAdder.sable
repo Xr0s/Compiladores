@@ -125,16 +125,12 @@ Ignored Tokens
 			|{escreva} escreva abre_parentese decl_exp fecha_parentese pontovirgula
 			|{enquanto} enquanto abre_parentese exp_logica fecha_parentese faca comando+ fim_enquanto pontovirgula
 			|{repita} repita comando+ ate abre_parentese exp_logica fecha_parentese pontovirgula
-			|{para_sem_passo} para var de [esquerda]:inteiro ate [direita]:inteiro faca comando_para_sem fim_para pontovirgula
+			|{para_sem_passo} para var de [esquerda]:inteiro ate [direita]:inteiro faca comando+ fim_para pontovirgula
 			|{para_com_passo} para var de [primeiro]:inteiro passo [segundo]:inteiro 
 							  ate [terceiro]:inteiro faca comando+ fim_para pontovirgula
 			|{avalie} avalie abre_parentese exp fecha_parentese casos*  decl_senao pontovirgula;
 			
-			//duvida no avalie, avalie(exp) fim avalie;?????
 			//falta o se-entao
-	
-	comando_para_sem = {unico} comando pontovirgula
-					 | {varios} comando pontovirgula comando_para_sem;
 	
 	//Estrutura auxiliar para o avalie
 	casos = caso valor doispontos comando+;
@@ -150,11 +146,11 @@ Ignored Tokens
 	decl_exp = {varias_exp} exp virgula decl_exp 
 	 		 | {unica_exp} exp;
 	 
-	          	   
+	
 	var = {id_unica} id 
 	    | {vetor} id abre_colchete inteiro fecha_colchete;
 	 	 
-	exp = inteiro soma real;
+	exp = {terminal} inteiro soma real;
 	 
 	exp_logica = booleano;        
 	 
