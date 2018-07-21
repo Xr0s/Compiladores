@@ -5,46 +5,46 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AFator2Fator extends PFator
+public final class APrioridade extends PPrioridade
 {
-    private PFator2 _fator2_;
+    private PExpLogica _expLogica_;
 
-    public AFator2Fator()
+    public APrioridade()
     {
         // Constructor
     }
 
-    public AFator2Fator(
-        @SuppressWarnings("hiding") PFator2 _fator2_)
+    public APrioridade(
+        @SuppressWarnings("hiding") PExpLogica _expLogica_)
     {
         // Constructor
-        setFator2(_fator2_);
+        setExpLogica(_expLogica_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AFator2Fator(
-            cloneNode(this._fator2_));
+        return new APrioridade(
+            cloneNode(this._expLogica_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAFator2Fator(this);
+        ((Analysis) sw).caseAPrioridade(this);
     }
 
-    public PFator2 getFator2()
+    public PExpLogica getExpLogica()
     {
-        return this._fator2_;
+        return this._expLogica_;
     }
 
-    public void setFator2(PFator2 node)
+    public void setExpLogica(PExpLogica node)
     {
-        if(this._fator2_ != null)
+        if(this._expLogica_ != null)
         {
-            this._fator2_.parent(null);
+            this._expLogica_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class AFator2Fator extends PFator
             node.parent(this);
         }
 
-        this._fator2_ = node;
+        this._expLogica_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._fator2_);
+            + toString(this._expLogica_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._fator2_ == child)
+        if(this._expLogica_ == child)
         {
-            this._fator2_ = null;
+            this._expLogica_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class AFator2Fator extends PFator
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._fator2_ == oldChild)
+        if(this._expLogica_ == oldChild)
         {
-            setFator2((PFator2) newChild);
+            setExpLogica((PExpLogica) newChild);
             return;
         }
 

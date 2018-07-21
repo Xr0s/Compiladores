@@ -1,8 +1,7 @@
-programa a inicio
+/*programa a inicio
 
 	inteiro: x,y;
 	caractere: letra;
-	
 	letra := 'A';
 	se (verdadeiro) entao
 		x := 2 + 2;
@@ -24,6 +23,7 @@ programa a inicio
 		senao:
 			casa:= 3 + 2,1;
 			leia(casa);
-		fim avalie;
-		
+		fim avalie;	
 fim.
+*/
+*/

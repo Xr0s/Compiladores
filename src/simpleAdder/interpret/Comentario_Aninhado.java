@@ -16,6 +16,9 @@ public class Comentario_Aninhado extends Lexer
   }
   // We define a filter that recognizes nested comments.
   protected void filter(){ // if we are in the comment state
+	  if(token.getClass().getName()=="simpleAdder.node.TFimComentario") {//trata excecao de comentario de fim errados
+			lancarExcecao("", token);
+  	  }
 	  
 	  if(state.equals(State.COMMENT)){ // if we are just entering this state
 

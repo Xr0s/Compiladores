@@ -5,46 +5,46 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AIdUnicaVar extends PVar
+public final class AValorPrioridade extends PPrioridade
 {
-    private TId _id_;
+    private PValor _valor_;
 
-    public AIdUnicaVar()
+    public AValorPrioridade()
     {
         // Constructor
     }
 
-    public AIdUnicaVar(
-        @SuppressWarnings("hiding") TId _id_)
+    public AValorPrioridade(
+        @SuppressWarnings("hiding") PValor _valor_)
     {
         // Constructor
-        setId(_id_);
+        setValor(_valor_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AIdUnicaVar(
-            cloneNode(this._id_));
+        return new AValorPrioridade(
+            cloneNode(this._valor_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAIdUnicaVar(this);
+        ((Analysis) sw).caseAValorPrioridade(this);
     }
 
-    public TId getId()
+    public PValor getValor()
     {
-        return this._id_;
+        return this._valor_;
     }
 
-    public void setId(TId node)
+    public void setValor(PValor node)
     {
-        if(this._id_ != null)
+        if(this._valor_ != null)
         {
-            this._id_.parent(null);
+            this._valor_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class AIdUnicaVar extends PVar
             node.parent(this);
         }
 
-        this._id_ = node;
+        this._valor_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._id_);
+            + toString(this._valor_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._id_ == child)
+        if(this._valor_ == child)
         {
-            this._id_ = null;
+            this._valor_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class AIdUnicaVar extends PVar
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._id_ == oldChild)
+        if(this._valor_ == oldChild)
         {
-            setId((TId) newChild);
+            setValor((PValor) newChild);
             return;
         }
 

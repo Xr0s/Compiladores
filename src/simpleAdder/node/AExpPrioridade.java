@@ -5,79 +5,44 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AEscrevaComando extends PComando
+public final class AExpPrioridade extends PPrioridade
 {
-    private TEscreva _escreva_;
     private TAbreParentese _abreParentese_;
-    private PDeclExp _declExp_;
+    private PExp _exp_;
     private TFechaParentese _fechaParentese_;
-    private TPontovirgula _pontovirgula_;
 
-    public AEscrevaComando()
+    public AExpPrioridade()
     {
         // Constructor
     }
 
-    public AEscrevaComando(
-        @SuppressWarnings("hiding") TEscreva _escreva_,
+    public AExpPrioridade(
         @SuppressWarnings("hiding") TAbreParentese _abreParentese_,
-        @SuppressWarnings("hiding") PDeclExp _declExp_,
-        @SuppressWarnings("hiding") TFechaParentese _fechaParentese_,
-        @SuppressWarnings("hiding") TPontovirgula _pontovirgula_)
+        @SuppressWarnings("hiding") PExp _exp_,
+        @SuppressWarnings("hiding") TFechaParentese _fechaParentese_)
     {
         // Constructor
-        setEscreva(_escreva_);
-
         setAbreParentese(_abreParentese_);
 
-        setDeclExp(_declExp_);
+        setExp(_exp_);
 
         setFechaParentese(_fechaParentese_);
-
-        setPontovirgula(_pontovirgula_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AEscrevaComando(
-            cloneNode(this._escreva_),
+        return new AExpPrioridade(
             cloneNode(this._abreParentese_),
-            cloneNode(this._declExp_),
-            cloneNode(this._fechaParentese_),
-            cloneNode(this._pontovirgula_));
+            cloneNode(this._exp_),
+            cloneNode(this._fechaParentese_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAEscrevaComando(this);
-    }
-
-    public TEscreva getEscreva()
-    {
-        return this._escreva_;
-    }
-
-    public void setEscreva(TEscreva node)
-    {
-        if(this._escreva_ != null)
-        {
-            this._escreva_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._escreva_ = node;
+        ((Analysis) sw).caseAExpPrioridade(this);
     }
 
     public TAbreParentese getAbreParentese()
@@ -105,16 +70,16 @@ public final class AEscrevaComando extends PComando
         this._abreParentese_ = node;
     }
 
-    public PDeclExp getDeclExp()
+    public PExp getExp()
     {
-        return this._declExp_;
+        return this._exp_;
     }
 
-    public void setDeclExp(PDeclExp node)
+    public void setExp(PExp node)
     {
-        if(this._declExp_ != null)
+        if(this._exp_ != null)
         {
-            this._declExp_.parent(null);
+            this._exp_.parent(null);
         }
 
         if(node != null)
@@ -127,7 +92,7 @@ public final class AEscrevaComando extends PComando
             node.parent(this);
         }
 
-        this._declExp_ = node;
+        this._exp_ = node;
     }
 
     public TFechaParentese getFechaParentese()
@@ -155,73 +120,34 @@ public final class AEscrevaComando extends PComando
         this._fechaParentese_ = node;
     }
 
-    public TPontovirgula getPontovirgula()
-    {
-        return this._pontovirgula_;
-    }
-
-    public void setPontovirgula(TPontovirgula node)
-    {
-        if(this._pontovirgula_ != null)
-        {
-            this._pontovirgula_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._pontovirgula_ = node;
-    }
-
     @Override
     public String toString()
     {
         return ""
-            + toString(this._escreva_)
             + toString(this._abreParentese_)
-            + toString(this._declExp_)
-            + toString(this._fechaParentese_)
-            + toString(this._pontovirgula_);
+            + toString(this._exp_)
+            + toString(this._fechaParentese_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._escreva_ == child)
-        {
-            this._escreva_ = null;
-            return;
-        }
-
         if(this._abreParentese_ == child)
         {
             this._abreParentese_ = null;
             return;
         }
 
-        if(this._declExp_ == child)
+        if(this._exp_ == child)
         {
-            this._declExp_ = null;
+            this._exp_ = null;
             return;
         }
 
         if(this._fechaParentese_ == child)
         {
             this._fechaParentese_ = null;
-            return;
-        }
-
-        if(this._pontovirgula_ == child)
-        {
-            this._pontovirgula_ = null;
             return;
         }
 
@@ -232,33 +158,21 @@ public final class AEscrevaComando extends PComando
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._escreva_ == oldChild)
-        {
-            setEscreva((TEscreva) newChild);
-            return;
-        }
-
         if(this._abreParentese_ == oldChild)
         {
             setAbreParentese((TAbreParentese) newChild);
             return;
         }
 
-        if(this._declExp_ == oldChild)
+        if(this._exp_ == oldChild)
         {
-            setDeclExp((PDeclExp) newChild);
+            setExp((PExp) newChild);
             return;
         }
 
         if(this._fechaParentese_ == oldChild)
         {
             setFechaParentese((TFechaParentese) newChild);
-            return;
-        }
-
-        if(this._pontovirgula_ == oldChild)
-        {
-            setPontovirgula((TPontovirgula) newChild);
             return;
         }
 

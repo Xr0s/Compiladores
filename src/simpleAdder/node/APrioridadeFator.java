@@ -5,46 +5,46 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ARealPalavraTipo extends PTipo
+public final class APrioridadeFator extends PFator
 {
-    private TRealReservada _realReservada_;
+    private PPrioridade _prioridade_;
 
-    public ARealPalavraTipo()
+    public APrioridadeFator()
     {
         // Constructor
     }
 
-    public ARealPalavraTipo(
-        @SuppressWarnings("hiding") TRealReservada _realReservada_)
+    public APrioridadeFator(
+        @SuppressWarnings("hiding") PPrioridade _prioridade_)
     {
         // Constructor
-        setRealReservada(_realReservada_);
+        setPrioridade(_prioridade_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ARealPalavraTipo(
-            cloneNode(this._realReservada_));
+        return new APrioridadeFator(
+            cloneNode(this._prioridade_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseARealPalavraTipo(this);
+        ((Analysis) sw).caseAPrioridadeFator(this);
     }
 
-    public TRealReservada getRealReservada()
+    public PPrioridade getPrioridade()
     {
-        return this._realReservada_;
+        return this._prioridade_;
     }
 
-    public void setRealReservada(TRealReservada node)
+    public void setPrioridade(PPrioridade node)
     {
-        if(this._realReservada_ != null)
+        if(this._prioridade_ != null)
         {
-            this._realReservada_.parent(null);
+            this._prioridade_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class ARealPalavraTipo extends PTipo
             node.parent(this);
         }
 
-        this._realReservada_ = node;
+        this._prioridade_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._realReservada_);
+            + toString(this._prioridade_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._realReservada_ == child)
+        if(this._prioridade_ == child)
         {
-            this._realReservada_ = null;
+            this._prioridade_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class ARealPalavraTipo extends PTipo
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._realReservada_ == oldChild)
+        if(this._prioridade_ == oldChild)
         {
-            setRealReservada((TRealReservada) newChild);
+            setPrioridade((PPrioridade) newChild);
             return;
         }
 

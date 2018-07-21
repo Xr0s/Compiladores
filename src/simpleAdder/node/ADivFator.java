@@ -9,7 +9,7 @@ public final class ADivFator extends PFator
 {
     private PFator _fator_;
     private TDiv _div_;
-    private PFator2 _fator2_;
+    private PPrioridade _prioridade_;
 
     public ADivFator()
     {
@@ -19,14 +19,14 @@ public final class ADivFator extends PFator
     public ADivFator(
         @SuppressWarnings("hiding") PFator _fator_,
         @SuppressWarnings("hiding") TDiv _div_,
-        @SuppressWarnings("hiding") PFator2 _fator2_)
+        @SuppressWarnings("hiding") PPrioridade _prioridade_)
     {
         // Constructor
         setFator(_fator_);
 
         setDiv(_div_);
 
-        setFator2(_fator2_);
+        setPrioridade(_prioridade_);
 
     }
 
@@ -36,7 +36,7 @@ public final class ADivFator extends PFator
         return new ADivFator(
             cloneNode(this._fator_),
             cloneNode(this._div_),
-            cloneNode(this._fator2_));
+            cloneNode(this._prioridade_));
     }
 
     @Override
@@ -95,16 +95,16 @@ public final class ADivFator extends PFator
         this._div_ = node;
     }
 
-    public PFator2 getFator2()
+    public PPrioridade getPrioridade()
     {
-        return this._fator2_;
+        return this._prioridade_;
     }
 
-    public void setFator2(PFator2 node)
+    public void setPrioridade(PPrioridade node)
     {
-        if(this._fator2_ != null)
+        if(this._prioridade_ != null)
         {
-            this._fator2_.parent(null);
+            this._prioridade_.parent(null);
         }
 
         if(node != null)
@@ -117,7 +117,7 @@ public final class ADivFator extends PFator
             node.parent(this);
         }
 
-        this._fator2_ = node;
+        this._prioridade_ = node;
     }
 
     @Override
@@ -126,7 +126,7 @@ public final class ADivFator extends PFator
         return ""
             + toString(this._fator_)
             + toString(this._div_)
-            + toString(this._fator2_);
+            + toString(this._prioridade_);
     }
 
     @Override
@@ -145,9 +145,9 @@ public final class ADivFator extends PFator
             return;
         }
 
-        if(this._fator2_ == child)
+        if(this._prioridade_ == child)
         {
-            this._fator2_ = null;
+            this._prioridade_ = null;
             return;
         }
 
@@ -170,9 +170,9 @@ public final class ADivFator extends PFator
             return;
         }
 
-        if(this._fator2_ == oldChild)
+        if(this._prioridade_ == oldChild)
         {
-            setFator2((PFator2) newChild);
+            setPrioridade((PPrioridade) newChild);
             return;
         }
 

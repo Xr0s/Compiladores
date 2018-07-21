@@ -13,7 +13,7 @@ public class Main {
 
 	public static void verificador(String token_name, Comentario_Aninhado lexer, Token t) {
 		switch(token_name) {
-/*
+
 		case "TEnter":
 			System.out.print("\n");
 			return;
@@ -28,29 +28,24 @@ public class Main {
 			break;
 		case "EOF":
 			return;
-*/		case "TFimComentario":	
-			lexer.lancarExcecao(" : TComentarioBlocoFimErrado", t);
+		case "TFimComentario":	
 			break;
 
 		default:
-//			System.out.print(token_name);
+			System.out.print(token_name);
 			break;
 		}
 
 	}
 
 	public static void main(String[] args) throws IOException, ParserException, LexerException { 
-		String token_name = null;
-		Token t;
 		if (args.length > 0) {
 			/* Form our AST */ 
 			Comentario_Aninhado lexer = new Comentario_Aninhado (new PushbackReader( 
 					new FileReader(args[0]), 1024)); 	
 
-//			analiseLexica(token_name, lexer);
-			Parser parser = new Parser(lexer); 
-			Start ast = parser.parse();
-			ast.apply(new ASTPrinter());
+			//impressaoLexica(lexer); //necessario retirar "branco" dos tokens para nao ignorar o espaco, tab e enter
+			analiseSintatica(lexer); //necessario "branco" sendo o primeiro dos tokens para o funcionamento do Ignored Tokens.
 
 
 		} else { 
@@ -59,8 +54,15 @@ public class Main {
 		} 
 	}
 
+	public static void analiseSintatica(Comentario_Aninhado lexer) throws ParserException, LexerException, IOException {
+		Parser parser = new Parser(lexer); 
+		Start ast = parser.parse();
+		ast.apply(new ASTPrinter());
+	}
 
-	public static void analiseLexica(String token_name, Comentario_Aninhado lexer) throws IOException {
+
+	public static void impressaoLexica(Comentario_Aninhado lexer) throws IOException {
+		String token_name = null;
 		Token t;
 		do {
 			try {
