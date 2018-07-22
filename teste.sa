@@ -7,5 +7,12 @@
 
 
 //teste 3
-((a ou b) e (a xor b)) e  ( nao(a))
+//((a ou b) e (a xor b)) e  ( nao(a))
 
+
+		//testes que deve falhar:
+//teste4
+a = b = c
+
+//teste 5
+(a = b) >= 2
