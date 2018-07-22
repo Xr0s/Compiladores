@@ -1,1 +1,11 @@
-a<c xor a-2>5 e a+1<1 ou b<=6
+
+//teste 1
+//nao(a <> b) ou a<c xor a-2>5 e a+1<1 ou b<=6 
+
+//teste 2
+//( (X >= 4) ou (x=b) ) e (x <> 4) e ( nao (a=b) ) 
+
+
+//teste 3
+((a ou b) e (a xor b)) e  ( nao(a))
+

@@ -155,28 +155,41 @@ Productions
 	//Estrutura do exp
 	
 	exp_logica = {ou} exp_logica ou logica_and
-	 	| {and} logica_and;
+			   | {ou_um_var} exp_logica ou var
+			   | {ou_var} [l]:var ou [r]:var
+	 		   | {and} logica_and
+	 		   | {igualdade} logica_igualdade
+	 		   | {neg} logica_neg;
+	 		   
+
+	logica_neg = {negacao} nao abre_parentese logica_neg fecha_parentese
+	 		   | {bool} nao abre_parentese booleano fecha_parentese
+	 		   | {bool_var} nao abre_parentese var fecha_parentese
+	 		   | {neg_ig} nao abre_parentese logica_igualdade fecha_parentese;
+	
+	logica_igualdade = {igual} [esq]:exp igual [dir]:exp
+					 | {diferente} [esq]:exp diferente [dir]:exp;
 	
 	logica_and = {e} logica_and e logica_xor
-	 		  |  {xor} logica_xor;
-	 		  
-	logica_xor = {xor} logica_xor xor relacionais
-			   | {negacao} relacionais;
-	
-//	negacao = {negacao} nao parentese_logica|
-//			  {parentese} parentese_logica;	
-			  
-//	parentese_logica = {parentese} abre_parentese parentese_logica fecha_parentese
-//					 | {um_relacional} relacionais;
-	
+	 		   | {xor} logica_xor
+	 		   | {e_um_var} logica_and e var
+			   | {e_var} [l]:var e [r]:var;
+	 		   
+	logica_xor = {xor_r} logica_xor xor parentese_logica
+			   | {parentese} parentese_logica
+			   | {xor_um_var} logica_xor xor var
+			   | {xor_var} [l]:var xor [r]:var ;
+			   
+	parentese_logica = {parentese} abre_parentese exp_logica fecha_parentese
+					 | {um_relacional} relacionais;
+					 
 	relacionais = {rel} relacionais op_relacional exp
 				| {um_relacional} [esq]:exp op_relacional [dir]:exp;	
-			     
+	   
 	op_relacional = {menor} menor
 			  	  | {menorigual} menorig 
 				  | {maiorigual} maiorig
 				  | {maior} maior;
-	
 	
 	exp = {soma} exp op_soma termo 
 		| {termo} termo;

@@ -5,56 +5,56 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AXorLogicaXor extends PLogicaXor
+public final class AXorVarLogicaXor extends PLogicaXor
 {
-    private PLogicaXor _logicaXor_;
+    private PVar _l_;
     private TXor _xor_;
-    private PRelacionais _relacionais_;
+    private PVar _r_;
 
-    public AXorLogicaXor()
+    public AXorVarLogicaXor()
     {
         // Constructor
     }
 
-    public AXorLogicaXor(
-        @SuppressWarnings("hiding") PLogicaXor _logicaXor_,
+    public AXorVarLogicaXor(
+        @SuppressWarnings("hiding") PVar _l_,
         @SuppressWarnings("hiding") TXor _xor_,
-        @SuppressWarnings("hiding") PRelacionais _relacionais_)
+        @SuppressWarnings("hiding") PVar _r_)
     {
         // Constructor
-        setLogicaXor(_logicaXor_);
+        setL(_l_);
 
         setXor(_xor_);
 
-        setRelacionais(_relacionais_);
+        setR(_r_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AXorLogicaXor(
-            cloneNode(this._logicaXor_),
+        return new AXorVarLogicaXor(
+            cloneNode(this._l_),
             cloneNode(this._xor_),
-            cloneNode(this._relacionais_));
+            cloneNode(this._r_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAXorLogicaXor(this);
+        ((Analysis) sw).caseAXorVarLogicaXor(this);
     }
 
-    public PLogicaXor getLogicaXor()
+    public PVar getL()
     {
-        return this._logicaXor_;
+        return this._l_;
     }
 
-    public void setLogicaXor(PLogicaXor node)
+    public void setL(PVar node)
     {
-        if(this._logicaXor_ != null)
+        if(this._l_ != null)
         {
-            this._logicaXor_.parent(null);
+            this._l_.parent(null);
         }
 
         if(node != null)
@@ -67,7 +67,7 @@ public final class AXorLogicaXor extends PLogicaXor
             node.parent(this);
         }
 
-        this._logicaXor_ = node;
+        this._l_ = node;
     }
 
     public TXor getXor()
@@ -95,16 +95,16 @@ public final class AXorLogicaXor extends PLogicaXor
         this._xor_ = node;
     }
 
-    public PRelacionais getRelacionais()
+    public PVar getR()
     {
-        return this._relacionais_;
+        return this._r_;
     }
 
-    public void setRelacionais(PRelacionais node)
+    public void setR(PVar node)
     {
-        if(this._relacionais_ != null)
+        if(this._r_ != null)
         {
-            this._relacionais_.parent(null);
+            this._r_.parent(null);
         }
 
         if(node != null)
@@ -117,25 +117,25 @@ public final class AXorLogicaXor extends PLogicaXor
             node.parent(this);
         }
 
-        this._relacionais_ = node;
+        this._r_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._logicaXor_)
+            + toString(this._l_)
             + toString(this._xor_)
-            + toString(this._relacionais_);
+            + toString(this._r_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._logicaXor_ == child)
+        if(this._l_ == child)
         {
-            this._logicaXor_ = null;
+            this._l_ = null;
             return;
         }
 
@@ -145,9 +145,9 @@ public final class AXorLogicaXor extends PLogicaXor
             return;
         }
 
-        if(this._relacionais_ == child)
+        if(this._r_ == child)
         {
-            this._relacionais_ = null;
+            this._r_ = null;
             return;
         }
 
@@ -158,9 +158,9 @@ public final class AXorLogicaXor extends PLogicaXor
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._logicaXor_ == oldChild)
+        if(this._l_ == oldChild)
         {
-            setLogicaXor((PLogicaXor) newChild);
+            setL((PVar) newChild);
             return;
         }
 
@@ -170,9 +170,9 @@ public final class AXorLogicaXor extends PLogicaXor
             return;
         }
 
-        if(this._relacionais_ == oldChild)
+        if(this._r_ == oldChild)
         {
-            setRelacionais((PRelacionais) newChild);
+            setR((PVar) newChild);
             return;
         }
 

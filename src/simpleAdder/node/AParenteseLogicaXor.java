@@ -5,46 +5,46 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ANegacaoLogicaXor extends PLogicaXor
+public final class AParenteseLogicaXor extends PLogicaXor
 {
-    private PRelacionais _relacionais_;
+    private PParenteseLogica _parenteseLogica_;
 
-    public ANegacaoLogicaXor()
+    public AParenteseLogicaXor()
     {
         // Constructor
     }
 
-    public ANegacaoLogicaXor(
-        @SuppressWarnings("hiding") PRelacionais _relacionais_)
+    public AParenteseLogicaXor(
+        @SuppressWarnings("hiding") PParenteseLogica _parenteseLogica_)
     {
         // Constructor
-        setRelacionais(_relacionais_);
+        setParenteseLogica(_parenteseLogica_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ANegacaoLogicaXor(
-            cloneNode(this._relacionais_));
+        return new AParenteseLogicaXor(
+            cloneNode(this._parenteseLogica_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseANegacaoLogicaXor(this);
+        ((Analysis) sw).caseAParenteseLogicaXor(this);
     }
 
-    public PRelacionais getRelacionais()
+    public PParenteseLogica getParenteseLogica()
     {
-        return this._relacionais_;
+        return this._parenteseLogica_;
     }
 
-    public void setRelacionais(PRelacionais node)
+    public void setParenteseLogica(PParenteseLogica node)
     {
-        if(this._relacionais_ != null)
+        if(this._parenteseLogica_ != null)
         {
-            this._relacionais_.parent(null);
+            this._parenteseLogica_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class ANegacaoLogicaXor extends PLogicaXor
             node.parent(this);
         }
 
-        this._relacionais_ = node;
+        this._parenteseLogica_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._relacionais_);
+            + toString(this._parenteseLogica_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._relacionais_ == child)
+        if(this._parenteseLogica_ == child)
         {
-            this._relacionais_ = null;
+            this._parenteseLogica_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class ANegacaoLogicaXor extends PLogicaXor
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._relacionais_ == oldChild)
+        if(this._parenteseLogica_ == oldChild)
         {
-            setRelacionais((PRelacionais) newChild);
+            setParenteseLogica((PParenteseLogica) newChild);
             return;
         }
 
