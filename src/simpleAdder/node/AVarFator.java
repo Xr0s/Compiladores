@@ -5,46 +5,46 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AValorPrioridade extends PPrioridade
+public final class AVarFator extends PFator
 {
-    private PValor _valor_;
+    private PVar _var_;
 
-    public AValorPrioridade()
+    public AVarFator()
     {
         // Constructor
     }
 
-    public AValorPrioridade(
-        @SuppressWarnings("hiding") PValor _valor_)
+    public AVarFator(
+        @SuppressWarnings("hiding") PVar _var_)
     {
         // Constructor
-        setValor(_valor_);
+        setVar(_var_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AValorPrioridade(
-            cloneNode(this._valor_));
+        return new AVarFator(
+            cloneNode(this._var_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAValorPrioridade(this);
+        ((Analysis) sw).caseAVarFator(this);
     }
 
-    public PValor getValor()
+    public PVar getVar()
     {
-        return this._valor_;
+        return this._var_;
     }
 
-    public void setValor(PValor node)
+    public void setVar(PVar node)
     {
-        if(this._valor_ != null)
+        if(this._var_ != null)
         {
-            this._valor_.parent(null);
+            this._var_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class AValorPrioridade extends PPrioridade
             node.parent(this);
         }
 
-        this._valor_ = node;
+        this._var_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._valor_);
+            + toString(this._var_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._valor_ == child)
+        if(this._var_ == child)
         {
-            this._valor_ = null;
+            this._var_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class AValorPrioridade extends PPrioridade
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._valor_ == oldChild)
+        if(this._var_ == oldChild)
         {
-            setValor((PValor) newChild);
+            setVar((PVar) newChild);
             return;
         }
 

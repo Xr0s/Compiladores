@@ -1,29 +1,4 @@
-/*programa a inicio
+programa a inicio
 
-	inteiro: x,y;
-	caractere: letra;
-	letra := 'A';
-	se (verdadeiro) entao
-		x := 2 + 2;
-		escreva(2 + 3,1);	
-	senao
-		y := 3 + 2,1;
-		leia(y);
-	fim se;
-
-	avalie(3+2,1)
-		caso 1: 
-			casa:=3+2,1;
-			leia(casa);
-			escreva(3+2,1);
-		caso 2:
-			casa:=3+2,1;
-		caso 3:
-			leia(casa);
-		senao:
-			casa:= 3 + 2,1;
-			leia(casa);
-		fim avalie;	
+	x := x +2;
 fim.
-*/
-*/

@@ -5,26 +5,26 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AMultTermo extends PTermo
+public final class AOpTermo extends PTermo
 {
     private PTermo _termo_;
-    private TMult _mult_;
+    private POp _op_;
     private PFator _fator_;
 
-    public AMultTermo()
+    public AOpTermo()
     {
         // Constructor
     }
 
-    public AMultTermo(
+    public AOpTermo(
         @SuppressWarnings("hiding") PTermo _termo_,
-        @SuppressWarnings("hiding") TMult _mult_,
+        @SuppressWarnings("hiding") POp _op_,
         @SuppressWarnings("hiding") PFator _fator_)
     {
         // Constructor
         setTermo(_termo_);
 
-        setMult(_mult_);
+        setOp(_op_);
 
         setFator(_fator_);
 
@@ -33,16 +33,16 @@ public final class AMultTermo extends PTermo
     @Override
     public Object clone()
     {
-        return new AMultTermo(
+        return new AOpTermo(
             cloneNode(this._termo_),
-            cloneNode(this._mult_),
+            cloneNode(this._op_),
             cloneNode(this._fator_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAMultTermo(this);
+        ((Analysis) sw).caseAOpTermo(this);
     }
 
     public PTermo getTermo()
@@ -70,16 +70,16 @@ public final class AMultTermo extends PTermo
         this._termo_ = node;
     }
 
-    public TMult getMult()
+    public POp getOp()
     {
-        return this._mult_;
+        return this._op_;
     }
 
-    public void setMult(TMult node)
+    public void setOp(POp node)
     {
-        if(this._mult_ != null)
+        if(this._op_ != null)
         {
-            this._mult_.parent(null);
+            this._op_.parent(null);
         }
 
         if(node != null)
@@ -92,7 +92,7 @@ public final class AMultTermo extends PTermo
             node.parent(this);
         }
 
-        this._mult_ = node;
+        this._op_ = node;
     }
 
     public PFator getFator()
@@ -125,7 +125,7 @@ public final class AMultTermo extends PTermo
     {
         return ""
             + toString(this._termo_)
-            + toString(this._mult_)
+            + toString(this._op_)
             + toString(this._fator_);
     }
 
@@ -139,9 +139,9 @@ public final class AMultTermo extends PTermo
             return;
         }
 
-        if(this._mult_ == child)
+        if(this._op_ == child)
         {
-            this._mult_ = null;
+            this._op_ = null;
             return;
         }
 
@@ -164,9 +164,9 @@ public final class AMultTermo extends PTermo
             return;
         }
 
-        if(this._mult_ == oldChild)
+        if(this._op_ == oldChild)
         {
-            setMult((TMult) newChild);
+            setOp((POp) newChild);
             return;
         }
 

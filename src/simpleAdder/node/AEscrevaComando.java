@@ -5,44 +5,79 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AExpPrioridade extends PPrioridade
+public final class AEscrevaComando extends PComando
 {
+    private TEscreva _escreva_;
     private TAbreParentese _abreParentese_;
-    private PExp _exp_;
+    private PDeclExp _declExp_;
     private TFechaParentese _fechaParentese_;
+    private TPontovirgula _pontovirgula_;
 
-    public AExpPrioridade()
+    public AEscrevaComando()
     {
         // Constructor
     }
 
-    public AExpPrioridade(
+    public AEscrevaComando(
+        @SuppressWarnings("hiding") TEscreva _escreva_,
         @SuppressWarnings("hiding") TAbreParentese _abreParentese_,
-        @SuppressWarnings("hiding") PExp _exp_,
-        @SuppressWarnings("hiding") TFechaParentese _fechaParentese_)
+        @SuppressWarnings("hiding") PDeclExp _declExp_,
+        @SuppressWarnings("hiding") TFechaParentese _fechaParentese_,
+        @SuppressWarnings("hiding") TPontovirgula _pontovirgula_)
     {
         // Constructor
+        setEscreva(_escreva_);
+
         setAbreParentese(_abreParentese_);
 
-        setExp(_exp_);
+        setDeclExp(_declExp_);
 
         setFechaParentese(_fechaParentese_);
+
+        setPontovirgula(_pontovirgula_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AExpPrioridade(
+        return new AEscrevaComando(
+            cloneNode(this._escreva_),
             cloneNode(this._abreParentese_),
-            cloneNode(this._exp_),
-            cloneNode(this._fechaParentese_));
+            cloneNode(this._declExp_),
+            cloneNode(this._fechaParentese_),
+            cloneNode(this._pontovirgula_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAExpPrioridade(this);
+        ((Analysis) sw).caseAEscrevaComando(this);
+    }
+
+    public TEscreva getEscreva()
+    {
+        return this._escreva_;
+    }
+
+    public void setEscreva(TEscreva node)
+    {
+        if(this._escreva_ != null)
+        {
+            this._escreva_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._escreva_ = node;
     }
 
     public TAbreParentese getAbreParentese()
@@ -70,16 +105,16 @@ public final class AExpPrioridade extends PPrioridade
         this._abreParentese_ = node;
     }
 
-    public PExp getExp()
+    public PDeclExp getDeclExp()
     {
-        return this._exp_;
+        return this._declExp_;
     }
 
-    public void setExp(PExp node)
+    public void setDeclExp(PDeclExp node)
     {
-        if(this._exp_ != null)
+        if(this._declExp_ != null)
         {
-            this._exp_.parent(null);
+            this._declExp_.parent(null);
         }
 
         if(node != null)
@@ -92,7 +127,7 @@ public final class AExpPrioridade extends PPrioridade
             node.parent(this);
         }
 
-        this._exp_ = node;
+        this._declExp_ = node;
     }
 
     public TFechaParentese getFechaParentese()
@@ -120,34 +155,73 @@ public final class AExpPrioridade extends PPrioridade
         this._fechaParentese_ = node;
     }
 
+    public TPontovirgula getPontovirgula()
+    {
+        return this._pontovirgula_;
+    }
+
+    public void setPontovirgula(TPontovirgula node)
+    {
+        if(this._pontovirgula_ != null)
+        {
+            this._pontovirgula_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._pontovirgula_ = node;
+    }
+
     @Override
     public String toString()
     {
         return ""
+            + toString(this._escreva_)
             + toString(this._abreParentese_)
-            + toString(this._exp_)
-            + toString(this._fechaParentese_);
+            + toString(this._declExp_)
+            + toString(this._fechaParentese_)
+            + toString(this._pontovirgula_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
+        if(this._escreva_ == child)
+        {
+            this._escreva_ = null;
+            return;
+        }
+
         if(this._abreParentese_ == child)
         {
             this._abreParentese_ = null;
             return;
         }
 
-        if(this._exp_ == child)
+        if(this._declExp_ == child)
         {
-            this._exp_ = null;
+            this._declExp_ = null;
             return;
         }
 
         if(this._fechaParentese_ == child)
         {
             this._fechaParentese_ = null;
+            return;
+        }
+
+        if(this._pontovirgula_ == child)
+        {
+            this._pontovirgula_ = null;
             return;
         }
 
@@ -158,21 +232,33 @@ public final class AExpPrioridade extends PPrioridade
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
+        if(this._escreva_ == oldChild)
+        {
+            setEscreva((TEscreva) newChild);
+            return;
+        }
+
         if(this._abreParentese_ == oldChild)
         {
             setAbreParentese((TAbreParentese) newChild);
             return;
         }
 
-        if(this._exp_ == oldChild)
+        if(this._declExp_ == oldChild)
         {
-            setExp((PExp) newChild);
+            setDeclExp((PDeclExp) newChild);
             return;
         }
 
         if(this._fechaParentese_ == oldChild)
         {
             setFechaParentese((TFechaParentese) newChild);
+            return;
+        }
+
+        if(this._pontovirgula_ == oldChild)
+        {
+            setPontovirgula((TPontovirgula) newChild);
             return;
         }
 

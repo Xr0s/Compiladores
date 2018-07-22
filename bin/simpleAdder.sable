@@ -112,7 +112,7 @@ Ignored Tokens
 	branco,comment, comentario_de_linha;
 
 Productions 
-	/* program = programa  id  inicio declaracao* comando* fim;
+	 program = programa  id  inicio declaracao* comando* fim;
 	 
 	 declaracao = {variavel} tipo doispontos decl_variavel
 	 			| {constante} const id valor pontovirgula;
@@ -147,7 +147,7 @@ Productions
 	//Estrutura auxiliar para o escreva 
 	decl_exp = {varias_exp} exp virgula decl_exp 
 	 		 | {unica_exp} exp;
-*/	 
+	 
 	//Estrutura do exp	
 	exp = {expsoma} exp soma termo 
 		| {termo} termo ;
@@ -155,28 +155,44 @@ Productions
 	soma = {mais} mais 
 		 | {menos} menos ;
 	
-	termo = {mult} termo mult fator 
+	termo = {op} termo op fator 
 		  | {fator} fator  ;
 	
-	fator = {div} fator div prioridade 
-		  | {prioridade} prioridade;
+	op = {div} div
+	   | {mult} mult;
 	
-	prioridade = {exp} abre_parentese exp fecha_parentese 
+	fator = {exp} abre_parentese exp fecha_parentese 
 		   | {valor} valor
-		   | exp_logica;
+		   | {var} var
+		   | {logica} exp_logica;
+	
+	exp_logica = booleano;
 	    	
-	exp_logica = booleano;        
+//	exp_logica = {nao} nao exp_logica
+//			   | {logic} logica_pri;
+			   
+//	logica = {e} exp_logica e logica_pri
+//			   | {termo} logica_pri;		   
+	
+//	logica_termo = {ou} logica_termo ou logica_fator
+//				 | {fator} logica_fator;
+	
+//	logica_fator = {xor} logica_fator xor logica_pri
+//				 | {prio} logica_pri;
+	
+//	logica_pri = //{exp_logica} abre_parentese exp_logica fecha_parentese
+//			    {bool} exp;  
+			   
 
 //declaracao de variaveis, tipos e valor;
 
-//	var = {id_unica} id 
-//	    | {vetor} id abre_colchete inteiro fecha_colchete;	 	 
-		 
+	var = {id_unica} id 
+	    | {vetor} id abre_colchete inteiro fecha_colchete;	 	 
 	 
-//	tipo = {real_palavra} real_reservada 
-//	     | {inteiro_palavra}inteiro_reservada 
-//	     | {caracter_palavra}caractere_reservada 
-//	     | {booleano_palavra}booleano_reservada;
+	tipo = {real_palavra} real_reservada 
+	     | {inteiro_palavra}inteiro_reservada 
+	     | {caracter_palavra}caractere_reservada 
+	     | {booleano_palavra}booleano_reservada;
 	 
 	valor = {char} caractere 
 	 	  | {int} inteiro

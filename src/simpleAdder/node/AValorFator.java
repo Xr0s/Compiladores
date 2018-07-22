@@ -5,46 +5,46 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class APrioridade extends PPrioridade
+public final class AValorFator extends PFator
 {
-    private PExpLogica _expLogica_;
+    private PValor _valor_;
 
-    public APrioridade()
+    public AValorFator()
     {
         // Constructor
     }
 
-    public APrioridade(
-        @SuppressWarnings("hiding") PExpLogica _expLogica_)
+    public AValorFator(
+        @SuppressWarnings("hiding") PValor _valor_)
     {
         // Constructor
-        setExpLogica(_expLogica_);
+        setValor(_valor_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new APrioridade(
-            cloneNode(this._expLogica_));
+        return new AValorFator(
+            cloneNode(this._valor_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAPrioridade(this);
+        ((Analysis) sw).caseAValorFator(this);
     }
 
-    public PExpLogica getExpLogica()
+    public PValor getValor()
     {
-        return this._expLogica_;
+        return this._valor_;
     }
 
-    public void setExpLogica(PExpLogica node)
+    public void setValor(PValor node)
     {
-        if(this._expLogica_ != null)
+        if(this._valor_ != null)
         {
-            this._expLogica_.parent(null);
+            this._valor_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class APrioridade extends PPrioridade
             node.parent(this);
         }
 
-        this._expLogica_ = node;
+        this._valor_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._expLogica_);
+            + toString(this._valor_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._expLogica_ == child)
+        if(this._valor_ == child)
         {
-            this._expLogica_ = null;
+            this._valor_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class APrioridade extends PPrioridade
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._expLogica_ == oldChild)
+        if(this._valor_ == oldChild)
         {
-            setExpLogica((PExpLogica) newChild);
+            setValor((PValor) newChild);
             return;
         }
 

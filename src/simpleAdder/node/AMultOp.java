@@ -5,46 +5,46 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class APrioridadeFator extends PFator
+public final class AMultOp extends POp
 {
-    private PPrioridade _prioridade_;
+    private TMult _mult_;
 
-    public APrioridadeFator()
+    public AMultOp()
     {
         // Constructor
     }
 
-    public APrioridadeFator(
-        @SuppressWarnings("hiding") PPrioridade _prioridade_)
+    public AMultOp(
+        @SuppressWarnings("hiding") TMult _mult_)
     {
         // Constructor
-        setPrioridade(_prioridade_);
+        setMult(_mult_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new APrioridadeFator(
-            cloneNode(this._prioridade_));
+        return new AMultOp(
+            cloneNode(this._mult_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAPrioridadeFator(this);
+        ((Analysis) sw).caseAMultOp(this);
     }
 
-    public PPrioridade getPrioridade()
+    public TMult getMult()
     {
-        return this._prioridade_;
+        return this._mult_;
     }
 
-    public void setPrioridade(PPrioridade node)
+    public void setMult(TMult node)
     {
-        if(this._prioridade_ != null)
+        if(this._mult_ != null)
         {
-            this._prioridade_.parent(null);
+            this._mult_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class APrioridadeFator extends PFator
             node.parent(this);
         }
 
-        this._prioridade_ = node;
+        this._mult_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._prioridade_);
+            + toString(this._mult_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._prioridade_ == child)
+        if(this._mult_ == child)
         {
-            this._prioridade_ = null;
+            this._mult_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class APrioridadeFator extends PFator
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._prioridade_ == oldChild)
+        if(this._mult_ == oldChild)
         {
-            setPrioridade((PPrioridade) newChild);
+            setMult((TMult) newChild);
             return;
         }
 
