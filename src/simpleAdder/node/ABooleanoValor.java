@@ -5,46 +5,46 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AUnicaExpDeclExp extends PDeclExp
+public final class ABooleanoValor extends PValor
 {
-    private PExp _exp_;
+    private TBooleano _booleano_;
 
-    public AUnicaExpDeclExp()
+    public ABooleanoValor()
     {
         // Constructor
     }
 
-    public AUnicaExpDeclExp(
-        @SuppressWarnings("hiding") PExp _exp_)
+    public ABooleanoValor(
+        @SuppressWarnings("hiding") TBooleano _booleano_)
     {
         // Constructor
-        setExp(_exp_);
+        setBooleano(_booleano_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AUnicaExpDeclExp(
-            cloneNode(this._exp_));
+        return new ABooleanoValor(
+            cloneNode(this._booleano_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAUnicaExpDeclExp(this);
+        ((Analysis) sw).caseABooleanoValor(this);
     }
 
-    public PExp getExp()
+    public TBooleano getBooleano()
     {
-        return this._exp_;
+        return this._booleano_;
     }
 
-    public void setExp(PExp node)
+    public void setBooleano(TBooleano node)
     {
-        if(this._exp_ != null)
+        if(this._booleano_ != null)
         {
-            this._exp_.parent(null);
+            this._booleano_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class AUnicaExpDeclExp extends PDeclExp
             node.parent(this);
         }
 
-        this._exp_ = node;
+        this._booleano_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._exp_);
+            + toString(this._booleano_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._exp_ == child)
+        if(this._booleano_ == child)
         {
-            this._exp_ = null;
+            this._booleano_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class AUnicaExpDeclExp extends PDeclExp
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._exp_ == oldChild)
+        if(this._booleano_ == oldChild)
         {
-            setExp((PExp) newChild);
+            setBooleano((TBooleano) newChild);
             return;
         }
 

@@ -5,46 +5,46 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ASemOpcionalDeclSenaoAvalie extends PDeclSenaoAvalie
+public final class AMaiorOpRelacional extends POpRelacional
 {
-    private TFimAvalie _fimAvalie_;
+    private TMaior _maior_;
 
-    public ASemOpcionalDeclSenaoAvalie()
+    public AMaiorOpRelacional()
     {
         // Constructor
     }
 
-    public ASemOpcionalDeclSenaoAvalie(
-        @SuppressWarnings("hiding") TFimAvalie _fimAvalie_)
+    public AMaiorOpRelacional(
+        @SuppressWarnings("hiding") TMaior _maior_)
     {
         // Constructor
-        setFimAvalie(_fimAvalie_);
+        setMaior(_maior_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ASemOpcionalDeclSenaoAvalie(
-            cloneNode(this._fimAvalie_));
+        return new AMaiorOpRelacional(
+            cloneNode(this._maior_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseASemOpcionalDeclSenaoAvalie(this);
+        ((Analysis) sw).caseAMaiorOpRelacional(this);
     }
 
-    public TFimAvalie getFimAvalie()
+    public TMaior getMaior()
     {
-        return this._fimAvalie_;
+        return this._maior_;
     }
 
-    public void setFimAvalie(TFimAvalie node)
+    public void setMaior(TMaior node)
     {
-        if(this._fimAvalie_ != null)
+        if(this._maior_ != null)
         {
-            this._fimAvalie_.parent(null);
+            this._maior_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class ASemOpcionalDeclSenaoAvalie extends PDeclSenaoAvalie
             node.parent(this);
         }
 
-        this._fimAvalie_ = node;
+        this._maior_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._fimAvalie_);
+            + toString(this._maior_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._fimAvalie_ == child)
+        if(this._maior_ == child)
         {
-            this._fimAvalie_ = null;
+            this._maior_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class ASemOpcionalDeclSenaoAvalie extends PDeclSenaoAvalie
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._fimAvalie_ == oldChild)
+        if(this._maior_ == oldChild)
         {
-            setFimAvalie((TFimAvalie) newChild);
+            setMaior((TMaior) newChild);
             return;
         }
 

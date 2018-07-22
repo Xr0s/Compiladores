@@ -5,46 +5,46 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AUnicaDeclVarSempontov extends PDeclVarSempontov
+public final class AMaisOpSoma extends POpSoma
 {
-    private PVar _var_;
+    private TMais _mais_;
 
-    public AUnicaDeclVarSempontov()
+    public AMaisOpSoma()
     {
         // Constructor
     }
 
-    public AUnicaDeclVarSempontov(
-        @SuppressWarnings("hiding") PVar _var_)
+    public AMaisOpSoma(
+        @SuppressWarnings("hiding") TMais _mais_)
     {
         // Constructor
-        setVar(_var_);
+        setMais(_mais_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AUnicaDeclVarSempontov(
-            cloneNode(this._var_));
+        return new AMaisOpSoma(
+            cloneNode(this._mais_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAUnicaDeclVarSempontov(this);
+        ((Analysis) sw).caseAMaisOpSoma(this);
     }
 
-    public PVar getVar()
+    public TMais getMais()
     {
-        return this._var_;
+        return this._mais_;
     }
 
-    public void setVar(PVar node)
+    public void setMais(TMais node)
     {
-        if(this._var_ != null)
+        if(this._mais_ != null)
         {
-            this._var_.parent(null);
+            this._mais_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class AUnicaDeclVarSempontov extends PDeclVarSempontov
             node.parent(this);
         }
 
-        this._var_ = node;
+        this._mais_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._var_);
+            + toString(this._mais_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._var_ == child)
+        if(this._mais_ == child)
         {
-            this._var_ = null;
+            this._mais_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class AUnicaDeclVarSempontov extends PDeclVarSempontov
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._var_ == oldChild)
+        if(this._mais_ == oldChild)
         {
-            setVar((PVar) newChild);
+            setMais((TMais) newChild);
             return;
         }
 

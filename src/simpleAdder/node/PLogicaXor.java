@@ -2,7 +2,7 @@
 
 package simpleAdder.node;
 
-public abstract class PDeclVariavel extends Node
+public abstract class PLogicaXor extends Node
 {
     // Empty body
 }

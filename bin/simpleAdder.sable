@@ -112,6 +112,7 @@ Ignored Tokens
 	branco,comment, comentario_de_linha;
 
 Productions 
+/*
 	 program = programa  id  inicio declaracao* comando* fim;
 	 
 	 declaracao = {variavel} tipo doispontos decl_variavel
@@ -134,11 +135,13 @@ Productions
 	//Estrutura auxiliar para o se
 	decl_senao = senao comando+;	
 	
+	//Estrutura auxiliar para o senao
+	decl_senao_avalie = {com_opcional} senao doispontos comando+ fim_avalie 
+	   			      | {sem_opcional} fim_avalie;
+	
 	//Estrutura auxiliar para o avalie
 	casos = caso valor doispontos comando+;
 	
-	decl_senao_avalie = {com_opcional} senao doispontos comando+ fim_avalie 
-	   			      | {sem_opcional} fim_avalie;
 	
 	//Estrutura auxiliar para o leia		
 	decl_var_sempontov = {varias} var virgula decl_var_sempontov 
@@ -147,43 +150,50 @@ Productions
 	//Estrutura auxiliar para o escreva 
 	decl_exp = {varias_exp} exp virgula decl_exp 
 	 		 | {unica_exp} exp;
-	 
-	//Estrutura do exp	
-	exp = {expsoma} exp soma termo 
-		| {termo} termo ;
+*/	 
 	
-	soma = {mais} mais 
-		 | {menos} menos ;
+	//Estrutura do exp
 	
+	exp_logica = {ou} exp_logica ou logica_and
+	 	| {and} logica_and;
+	
+	logica_and = {e} logica_and e logica_xor
+	 		  |  {xor} logica_xor;
+	 		  
+	logica_xor = {xor} logica_xor xor relacionais
+			   | {negacao} relacionais;
+	
+//	negacao = {negacao} nao parentese_logica|
+//			  {parentese} parentese_logica;	
+			  
+//	parentese_logica = {parentese} abre_parentese parentese_logica fecha_parentese
+//					 | {um_relacional} relacionais;
+	
+	relacionais = {rel} relacionais op_relacional exp
+				| {um_relacional} [esq]:exp op_relacional [dir]:exp;	
+			     
+	op_relacional = {menor} menor
+			  	  | {menorigual} menorig 
+				  | {maiorigual} maiorig
+				  | {maior} maior;
+	
+	
+	exp = {soma} exp op_soma termo 
+		| {termo} termo;
+		
+	op_soma = {mais} mais 
+		 | {menos} menos;	
+
 	termo = {op} termo op fator 
-		  | {fator} fator  ;
-	
-	op = {div} div
-	   | {mult} mult;
+		 | fator;
+		  
+	op = {mult} mult
+		|{div} div;
 	
 	fator = {exp} abre_parentese exp fecha_parentese 
 		   | {valor} valor
-		   | {var} var
-		   | {logica} exp_logica;
+		   | {var} var;	
 	
-	exp_logica = booleano;
-	    	
-//	exp_logica = {nao} nao exp_logica
-//			   | {logic} logica_pri;
-			   
-//	logica = {e} exp_logica e logica_pri
-//			   | {termo} logica_pri;		   
-	
-//	logica_termo = {ou} logica_termo ou logica_fator
-//				 | {fator} logica_fator;
-	
-//	logica_fator = {xor} logica_fator xor logica_pri
-//				 | {prio} logica_pri;
-	
-//	logica_pri = //{exp_logica} abre_parentese exp_logica fecha_parentese
-//			    {bool} exp;  
-			   
-
 //declaracao de variaveis, tipos e valor;
 
 	var = {id_unica} id 
@@ -196,6 +206,7 @@ Productions
 	 
 	valor = {char} caractere 
 	 	  | {int} inteiro
-	      | {float} real;
+	      | {float} real
+	      | {booleano} booleano;
 
 //Lembrar da exceção de comentario de bloco fim errado caso troque o nome de simpleAdder

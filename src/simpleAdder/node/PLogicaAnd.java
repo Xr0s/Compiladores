@@ -2,7 +2,7 @@
 
 package simpleAdder.node;
 
-public abstract class PDeclSenao extends Node
+public abstract class PLogicaAnd extends Node
 {
     // Empty body
 }

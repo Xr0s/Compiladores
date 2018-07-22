@@ -5,26 +5,26 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AExpsomaExp extends PExp
+public final class ASomaExp extends PExp
 {
     private PExp _exp_;
-    private PSoma _soma_;
+    private POpSoma _opSoma_;
     private PTermo _termo_;
 
-    public AExpsomaExp()
+    public ASomaExp()
     {
         // Constructor
     }
 
-    public AExpsomaExp(
+    public ASomaExp(
         @SuppressWarnings("hiding") PExp _exp_,
-        @SuppressWarnings("hiding") PSoma _soma_,
+        @SuppressWarnings("hiding") POpSoma _opSoma_,
         @SuppressWarnings("hiding") PTermo _termo_)
     {
         // Constructor
         setExp(_exp_);
 
-        setSoma(_soma_);
+        setOpSoma(_opSoma_);
 
         setTermo(_termo_);
 
@@ -33,16 +33,16 @@ public final class AExpsomaExp extends PExp
     @Override
     public Object clone()
     {
-        return new AExpsomaExp(
+        return new ASomaExp(
             cloneNode(this._exp_),
-            cloneNode(this._soma_),
+            cloneNode(this._opSoma_),
             cloneNode(this._termo_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAExpsomaExp(this);
+        ((Analysis) sw).caseASomaExp(this);
     }
 
     public PExp getExp()
@@ -70,16 +70,16 @@ public final class AExpsomaExp extends PExp
         this._exp_ = node;
     }
 
-    public PSoma getSoma()
+    public POpSoma getOpSoma()
     {
-        return this._soma_;
+        return this._opSoma_;
     }
 
-    public void setSoma(PSoma node)
+    public void setOpSoma(POpSoma node)
     {
-        if(this._soma_ != null)
+        if(this._opSoma_ != null)
         {
-            this._soma_.parent(null);
+            this._opSoma_.parent(null);
         }
 
         if(node != null)
@@ -92,7 +92,7 @@ public final class AExpsomaExp extends PExp
             node.parent(this);
         }
 
-        this._soma_ = node;
+        this._opSoma_ = node;
     }
 
     public PTermo getTermo()
@@ -125,7 +125,7 @@ public final class AExpsomaExp extends PExp
     {
         return ""
             + toString(this._exp_)
-            + toString(this._soma_)
+            + toString(this._opSoma_)
             + toString(this._termo_);
     }
 
@@ -139,9 +139,9 @@ public final class AExpsomaExp extends PExp
             return;
         }
 
-        if(this._soma_ == child)
+        if(this._opSoma_ == child)
         {
-            this._soma_ = null;
+            this._opSoma_ = null;
             return;
         }
 
@@ -164,9 +164,9 @@ public final class AExpsomaExp extends PExp
             return;
         }
 
-        if(this._soma_ == oldChild)
+        if(this._opSoma_ == oldChild)
         {
-            setSoma((PSoma) newChild);
+            setOpSoma((POpSoma) newChild);
             return;
         }
 

@@ -5,46 +5,46 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AMaisSoma extends PSoma
+public final class AAndExpLogica extends PExpLogica
 {
-    private TMais _mais_;
+    private PLogicaAnd _logicaAnd_;
 
-    public AMaisSoma()
+    public AAndExpLogica()
     {
         // Constructor
     }
 
-    public AMaisSoma(
-        @SuppressWarnings("hiding") TMais _mais_)
+    public AAndExpLogica(
+        @SuppressWarnings("hiding") PLogicaAnd _logicaAnd_)
     {
         // Constructor
-        setMais(_mais_);
+        setLogicaAnd(_logicaAnd_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AMaisSoma(
-            cloneNode(this._mais_));
+        return new AAndExpLogica(
+            cloneNode(this._logicaAnd_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAMaisSoma(this);
+        ((Analysis) sw).caseAAndExpLogica(this);
     }
 
-    public TMais getMais()
+    public PLogicaAnd getLogicaAnd()
     {
-        return this._mais_;
+        return this._logicaAnd_;
     }
 
-    public void setMais(TMais node)
+    public void setLogicaAnd(PLogicaAnd node)
     {
-        if(this._mais_ != null)
+        if(this._logicaAnd_ != null)
         {
-            this._mais_.parent(null);
+            this._logicaAnd_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class AMaisSoma extends PSoma
             node.parent(this);
         }
 
-        this._mais_ = node;
+        this._logicaAnd_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._mais_);
+            + toString(this._logicaAnd_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._mais_ == child)
+        if(this._logicaAnd_ == child)
         {
-            this._mais_ = null;
+            this._logicaAnd_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class AMaisSoma extends PSoma
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._mais_ == oldChild)
+        if(this._logicaAnd_ == oldChild)
         {
-            setMais((TMais) newChild);
+            setLogicaAnd((PLogicaAnd) newChild);
             return;
         }
 

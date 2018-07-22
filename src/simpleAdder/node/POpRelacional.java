@@ -2,7 +2,7 @@
 
 package simpleAdder.node;
 
-public abstract class PComando extends Node
+public abstract class POpRelacional extends Node
 {
     // Empty body
 }

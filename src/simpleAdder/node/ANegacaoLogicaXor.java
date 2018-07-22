@@ -5,46 +5,46 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ALogicaFator extends PFator
+public final class ANegacaoLogicaXor extends PLogicaXor
 {
-    private PExpLogica _expLogica_;
+    private PRelacionais _relacionais_;
 
-    public ALogicaFator()
+    public ANegacaoLogicaXor()
     {
         // Constructor
     }
 
-    public ALogicaFator(
-        @SuppressWarnings("hiding") PExpLogica _expLogica_)
+    public ANegacaoLogicaXor(
+        @SuppressWarnings("hiding") PRelacionais _relacionais_)
     {
         // Constructor
-        setExpLogica(_expLogica_);
+        setRelacionais(_relacionais_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ALogicaFator(
-            cloneNode(this._expLogica_));
+        return new ANegacaoLogicaXor(
+            cloneNode(this._relacionais_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseALogicaFator(this);
+        ((Analysis) sw).caseANegacaoLogicaXor(this);
     }
 
-    public PExpLogica getExpLogica()
+    public PRelacionais getRelacionais()
     {
-        return this._expLogica_;
+        return this._relacionais_;
     }
 
-    public void setExpLogica(PExpLogica node)
+    public void setRelacionais(PRelacionais node)
     {
-        if(this._expLogica_ != null)
+        if(this._relacionais_ != null)
         {
-            this._expLogica_.parent(null);
+            this._relacionais_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class ALogicaFator extends PFator
             node.parent(this);
         }
 
-        this._expLogica_ = node;
+        this._relacionais_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._expLogica_);
+            + toString(this._relacionais_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._expLogica_ == child)
+        if(this._relacionais_ == child)
         {
-            this._expLogica_ = null;
+            this._relacionais_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class ALogicaFator extends PFator
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._expLogica_ == oldChild)
+        if(this._relacionais_ == oldChild)
         {
-            setExpLogica((PExpLogica) newChild);
+            setRelacionais((PRelacionais) newChild);
             return;
         }
 

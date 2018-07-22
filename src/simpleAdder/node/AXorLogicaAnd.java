@@ -5,46 +5,46 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AMenosSoma extends PSoma
+public final class AXorLogicaAnd extends PLogicaAnd
 {
-    private TMenos _menos_;
+    private PLogicaXor _logicaXor_;
 
-    public AMenosSoma()
+    public AXorLogicaAnd()
     {
         // Constructor
     }
 
-    public AMenosSoma(
-        @SuppressWarnings("hiding") TMenos _menos_)
+    public AXorLogicaAnd(
+        @SuppressWarnings("hiding") PLogicaXor _logicaXor_)
     {
         // Constructor
-        setMenos(_menos_);
+        setLogicaXor(_logicaXor_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AMenosSoma(
-            cloneNode(this._menos_));
+        return new AXorLogicaAnd(
+            cloneNode(this._logicaXor_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAMenosSoma(this);
+        ((Analysis) sw).caseAXorLogicaAnd(this);
     }
 
-    public TMenos getMenos()
+    public PLogicaXor getLogicaXor()
     {
-        return this._menos_;
+        return this._logicaXor_;
     }
 
-    public void setMenos(TMenos node)
+    public void setLogicaXor(PLogicaXor node)
     {
-        if(this._menos_ != null)
+        if(this._logicaXor_ != null)
         {
-            this._menos_.parent(null);
+            this._logicaXor_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class AMenosSoma extends PSoma
             node.parent(this);
         }
 
-        this._menos_ = node;
+        this._logicaXor_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._menos_);
+            + toString(this._logicaXor_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._menos_ == child)
+        if(this._logicaXor_ == child)
         {
-            this._menos_ = null;
+            this._logicaXor_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class AMenosSoma extends PSoma
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._menos_ == oldChild)
+        if(this._logicaXor_ == oldChild)
         {
-            setMenos((TMenos) newChild);
+            setLogicaXor((PLogicaXor) newChild);
             return;
         }
 

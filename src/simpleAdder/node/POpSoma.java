@@ -2,7 +2,7 @@
 
 package simpleAdder.node;
 
-public abstract class PSoma extends Node
+public abstract class POpSoma extends Node
 {
     // Empty body
 }

@@ -5,46 +5,46 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AExpLogica extends PExpLogica
+public final class AMenorigualOpRelacional extends POpRelacional
 {
-    private TBooleano _booleano_;
+    private TMenorig _menorig_;
 
-    public AExpLogica()
+    public AMenorigualOpRelacional()
     {
         // Constructor
     }
 
-    public AExpLogica(
-        @SuppressWarnings("hiding") TBooleano _booleano_)
+    public AMenorigualOpRelacional(
+        @SuppressWarnings("hiding") TMenorig _menorig_)
     {
         // Constructor
-        setBooleano(_booleano_);
+        setMenorig(_menorig_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AExpLogica(
-            cloneNode(this._booleano_));
+        return new AMenorigualOpRelacional(
+            cloneNode(this._menorig_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAExpLogica(this);
+        ((Analysis) sw).caseAMenorigualOpRelacional(this);
     }
 
-    public TBooleano getBooleano()
+    public TMenorig getMenorig()
     {
-        return this._booleano_;
+        return this._menorig_;
     }
 
-    public void setBooleano(TBooleano node)
+    public void setMenorig(TMenorig node)
     {
-        if(this._booleano_ != null)
+        if(this._menorig_ != null)
         {
-            this._booleano_.parent(null);
+            this._menorig_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class AExpLogica extends PExpLogica
             node.parent(this);
         }
 
-        this._booleano_ = node;
+        this._menorig_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._booleano_);
+            + toString(this._menorig_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._booleano_ == child)
+        if(this._menorig_ == child)
         {
-            this._booleano_ = null;
+            this._menorig_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class AExpLogica extends PExpLogica
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._booleano_ == oldChild)
+        if(this._menorig_ == oldChild)
         {
-            setBooleano((TBooleano) newChild);
+            setMenorig((TMenorig) newChild);
             return;
         }
 

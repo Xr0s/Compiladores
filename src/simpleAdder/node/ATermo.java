@@ -5,16 +5,16 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AFatorTermo extends PTermo
+public final class ATermo extends PTermo
 {
     private PFator _fator_;
 
-    public AFatorTermo()
+    public ATermo()
     {
         // Constructor
     }
 
-    public AFatorTermo(
+    public ATermo(
         @SuppressWarnings("hiding") PFator _fator_)
     {
         // Constructor
@@ -25,14 +25,14 @@ public final class AFatorTermo extends PTermo
     @Override
     public Object clone()
     {
-        return new AFatorTermo(
+        return new ATermo(
             cloneNode(this._fator_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAFatorTermo(this);
+        ((Analysis) sw).caseATermo(this);
     }
 
     public PFator getFator()
