@@ -5,56 +5,56 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AXorVarLogicaXor extends PLogicaXor
+public final class AXorLogicaXor extends PLogicaXor
 {
-    private PVar _l_;
+    private PLogicaXor _logicaXor_;
     private TXor _xor_;
-    private PVar _r_;
+    private PLogicaNeg _logicaNeg_;
 
-    public AXorVarLogicaXor()
+    public AXorLogicaXor()
     {
         // Constructor
     }
 
-    public AXorVarLogicaXor(
-        @SuppressWarnings("hiding") PVar _l_,
+    public AXorLogicaXor(
+        @SuppressWarnings("hiding") PLogicaXor _logicaXor_,
         @SuppressWarnings("hiding") TXor _xor_,
-        @SuppressWarnings("hiding") PVar _r_)
+        @SuppressWarnings("hiding") PLogicaNeg _logicaNeg_)
     {
         // Constructor
-        setL(_l_);
+        setLogicaXor(_logicaXor_);
 
         setXor(_xor_);
 
-        setR(_r_);
+        setLogicaNeg(_logicaNeg_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AXorVarLogicaXor(
-            cloneNode(this._l_),
+        return new AXorLogicaXor(
+            cloneNode(this._logicaXor_),
             cloneNode(this._xor_),
-            cloneNode(this._r_));
+            cloneNode(this._logicaNeg_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAXorVarLogicaXor(this);
+        ((Analysis) sw).caseAXorLogicaXor(this);
     }
 
-    public PVar getL()
+    public PLogicaXor getLogicaXor()
     {
-        return this._l_;
+        return this._logicaXor_;
     }
 
-    public void setL(PVar node)
+    public void setLogicaXor(PLogicaXor node)
     {
-        if(this._l_ != null)
+        if(this._logicaXor_ != null)
         {
-            this._l_.parent(null);
+            this._logicaXor_.parent(null);
         }
 
         if(node != null)
@@ -67,7 +67,7 @@ public final class AXorVarLogicaXor extends PLogicaXor
             node.parent(this);
         }
 
-        this._l_ = node;
+        this._logicaXor_ = node;
     }
 
     public TXor getXor()
@@ -95,16 +95,16 @@ public final class AXorVarLogicaXor extends PLogicaXor
         this._xor_ = node;
     }
 
-    public PVar getR()
+    public PLogicaNeg getLogicaNeg()
     {
-        return this._r_;
+        return this._logicaNeg_;
     }
 
-    public void setR(PVar node)
+    public void setLogicaNeg(PLogicaNeg node)
     {
-        if(this._r_ != null)
+        if(this._logicaNeg_ != null)
         {
-            this._r_.parent(null);
+            this._logicaNeg_.parent(null);
         }
 
         if(node != null)
@@ -117,25 +117,25 @@ public final class AXorVarLogicaXor extends PLogicaXor
             node.parent(this);
         }
 
-        this._r_ = node;
+        this._logicaNeg_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._l_)
+            + toString(this._logicaXor_)
             + toString(this._xor_)
-            + toString(this._r_);
+            + toString(this._logicaNeg_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._l_ == child)
+        if(this._logicaXor_ == child)
         {
-            this._l_ = null;
+            this._logicaXor_ = null;
             return;
         }
 
@@ -145,9 +145,9 @@ public final class AXorVarLogicaXor extends PLogicaXor
             return;
         }
 
-        if(this._r_ == child)
+        if(this._logicaNeg_ == child)
         {
-            this._r_ = null;
+            this._logicaNeg_ = null;
             return;
         }
 
@@ -158,9 +158,9 @@ public final class AXorVarLogicaXor extends PLogicaXor
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._l_ == oldChild)
+        if(this._logicaXor_ == oldChild)
         {
-            setL((PVar) newChild);
+            setLogicaXor((PLogicaXor) newChild);
             return;
         }
 
@@ -170,9 +170,9 @@ public final class AXorVarLogicaXor extends PLogicaXor
             return;
         }
 
-        if(this._r_ == oldChild)
+        if(this._logicaNeg_ == oldChild)
         {
-            setR((PVar) newChild);
+            setLogicaNeg((PLogicaNeg) newChild);
             return;
         }
 

@@ -5,46 +5,46 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AIgualdadeExpLogica extends PExpLogica
+public final class ANegacaoLogicaXor extends PLogicaXor
 {
-    private PLogicaIgualdade _logicaIgualdade_;
+    private PLogicaNeg _logicaNeg_;
 
-    public AIgualdadeExpLogica()
+    public ANegacaoLogicaXor()
     {
         // Constructor
     }
 
-    public AIgualdadeExpLogica(
-        @SuppressWarnings("hiding") PLogicaIgualdade _logicaIgualdade_)
+    public ANegacaoLogicaXor(
+        @SuppressWarnings("hiding") PLogicaNeg _logicaNeg_)
     {
         // Constructor
-        setLogicaIgualdade(_logicaIgualdade_);
+        setLogicaNeg(_logicaNeg_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AIgualdadeExpLogica(
-            cloneNode(this._logicaIgualdade_));
+        return new ANegacaoLogicaXor(
+            cloneNode(this._logicaNeg_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAIgualdadeExpLogica(this);
+        ((Analysis) sw).caseANegacaoLogicaXor(this);
     }
 
-    public PLogicaIgualdade getLogicaIgualdade()
+    public PLogicaNeg getLogicaNeg()
     {
-        return this._logicaIgualdade_;
+        return this._logicaNeg_;
     }
 
-    public void setLogicaIgualdade(PLogicaIgualdade node)
+    public void setLogicaNeg(PLogicaNeg node)
     {
-        if(this._logicaIgualdade_ != null)
+        if(this._logicaNeg_ != null)
         {
-            this._logicaIgualdade_.parent(null);
+            this._logicaNeg_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class AIgualdadeExpLogica extends PExpLogica
             node.parent(this);
         }
 
-        this._logicaIgualdade_ = node;
+        this._logicaNeg_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._logicaIgualdade_);
+            + toString(this._logicaNeg_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._logicaIgualdade_ == child)
+        if(this._logicaNeg_ == child)
         {
-            this._logicaIgualdade_ = null;
+            this._logicaNeg_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class AIgualdadeExpLogica extends PExpLogica
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._logicaIgualdade_ == oldChild)
+        if(this._logicaNeg_ == oldChild)
         {
-            setLogicaIgualdade((PLogicaIgualdade) newChild);
+            setLogicaNeg((PLogicaNeg) newChild);
             return;
         }
 

@@ -5,46 +5,46 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AParenteseLogicaXor extends PLogicaXor
+public final class AIgualdadeLogicaNeg extends PLogicaNeg
 {
-    private PParenteseLogica _parenteseLogica_;
+    private PLogicaIgualdade _logicaIgualdade_;
 
-    public AParenteseLogicaXor()
+    public AIgualdadeLogicaNeg()
     {
         // Constructor
     }
 
-    public AParenteseLogicaXor(
-        @SuppressWarnings("hiding") PParenteseLogica _parenteseLogica_)
+    public AIgualdadeLogicaNeg(
+        @SuppressWarnings("hiding") PLogicaIgualdade _logicaIgualdade_)
     {
         // Constructor
-        setParenteseLogica(_parenteseLogica_);
+        setLogicaIgualdade(_logicaIgualdade_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AParenteseLogicaXor(
-            cloneNode(this._parenteseLogica_));
+        return new AIgualdadeLogicaNeg(
+            cloneNode(this._logicaIgualdade_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAParenteseLogicaXor(this);
+        ((Analysis) sw).caseAIgualdadeLogicaNeg(this);
     }
 
-    public PParenteseLogica getParenteseLogica()
+    public PLogicaIgualdade getLogicaIgualdade()
     {
-        return this._parenteseLogica_;
+        return this._logicaIgualdade_;
     }
 
-    public void setParenteseLogica(PParenteseLogica node)
+    public void setLogicaIgualdade(PLogicaIgualdade node)
     {
-        if(this._parenteseLogica_ != null)
+        if(this._logicaIgualdade_ != null)
         {
-            this._parenteseLogica_.parent(null);
+            this._logicaIgualdade_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class AParenteseLogicaXor extends PLogicaXor
             node.parent(this);
         }
 
-        this._parenteseLogica_ = node;
+        this._logicaIgualdade_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._parenteseLogica_);
+            + toString(this._logicaIgualdade_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._parenteseLogica_ == child)
+        if(this._logicaIgualdade_ == child)
         {
-            this._parenteseLogica_ = null;
+            this._logicaIgualdade_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class AParenteseLogicaXor extends PLogicaXor
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._parenteseLogica_ == oldChild)
+        if(this._logicaIgualdade_ == oldChild)
         {
-            setParenteseLogica((PParenteseLogica) newChild);
+            setLogicaIgualdade((PLogicaIgualdade) newChild);
             return;
         }
 

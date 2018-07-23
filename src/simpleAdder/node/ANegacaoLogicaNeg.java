@@ -8,9 +8,7 @@ import simpleAdder.analysis.*;
 public final class ANegacaoLogicaNeg extends PLogicaNeg
 {
     private TNao _nao_;
-    private TAbreParentese _abreParentese_;
     private PLogicaNeg _logicaNeg_;
-    private TFechaParentese _fechaParentese_;
 
     public ANegacaoLogicaNeg()
     {
@@ -19,18 +17,12 @@ public final class ANegacaoLogicaNeg extends PLogicaNeg
 
     public ANegacaoLogicaNeg(
         @SuppressWarnings("hiding") TNao _nao_,
-        @SuppressWarnings("hiding") TAbreParentese _abreParentese_,
-        @SuppressWarnings("hiding") PLogicaNeg _logicaNeg_,
-        @SuppressWarnings("hiding") TFechaParentese _fechaParentese_)
+        @SuppressWarnings("hiding") PLogicaNeg _logicaNeg_)
     {
         // Constructor
         setNao(_nao_);
 
-        setAbreParentese(_abreParentese_);
-
         setLogicaNeg(_logicaNeg_);
-
-        setFechaParentese(_fechaParentese_);
 
     }
 
@@ -39,9 +31,7 @@ public final class ANegacaoLogicaNeg extends PLogicaNeg
     {
         return new ANegacaoLogicaNeg(
             cloneNode(this._nao_),
-            cloneNode(this._abreParentese_),
-            cloneNode(this._logicaNeg_),
-            cloneNode(this._fechaParentese_));
+            cloneNode(this._logicaNeg_));
     }
 
     @Override
@@ -75,31 +65,6 @@ public final class ANegacaoLogicaNeg extends PLogicaNeg
         this._nao_ = node;
     }
 
-    public TAbreParentese getAbreParentese()
-    {
-        return this._abreParentese_;
-    }
-
-    public void setAbreParentese(TAbreParentese node)
-    {
-        if(this._abreParentese_ != null)
-        {
-            this._abreParentese_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._abreParentese_ = node;
-    }
-
     public PLogicaNeg getLogicaNeg()
     {
         return this._logicaNeg_;
@@ -125,39 +90,12 @@ public final class ANegacaoLogicaNeg extends PLogicaNeg
         this._logicaNeg_ = node;
     }
 
-    public TFechaParentese getFechaParentese()
-    {
-        return this._fechaParentese_;
-    }
-
-    public void setFechaParentese(TFechaParentese node)
-    {
-        if(this._fechaParentese_ != null)
-        {
-            this._fechaParentese_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._fechaParentese_ = node;
-    }
-
     @Override
     public String toString()
     {
         return ""
             + toString(this._nao_)
-            + toString(this._abreParentese_)
-            + toString(this._logicaNeg_)
-            + toString(this._fechaParentese_);
+            + toString(this._logicaNeg_);
     }
 
     @Override
@@ -170,21 +108,9 @@ public final class ANegacaoLogicaNeg extends PLogicaNeg
             return;
         }
 
-        if(this._abreParentese_ == child)
-        {
-            this._abreParentese_ = null;
-            return;
-        }
-
         if(this._logicaNeg_ == child)
         {
             this._logicaNeg_ = null;
-            return;
-        }
-
-        if(this._fechaParentese_ == child)
-        {
-            this._fechaParentese_ = null;
             return;
         }
 
@@ -201,21 +127,9 @@ public final class ANegacaoLogicaNeg extends PLogicaNeg
             return;
         }
 
-        if(this._abreParentese_ == oldChild)
-        {
-            setAbreParentese((TAbreParentese) newChild);
-            return;
-        }
-
         if(this._logicaNeg_ == oldChild)
         {
             setLogicaNeg((PLogicaNeg) newChild);
-            return;
-        }
-
-        if(this._fechaParentese_ == oldChild)
-        {
-            setFechaParentese((TFechaParentese) newChild);
             return;
         }
 

@@ -1,18 +1,20 @@
-
 //teste 1
-//nao(a <> b) ou a<c xor a-2>5 e a+1<1 ou b<=6 
+//nao a=b ou a=c xor a>4 e a+1<1 ou b<=6 
 
 //teste 2
-//( (X >= 4) ou (x=b) ) e (x <> 4) e ( nao (a=b) ) 
+( (X >= 4) ou (x=b) ) e (x <> 4) e ( nao (a=b) ) 
 
+//(a<c ou b<a) e c<a
 
+//(a=b)=(c=a)=(a=d)
+
+		//testes que deve falhar:
+		
 //teste 3
 //((a ou b) e (a xor b)) e  ( nao(a))
 
-
-		//testes que deve falhar:
 //teste4
-a = b = c
+//a = b = c
 
 //teste 5
-(a = b) >= 2
+//(a = b) >= 2

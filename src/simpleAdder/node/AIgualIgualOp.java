@@ -5,46 +5,46 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ANegExpLogica extends PExpLogica
+public final class AIgualIgualOp extends PIgualOp
 {
-    private PLogicaNeg _logicaNeg_;
+    private TIgual _igual_;
 
-    public ANegExpLogica()
+    public AIgualIgualOp()
     {
         // Constructor
     }
 
-    public ANegExpLogica(
-        @SuppressWarnings("hiding") PLogicaNeg _logicaNeg_)
+    public AIgualIgualOp(
+        @SuppressWarnings("hiding") TIgual _igual_)
     {
         // Constructor
-        setLogicaNeg(_logicaNeg_);
+        setIgual(_igual_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ANegExpLogica(
-            cloneNode(this._logicaNeg_));
+        return new AIgualIgualOp(
+            cloneNode(this._igual_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseANegExpLogica(this);
+        ((Analysis) sw).caseAIgualIgualOp(this);
     }
 
-    public PLogicaNeg getLogicaNeg()
+    public TIgual getIgual()
     {
-        return this._logicaNeg_;
+        return this._igual_;
     }
 
-    public void setLogicaNeg(PLogicaNeg node)
+    public void setIgual(TIgual node)
     {
-        if(this._logicaNeg_ != null)
+        if(this._igual_ != null)
         {
-            this._logicaNeg_.parent(null);
+            this._igual_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class ANegExpLogica extends PExpLogica
             node.parent(this);
         }
 
-        this._logicaNeg_ = node;
+        this._igual_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._logicaNeg_);
+            + toString(this._igual_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._logicaNeg_ == child)
+        if(this._igual_ == child)
         {
-            this._logicaNeg_ = null;
+            this._igual_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class ANegExpLogica extends PExpLogica
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._logicaNeg_ == oldChild)
+        if(this._igual_ == oldChild)
         {
-            setLogicaNeg((PLogicaNeg) newChild);
+            setIgual((TIgual) newChild);
             return;
         }
 

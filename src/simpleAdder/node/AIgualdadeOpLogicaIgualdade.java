@@ -5,26 +5,26 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AIgualLogicaIgualdade extends PLogicaIgualdade
+public final class AIgualdadeOpLogicaIgualdade extends PLogicaIgualdade
 {
     private PExp _esq_;
-    private TIgual _igual_;
+    private PIgualOp _igualOp_;
     private PExp _dir_;
 
-    public AIgualLogicaIgualdade()
+    public AIgualdadeOpLogicaIgualdade()
     {
         // Constructor
     }
 
-    public AIgualLogicaIgualdade(
+    public AIgualdadeOpLogicaIgualdade(
         @SuppressWarnings("hiding") PExp _esq_,
-        @SuppressWarnings("hiding") TIgual _igual_,
+        @SuppressWarnings("hiding") PIgualOp _igualOp_,
         @SuppressWarnings("hiding") PExp _dir_)
     {
         // Constructor
         setEsq(_esq_);
 
-        setIgual(_igual_);
+        setIgualOp(_igualOp_);
 
         setDir(_dir_);
 
@@ -33,16 +33,16 @@ public final class AIgualLogicaIgualdade extends PLogicaIgualdade
     @Override
     public Object clone()
     {
-        return new AIgualLogicaIgualdade(
+        return new AIgualdadeOpLogicaIgualdade(
             cloneNode(this._esq_),
-            cloneNode(this._igual_),
+            cloneNode(this._igualOp_),
             cloneNode(this._dir_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAIgualLogicaIgualdade(this);
+        ((Analysis) sw).caseAIgualdadeOpLogicaIgualdade(this);
     }
 
     public PExp getEsq()
@@ -70,16 +70,16 @@ public final class AIgualLogicaIgualdade extends PLogicaIgualdade
         this._esq_ = node;
     }
 
-    public TIgual getIgual()
+    public PIgualOp getIgualOp()
     {
-        return this._igual_;
+        return this._igualOp_;
     }
 
-    public void setIgual(TIgual node)
+    public void setIgualOp(PIgualOp node)
     {
-        if(this._igual_ != null)
+        if(this._igualOp_ != null)
         {
-            this._igual_.parent(null);
+            this._igualOp_.parent(null);
         }
 
         if(node != null)
@@ -92,7 +92,7 @@ public final class AIgualLogicaIgualdade extends PLogicaIgualdade
             node.parent(this);
         }
 
-        this._igual_ = node;
+        this._igualOp_ = node;
     }
 
     public PExp getDir()
@@ -125,7 +125,7 @@ public final class AIgualLogicaIgualdade extends PLogicaIgualdade
     {
         return ""
             + toString(this._esq_)
-            + toString(this._igual_)
+            + toString(this._igualOp_)
             + toString(this._dir_);
     }
 
@@ -139,9 +139,9 @@ public final class AIgualLogicaIgualdade extends PLogicaIgualdade
             return;
         }
 
-        if(this._igual_ == child)
+        if(this._igualOp_ == child)
         {
-            this._igual_ = null;
+            this._igualOp_ = null;
             return;
         }
 
@@ -164,9 +164,9 @@ public final class AIgualLogicaIgualdade extends PLogicaIgualdade
             return;
         }
 
-        if(this._igual_ == oldChild)
+        if(this._igualOp_ == oldChild)
         {
-            setIgual((TIgual) newChild);
+            setIgualOp((PIgualOp) newChild);
             return;
         }
 

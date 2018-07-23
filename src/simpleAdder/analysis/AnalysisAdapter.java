@@ -81,67 +81,7 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseAOuUmVarExpLogica(AOuUmVarExpLogica node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAOuVarExpLogica(AOuVarExpLogica node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
     public void caseAAndExpLogica(AAndExpLogica node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAIgualdadeExpLogica(AIgualdadeExpLogica node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseANegExpLogica(ANegExpLogica node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseANegacaoLogicaNeg(ANegacaoLogicaNeg node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseABoolLogicaNeg(ABoolLogicaNeg node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseABoolVarLogicaNeg(ABoolVarLogicaNeg node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseANegIgLogicaNeg(ANegIgLogicaNeg node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAIgualLogicaIgualdade(AIgualLogicaIgualdade node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseADiferenteLogicaIgualdade(ADiferenteLogicaIgualdade node)
     {
         defaultCase(node);
     }
@@ -159,37 +99,55 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseAEUmVarLogicaAnd(AEUmVarLogicaAnd node)
+    public void caseAXorLogicaXor(AXorLogicaXor node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAEVarLogicaAnd(AEVarLogicaAnd node)
+    public void caseANegacaoLogicaXor(ANegacaoLogicaXor node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAXorRLogicaXor(AXorRLogicaXor node)
+    public void caseANegacaoLogicaNeg(ANegacaoLogicaNeg node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAParenteseLogicaXor(AParenteseLogicaXor node)
+    public void caseAIgualdadeLogicaNeg(AIgualdadeLogicaNeg node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAXorUmVarLogicaXor(AXorUmVarLogicaXor node)
+    public void caseAIgualdadeOpLogicaIgualdade(AIgualdadeOpLogicaIgualdade node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAXorVarLogicaXor(AXorVarLogicaXor node)
+    public void caseAIgualdadeParenteseLogicaIgualdade(AIgualdadeParenteseLogicaIgualdade node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAParenteseLogicaIgualdade(AParenteseLogicaIgualdade node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAIgualIgualOp(AIgualIgualOp node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseADiferenteIgualOp(ADiferenteIgualOp node)
     {
         defaultCase(node);
     }
