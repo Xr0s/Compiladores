@@ -8,12 +8,8 @@ import simpleAdder.analysis.*;
 public final class AIgualdadeParenteseLogicaIgualdade extends PLogicaIgualdade
 {
     private PLogicaIgualdade _logicaIgualdade_;
-    private PIgualOp _l_;
-    private TAbreParentese _abreParentese_;
-    private PExp _esq_;
-    private PIgualOp _r_;
-    private PExp _dir_;
-    private TFechaParentese _fechaParentese_;
+    private PIgualOp _igualOp_;
+    private PLogicaIgualdadePart _logicaIgualdadePart_;
 
     public AIgualdadeParenteseLogicaIgualdade()
     {
@@ -22,27 +18,15 @@ public final class AIgualdadeParenteseLogicaIgualdade extends PLogicaIgualdade
 
     public AIgualdadeParenteseLogicaIgualdade(
         @SuppressWarnings("hiding") PLogicaIgualdade _logicaIgualdade_,
-        @SuppressWarnings("hiding") PIgualOp _l_,
-        @SuppressWarnings("hiding") TAbreParentese _abreParentese_,
-        @SuppressWarnings("hiding") PExp _esq_,
-        @SuppressWarnings("hiding") PIgualOp _r_,
-        @SuppressWarnings("hiding") PExp _dir_,
-        @SuppressWarnings("hiding") TFechaParentese _fechaParentese_)
+        @SuppressWarnings("hiding") PIgualOp _igualOp_,
+        @SuppressWarnings("hiding") PLogicaIgualdadePart _logicaIgualdadePart_)
     {
         // Constructor
         setLogicaIgualdade(_logicaIgualdade_);
 
-        setL(_l_);
+        setIgualOp(_igualOp_);
 
-        setAbreParentese(_abreParentese_);
-
-        setEsq(_esq_);
-
-        setR(_r_);
-
-        setDir(_dir_);
-
-        setFechaParentese(_fechaParentese_);
+        setLogicaIgualdadePart(_logicaIgualdadePart_);
 
     }
 
@@ -51,12 +35,8 @@ public final class AIgualdadeParenteseLogicaIgualdade extends PLogicaIgualdade
     {
         return new AIgualdadeParenteseLogicaIgualdade(
             cloneNode(this._logicaIgualdade_),
-            cloneNode(this._l_),
-            cloneNode(this._abreParentese_),
-            cloneNode(this._esq_),
-            cloneNode(this._r_),
-            cloneNode(this._dir_),
-            cloneNode(this._fechaParentese_));
+            cloneNode(this._igualOp_),
+            cloneNode(this._logicaIgualdadePart_));
     }
 
     @Override
@@ -90,16 +70,16 @@ public final class AIgualdadeParenteseLogicaIgualdade extends PLogicaIgualdade
         this._logicaIgualdade_ = node;
     }
 
-    public PIgualOp getL()
+    public PIgualOp getIgualOp()
     {
-        return this._l_;
+        return this._igualOp_;
     }
 
-    public void setL(PIgualOp node)
+    public void setIgualOp(PIgualOp node)
     {
-        if(this._l_ != null)
+        if(this._igualOp_ != null)
         {
-            this._l_.parent(null);
+            this._igualOp_.parent(null);
         }
 
         if(node != null)
@@ -112,19 +92,19 @@ public final class AIgualdadeParenteseLogicaIgualdade extends PLogicaIgualdade
             node.parent(this);
         }
 
-        this._l_ = node;
+        this._igualOp_ = node;
     }
 
-    public TAbreParentese getAbreParentese()
+    public PLogicaIgualdadePart getLogicaIgualdadePart()
     {
-        return this._abreParentese_;
+        return this._logicaIgualdadePart_;
     }
 
-    public void setAbreParentese(TAbreParentese node)
+    public void setLogicaIgualdadePart(PLogicaIgualdadePart node)
     {
-        if(this._abreParentese_ != null)
+        if(this._logicaIgualdadePart_ != null)
         {
-            this._abreParentese_.parent(null);
+            this._logicaIgualdadePart_.parent(null);
         }
 
         if(node != null)
@@ -137,107 +117,7 @@ public final class AIgualdadeParenteseLogicaIgualdade extends PLogicaIgualdade
             node.parent(this);
         }
 
-        this._abreParentese_ = node;
-    }
-
-    public PExp getEsq()
-    {
-        return this._esq_;
-    }
-
-    public void setEsq(PExp node)
-    {
-        if(this._esq_ != null)
-        {
-            this._esq_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._esq_ = node;
-    }
-
-    public PIgualOp getR()
-    {
-        return this._r_;
-    }
-
-    public void setR(PIgualOp node)
-    {
-        if(this._r_ != null)
-        {
-            this._r_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._r_ = node;
-    }
-
-    public PExp getDir()
-    {
-        return this._dir_;
-    }
-
-    public void setDir(PExp node)
-    {
-        if(this._dir_ != null)
-        {
-            this._dir_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._dir_ = node;
-    }
-
-    public TFechaParentese getFechaParentese()
-    {
-        return this._fechaParentese_;
-    }
-
-    public void setFechaParentese(TFechaParentese node)
-    {
-        if(this._fechaParentese_ != null)
-        {
-            this._fechaParentese_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._fechaParentese_ = node;
+        this._logicaIgualdadePart_ = node;
     }
 
     @Override
@@ -245,12 +125,8 @@ public final class AIgualdadeParenteseLogicaIgualdade extends PLogicaIgualdade
     {
         return ""
             + toString(this._logicaIgualdade_)
-            + toString(this._l_)
-            + toString(this._abreParentese_)
-            + toString(this._esq_)
-            + toString(this._r_)
-            + toString(this._dir_)
-            + toString(this._fechaParentese_);
+            + toString(this._igualOp_)
+            + toString(this._logicaIgualdadePart_);
     }
 
     @Override
@@ -263,39 +139,15 @@ public final class AIgualdadeParenteseLogicaIgualdade extends PLogicaIgualdade
             return;
         }
 
-        if(this._l_ == child)
+        if(this._igualOp_ == child)
         {
-            this._l_ = null;
+            this._igualOp_ = null;
             return;
         }
 
-        if(this._abreParentese_ == child)
+        if(this._logicaIgualdadePart_ == child)
         {
-            this._abreParentese_ = null;
-            return;
-        }
-
-        if(this._esq_ == child)
-        {
-            this._esq_ = null;
-            return;
-        }
-
-        if(this._r_ == child)
-        {
-            this._r_ = null;
-            return;
-        }
-
-        if(this._dir_ == child)
-        {
-            this._dir_ = null;
-            return;
-        }
-
-        if(this._fechaParentese_ == child)
-        {
-            this._fechaParentese_ = null;
+            this._logicaIgualdadePart_ = null;
             return;
         }
 
@@ -312,39 +164,15 @@ public final class AIgualdadeParenteseLogicaIgualdade extends PLogicaIgualdade
             return;
         }
 
-        if(this._l_ == oldChild)
+        if(this._igualOp_ == oldChild)
         {
-            setL((PIgualOp) newChild);
+            setIgualOp((PIgualOp) newChild);
             return;
         }
 
-        if(this._abreParentese_ == oldChild)
+        if(this._logicaIgualdadePart_ == oldChild)
         {
-            setAbreParentese((TAbreParentese) newChild);
-            return;
-        }
-
-        if(this._esq_ == oldChild)
-        {
-            setEsq((PExp) newChild);
-            return;
-        }
-
-        if(this._r_ == oldChild)
-        {
-            setR((PIgualOp) newChild);
-            return;
-        }
-
-        if(this._dir_ == oldChild)
-        {
-            setDir((PExp) newChild);
-            return;
-        }
-
-        if(this._fechaParentese_ == oldChild)
-        {
-            setFechaParentese((TFechaParentese) newChild);
+            setLogicaIgualdadePart((PLogicaIgualdadePart) newChild);
             return;
         }
 

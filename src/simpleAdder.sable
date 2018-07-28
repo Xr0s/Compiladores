@@ -112,7 +112,7 @@ Ignored Tokens
 	branco,comment, comentario_de_linha;
 
 Productions 
-/*
+
 	 program = programa  id  inicio declaracao* comando* fim;
 	 
 	 declaracao = {variavel} tipo doispontos decl_variavel
@@ -149,8 +149,7 @@ Productions
 	
 	//Estrutura auxiliar para o escreva 
 	decl_exp = {varias_exp} exp virgula decl_exp 
-	 		 | {unica_exp} exp;
-*/	 
+	 		 | {unica_exp} exp; 
 	
 	//Estrutura do exp
 	
@@ -167,8 +166,10 @@ Productions
 	 		   | {igualdade} logica_igualdade;
 	
 	logica_igualdade = {igualdade_op} [esq]:exp igual_op [dir]:exp
-					 | {igualdade_parentese} logica_igualdade [l]:igual_op abre_parentese [esq]:exp [r]:igual_op [dir]:exp fecha_parentese  					
+					 | {igualdade_parentese} logica_igualdade igual_op logica_igualdade_part  					
 					 | {parentese} parentese_logica;
+					 
+	logica_igualdade_part = [l]: abre_parentese [esq]:exp igual_op [dir]:exp fecha_parentese;				 
 					 
 	igual_op = {igual} igual
 			 | {diferente} diferente;
