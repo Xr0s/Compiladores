@@ -56,8 +56,8 @@ public class Main {
 	public static void analiseSintatica(Comentario_Aninhado lexer) throws ParserException, LexerException, IOException {
 		Parser parser = new Parser(lexer); 
 		Start tree = parser.parse();
-		System.out.println(tree);
-		//tree.apply(new ASTPrinter());
+		//System.out.println(tree);
+		tree.apply(new ASTPrinter());
 	}
 
 

@@ -113,14 +113,16 @@ Ignored Tokens
 
 Productions 
 
-	 program = programa  id  inicio declaracao* comando* fim;
+	 program {-> program} = programa  id  inicio declaracao* comando* fim {-> New program(id,[declaracao], [comando])};
 	 
-	 declaracao = {variavel} tipo doispontos decl_variavel
-	 			| {constante} const id valor pontovirgula;
-	 
-	 decl_variavel = {varias} var virgula decl_variavel 
-	 				| {unica} var pontovirgula;
-	 
+	 declaracao {-> declaracao} = {variavel} tipo doispontos decl_variavel {-> New declaracao.variavel(tipo, decl_variavel.declaracao)}  
+	 							| {constante} const id valor pontovirgula	 {-> New declaracao.constante(id, valor)};
+		
+	 decl_variavel {-> declaracao} = {varias} var virgula decl_variavel {-> New declaracao.varias([var])}
+	 							   | {unica} var pontovirgula {-> New declaracao.unica(var)};
+
+	 comando {-> comando} = {inteiro} inteiro {-> New comando.inteiro(inteiro)};
+/*	 
 	 comando = var atribuicao exp pontovirgula
 	 		 |{leia} leia abre_parentese decl_var_sempontov fecha_parentese pontovirgula
 			 |{escreva} escreva abre_parentese decl_exp fecha_parentese pontovirgula
@@ -200,19 +202,41 @@ Productions
 	fator = {exp} abre_parentese exp fecha_parentese 
 		   | {valor} valor
 		   | {var} var;	
-	
+*/	
 //declaracao de variaveis, tipos e valor;
 
-	var = {id_unica} id 
-	    | {vetor} id abre_colchete inteiro fecha_colchete;	 	 
-	 
-	tipo = {real_palavra} real_reservada 
-	     | {inteiro_palavra}inteiro_reservada 
-	     | {caracter_palavra}caractere_reservada 
-	     | {booleano_palavra}booleano_reservada;
-	 
+	var {-> var}= {real} real {-> New var.real(real)};
+//	var = {id_unica} id; 
+//	    | {vetor} id abre_colchete inteiro fecha_colchete;	 	 
+ 
+	tipo {-> tipo} = {real_palavra} real_reservada {-> New tipo.real_palavra()}
+	     		   | {inteiro_palavra} inteiro_reservada {-> New tipo.inteiro_palavra()}
+			       | {caracter_palavra} caractere_reservada {-> New tipo.caracter_palavra()}
+			       | {booleano_palavra} booleano_reservada {-> New tipo.booleano_palavra()};
+			 
+	valor {-> valor} = {char} caractere {-> New valor.char(caractere)}
+				 	 | {int} inteiro {-> New valor.int(inteiro)}
+				     | {float} real {-> New valor.float(real)}
+				     | {booleano} booleano {-> New valor.booleano(booleano)};
+
+Abstract Syntax Tree
+
+	program = id declaracao* comando*;
+	
+	declaracao = {variavel} tipo var+
+			   | {constante} id valor;
+	
+	comando = {inteiro} inteiro;
+
+	var = {real} real;
+
+	tipo = {real_palavra}  
+     	 | {inteiro_palavra}  
+		 | {caracter_palavra}  
+		 | {booleano_palavra};
+		 
 	valor = {char} caractere 
-	 	  | {int} inteiro
+		  | {int} inteiro
 	      | {float} real
 	      | {booleano} booleano;
 
