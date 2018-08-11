@@ -1,7 +1,6 @@
 programa teste 
 	inicio
-		teste1 := 2+1+3;
-		teste := teste1;
-		teste := 10;
-		
+		inteiro:
+		caractere:
+		const teste 3;
 	fim.

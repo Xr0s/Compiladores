@@ -115,27 +115,25 @@ Productions
 
 	 program {-> program} = programa  id  inicio declaracao* comando* fim {-> New program(id,[declaracao], [comando])};
 	 
-	 declaracao {-> declaracao} = {variaveis} tipo doispontos decl_variavel {-> New declaracao.variaveis (tipo, decl_variavel)}  
+	 declaracao {-> declaracao} = {variavel} tipo doispontos decl_variavel {-> New declaracao.variavel(tipo, decl_variavel.declaracao)}  
 	 							| {constante} const id valor pontovirgula	 {-> New declaracao.constante(id, valor)};
 		
-	 decl_variavel {-> decl_variavel} = {varias} var virgula decl_variavel {-> New decl_variavel.varias ( var, decl_variavel)}
-	 					        	  | {unica} var pontovirgula {-> New decl_variavel.unica(var)};
-	
-	 comando {-> comando} = {atribuicao} var atribuicao exp pontovirgula { -> New comando.atribuicao (var,exp)}
-	  			 		  |{leia} leia abre_parentese repete_var* var fecha_parentese pontovirgula { -> New comando.leia( repete_var.var, var )}      
-	  			 		  ;
-/*						  |{escreva} escreva abre_parentese decl_exp fecha_parentese pontovirgula
-						  |{se} se abre_parentese exp_logica fecha_parentese entao comando+ decl_senao? fim_se pontovirgula
-						  |{enquanto} enquanto abre_parentese exp_logica fecha_parentese faca comando+ fim_enquanto pontovirgula
-						  |{repita} repita comando+ ate abre_parentese exp_logica fecha_parentese pontovirgula
-						  |{para_sem_passo} para var de [esquerda]:inteiro ate [direita]:inteiro faca comando+ fim_para pontovirgula
-						  |{para_com_passo} para var de [primeiro]:inteiro passo [segundo]:inteiro 
-						   				   ate [terceiro]:inteiro faca comando+ fim_para pontovirgula
-						 |{avalie} avalie abre_parentese exp fecha_parentese casos*  decl_senao_avalie pontovirgula;
-	
-	//Estrutura auxiliar para o leia //e declaracao 		
-	repete_var {-> var} =  var virgula {-> var}; 
-/*		
+	 decl_variavel {-> declaracao} = {varias} var virgula decl_variavel {-> New declaracao.varias([var])}
+	 							   | {unica} var pontovirgula {-> New declaracao.unica(var)};
+
+	 comando {-> comando} = {inteiro} inteiro {-> New comando.inteiro(inteiro)};
+/*	 
+	 comando = var atribuicao exp pontovirgula
+	 		 |{leia} leia abre_parentese decl_var_sempontov fecha_parentese pontovirgula
+			 |{escreva} escreva abre_parentese decl_exp fecha_parentese pontovirgula
+			 |{se} se abre_parentese exp_logica fecha_parentese entao comando+ decl_senao? fim_se pontovirgula
+			 |{enquanto} enquanto abre_parentese exp_logica fecha_parentese faca comando+ fim_enquanto pontovirgula
+			 |{repita} repita comando+ ate abre_parentese exp_logica fecha_parentese pontovirgula
+			 |{para_sem_passo} para var de [esquerda]:inteiro ate [direita]:inteiro faca comando+ fim_para pontovirgula
+			 |{para_com_passo} para var de [primeiro]:inteiro passo [segundo]:inteiro 
+			   				   ate [terceiro]:inteiro faca comando+ fim_para pontovirgula
+			 |{avalie} avalie abre_parentese exp fecha_parentese casos*  decl_senao_avalie pontovirgula;
+			
 	//Estrutura auxiliar para o se
 	decl_senao = senao comando+;	
 	
@@ -146,14 +144,17 @@ Productions
 	//Estrutura auxiliar para o avalie
 	casos = caso valor doispontos comando+;
 	
-	//Estrutura auxiliar para o escreva 
-//	decl_exp = {varias_exp} exp virgula decl_exp 
-//	 		 | {unica_exp} exp; 
-
-//	exp_logica = booleano;
 	
-	//Estrutura do exp-logica
-
+	//Estrutura auxiliar para o leia		
+	decl_var_sempontov = {varias} var virgula decl_var_sempontov 
+	 			       | {unica} var;
+	
+	//Estrutura auxiliar para o escreva 
+	decl_exp = {varias_exp} exp virgula decl_exp 
+	 		 | {unica_exp} exp; 
+	
+	//Estrutura do exp
+	
 	exp_logica = {ou} exp_logica ou logica_and 
 			   | {and} logica_and;
 	 		   
@@ -185,27 +186,28 @@ Productions
 			  	  | {menorigual} menorig 
 				  | {maiorigual} maiorig
 				  | {maior} maior;
-*/
-	//Estrutura do exp
-	exp {-> exp} = {add} [esq]:exp mais [dir]:termo {-> New exp.add(esq.exp, dir.exp)}
-				 | {sub} [esq]:exp menos [dir]:termo {-> New exp.sub(esq.exp, dir.exp)}
-				 | {termo} termo {-> termo.exp};
-
-	termo {-> exp} = {mult} [esq]:termo mult [dir]:fator {-> New exp.mult (esq.exp, dir.exp)} 
-		 		   | {div} [esq]:termo div [dir]:fator {-> New exp.div (esq.exp, dir.exp)} 
-		 		   | fator {-> fator.exp};
 	
-	fator {-> exp} = {exp} abre_parentese exp fecha_parentese {-> exp.exp}
-				   | {valor} valor {-> New exp.valor(valor)}
-				   | {var} var	 {-> New exp.var(var) }
-				   ;
-			
+	exp = {soma} exp op_soma termo 
+		| {termo} termo;
+		
+	op_soma = {mais} mais 
+		 | {menos} menos;	
+
+	termo = {op} termo op fator 
+		 | fator;
+		  
+	op = {mult} mult
+		|{div} div;
+	
+	fator = {exp} abre_parentese exp fecha_parentese 
+		   | {valor} valor
+		   | {var} var;	
+*/	
 //declaracao de variaveis, tipos e valor;
 
-	
-	var {-> var} = {id_unica} id {-> New var.id_unica (id)} 
-	    	   	 | {vetor} id abre_colchete inteiro fecha_colchete { -> New var.vetor(id,inteiro)}
-	    	   	 ;	 	 
+	var {-> var}= {real} real {-> New var.real(real)};
+//	var = {id_unica} id; 
+//	    | {vetor} id abre_colchete inteiro fecha_colchete;	 	 
  
 	tipo {-> tipo} = {real_palavra} real_reservada {-> New tipo.real_palavra()}
 	     		   | {inteiro_palavra} inteiro_reservada {-> New tipo.inteiro_palavra()}
@@ -221,30 +223,13 @@ Abstract Syntax Tree
 
 	program = id declaracao* comando*;
 	
-	declaracao = {variaveis} tipo decl_variavel
+	declaracao = {variavel} tipo var+
 			   | {constante} id valor;
 	
-	decl_variavel = {varias} var decl_variavel
-	 		      | {unica} var ;
-	
-	
-	
-	comando = {atribuicao} var exp  
-			| {leia} var+
-			;
-	
-	exp = {add} [esq]:exp [dir]:exp
-		| {sub} [esq]:exp [dir]:exp
-		| {mult} [esq]:exp [dir]:exp
-		| {div} [esq]:exp [dir]:exp
-		| {valor} valor
-		| {var} var
-		| exp
-		;
-		
-	var = {id_unica} id  
-	    | {vetor} id inteiro
-	    ;
+	comando = {inteiro} inteiro;
+
+	var = {real} real;
+
 	tipo = {real_palavra}  
      	 | {inteiro_palavra}  
 		 | {caracter_palavra}  
