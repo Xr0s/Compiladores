@@ -113,18 +113,18 @@ Ignored Tokens
 
 Productions 
 
-	 program {-> program} = programa  id  inicio declaracao* comando* fim {-> New program(id,[declaracao], [comando])};
+	 program {-> program} = programa  id  inicio declaracao* {-> New program(id,[declaracao])};//comando* fim {-> New program(id,[declaracao], [comando])};
 	 
-	 declaracao {-> declaracao} = {variaveis} tipo doispontos decl_variavel {-> New declaracao.variaveis (tipo, decl_variavel)}  
-	 							| {constante} const id valor pontovirgula	 {-> New declaracao.constante(id, valor)};
+	 declaracao {-> declaracao} = {variaveis} tipo doispontos decl_variavel {-> New declaracao.variaveis(tipo,[decl_variavel.var])}  
+	 							| {constante} const id valor pontovirgula	{-> New declaracao.constante(id, valor)};
 		
-	 decl_variavel {-> decl_variavel} = {varias} var virgula decl_variavel {-> New decl_variavel.varias ( var, decl_variavel)}
-	 					        	  | {unica} var pontovirgula {-> New decl_variavel.unica(var)};
+	 decl_variavel {-> var*} = {varias} var virgula decl_variavel {-> [var, decl_variavel.var]}
+	 					           | {unica} var pontovirgula {-> [var]};
 	
-	 comando {-> comando} = {atribuicao} var atribuicao exp pontovirgula { -> New comando.atribuicao (var,exp)}
+/*	 comando {-> comando} = {atribuicao} var atribuicao exp pontovirgula { -> New comando.atribuicao (var,exp)};
 	  			 		  |{leia} leia abre_parentese repete_var* var fecha_parentese pontovirgula { -> New comando.leia( repete_var.var, var )}      
 	  			 		  ;
-/*						  |{escreva} escreva abre_parentese decl_exp fecha_parentese pontovirgula
+						  |{escreva} escreva abre_parentese decl_exp fecha_parentese pontovirgula
 						  |{se} se abre_parentese exp_logica fecha_parentese entao comando+ decl_senao? fim_se pontovirgula
 						  |{enquanto} enquanto abre_parentese exp_logica fecha_parentese faca comando+ fim_enquanto pontovirgula
 						  |{repita} repita comando+ ate abre_parentese exp_logica fecha_parentese pontovirgula
@@ -135,7 +135,7 @@ Productions
 	
 	//Estrutura auxiliar para o leia //e declaracao 		
 	repete_var {-> var} =  var virgula {-> var}; 
-/*		
+		
 	//Estrutura auxiliar para o se
 	decl_senao = senao comando+;	
 	
@@ -185,7 +185,7 @@ Productions
 			  	  | {menorigual} menorig 
 				  | {maiorigual} maiorig
 				  | {maior} maior;
-*/
+
 	//Estrutura do exp
 	exp {-> exp} = {add} [esq]:exp mais [dir]:termo {-> New exp.add(esq.exp, dir.exp)}
 				 | {sub} [esq]:exp menos [dir]:termo {-> New exp.sub(esq.exp, dir.exp)}
@@ -199,7 +199,7 @@ Productions
 				   | {valor} valor {-> New exp.valor(valor)}
 				   | {var} var	 {-> New exp.var(var) }
 				   ;
-			
+*/			
 //declaracao de variaveis, tipos e valor;
 
 	
@@ -219,16 +219,17 @@ Productions
 
 Abstract Syntax Tree
 
-	program = id declaracao* comando*;
+	program = id declaracao*; //comando*;
 	
-	declaracao = {variaveis} tipo decl_variavel
+	declaracao = {variaveis} tipo var+  
 			   | {constante} id valor;
+			   
 	
-	decl_variavel = {varias} var decl_variavel
-	 		      | {unica} var ;
+//	decl_variavel = {varias} var decl_variavel
+//	 		      | {unica} var ;
 	
 	
-	
+/*
 	comando = {atribuicao} var exp  
 			| {leia} var+
 			;
@@ -241,7 +242,7 @@ Abstract Syntax Tree
 		| {var} var
 		| exp
 		;
-		
+*/		
 	var = {id_unica} id  
 	    | {vetor} id inteiro
 	    ;
