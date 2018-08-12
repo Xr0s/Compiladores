@@ -15,6 +15,17 @@ public interface Analysis extends Switch
     void caseAProgram(AProgram node);
     void caseAVariaveisDeclaracao(AVariaveisDeclaracao node);
     void caseAConstanteDeclaracao(AConstanteDeclaracao node);
+    void caseAAtribuicaoComando(AAtribuicaoComando node);
+    void caseALeiaComando(ALeiaComando node);
+    void caseAEscrevaComando(AEscrevaComando node);
+    void caseASeComando(ASeComando node);
+    void caseAAddExp(AAddExp node);
+    void caseASubExp(ASubExp node);
+    void caseAMultExp(AMultExp node);
+    void caseADivExp(ADivExp node);
+    void caseAValorExp(AValorExp node);
+    void caseAVarExp(AVarExp node);
+    void caseAExpLogica(AExpLogica node);
     void caseAIdUnicaVar(AIdUnicaVar node);
     void caseAVetorVar(AVetorVar node);
     void caseARealPalavraTipo(ARealPalavraTipo node);

@@ -93,6 +93,72 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
+    public void caseAAtribuicaoComando(AAtribuicaoComando node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseALeiaComando(ALeiaComando node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAEscrevaComando(AEscrevaComando node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseASeComando(ASeComando node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAAddExp(AAddExp node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseASubExp(ASubExp node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAMultExp(AMultExp node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseADivExp(ADivExp node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAValorExp(AValorExp node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAVarExp(AVarExp node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAExpLogica(AExpLogica node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
     public void caseAIdUnicaVar(AIdUnicaVar node)
     {
         defaultCase(node);

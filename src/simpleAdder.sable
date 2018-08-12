@@ -113,44 +113,41 @@ Ignored Tokens
 
 Productions 
 
-	 program {-> program} = programa  id  inicio declaracao* {-> New program(id,[declaracao])};//comando* fim {-> New program(id,[declaracao], [comando])};
+	 program {-> program} = programa  id  inicio declaracao* comando* fim {-> New program(id,[declaracao], [comando])};
 	 
-	 declaracao {-> declaracao} = {variaveis} tipo doispontos decl_variavel {-> New declaracao.variaveis(tipo,[decl_variavel.var])}  
+	 declaracao {-> declaracao} = {variaveis} tipo doispontos decl_variavel pontovirgula {-> New declaracao.variaveis(tipo,[decl_variavel.var])}  
 	 							| {constante} const id valor pontovirgula	{-> New declaracao.constante(id, valor)};
 		
 	 decl_variavel {-> var*} = {varias} var virgula decl_variavel {-> [var, decl_variavel.var]}
-	 					           | {unica} var pontovirgula {-> [var]};
+	 					           | {unica} var {-> [var]};
 	
-/*	 comando {-> comando} = {atribuicao} var atribuicao exp pontovirgula { -> New comando.atribuicao (var,exp)};
-	  			 		  |{leia} leia abre_parentese repete_var* var fecha_parentese pontovirgula { -> New comando.leia( repete_var.var, var )}      
-	  			 		  ;
-						  |{escreva} escreva abre_parentese decl_exp fecha_parentese pontovirgula
-						  |{se} se abre_parentese exp_logica fecha_parentese entao comando+ decl_senao? fim_se pontovirgula
-						  |{enquanto} enquanto abre_parentese exp_logica fecha_parentese faca comando+ fim_enquanto pontovirgula
+	 comando {-> comando} = {atribuicao} var atribuicao exp pontovirgula { -> New comando.atribuicao (var,exp)}
+	  			 		  | {leia} leia abre_parentese decl_variavel fecha_parentese pontovirgula { -> New comando.leia([decl_variavel.var])}      
+						  |{escreva} escreva abre_parentese decl_exp fecha_parentese pontovirgula { -> New comando.escreva([decl_exp.exp])}
+						  |{se} se abre_parentese exp_logica fecha_parentese entao comando+ decl_senao? fim_se pontovirgula { -> New comando.se(exp_logica, [comando, decl_senao.comando])};
+/*						  |{enquanto} enquanto abre_parentese exp_logica fecha_parentese faca comando+ fim_enquanto pontovirgula
 						  |{repita} repita comando+ ate abre_parentese exp_logica fecha_parentese pontovirgula
 						  |{para_sem_passo} para var de [esquerda]:inteiro ate [direita]:inteiro faca comando+ fim_para pontovirgula
 						  |{para_com_passo} para var de [primeiro]:inteiro passo [segundo]:inteiro 
 						   				   ate [terceiro]:inteiro faca comando+ fim_para pontovirgula
 						 |{avalie} avalie abre_parentese exp fecha_parentese casos*  decl_senao_avalie pontovirgula;
-	
-	//Estrutura auxiliar para o leia //e declaracao 		
-	repete_var {-> var} =  var virgula {-> var}; 
+*/
+
+	//Estrutura auxiliar para o escreva 
+	decl_exp {-> exp*} = {varias_exp} exp virgula decl_exp {-> [exp, decl_exp.exp]}
+	 		 		   | {unica_exp} exp {-> [exp]};
 		
 	//Estrutura auxiliar para o se
-	decl_senao = senao comando+;	
+	decl_senao {-> comando*} = senao comando+ {-> [comando]};	
 	
-	//Estrutura auxiliar para o senao
+	exp_logica {-> exp_logica} = booleano {-> New exp_logica(booleano)}; //apenas para teste
+/*	
+	//Estrutura auxiliar para o senao do avalie
 	decl_senao_avalie = {com_opcional} senao doispontos comando+ fim_avalie 
 	   			      | {sem_opcional} fim_avalie;
 	
 	//Estrutura auxiliar para o avalie
 	casos = caso valor doispontos comando+;
-	
-	//Estrutura auxiliar para o escreva 
-//	decl_exp = {varias_exp} exp virgula decl_exp 
-//	 		 | {unica_exp} exp; 
-
-//	exp_logica = booleano;
 	
 	//Estrutura do exp-logica
 
@@ -185,7 +182,7 @@ Productions
 			  	  | {menorigual} menorig 
 				  | {maiorigual} maiorig
 				  | {maior} maior;
-
+*/
 	//Estrutura do exp
 	exp {-> exp} = {add} [esq]:exp mais [dir]:termo {-> New exp.add(esq.exp, dir.exp)}
 				 | {sub} [esq]:exp menos [dir]:termo {-> New exp.sub(esq.exp, dir.exp)}
@@ -195,11 +192,11 @@ Productions
 		 		   | {div} [esq]:termo div [dir]:fator {-> New exp.div (esq.exp, dir.exp)} 
 		 		   | fator {-> fator.exp};
 	
-	fator {-> exp} = {exp} abre_parentese exp fecha_parentese {-> exp.exp}
+	fator {-> exp} = {exp} abre_parentese exp fecha_parentese {-> exp}
 				   | {valor} valor {-> New exp.valor(valor)}
 				   | {var} var	 {-> New exp.var(var) }
 				   ;
-*/			
+			
 //declaracao de variaveis, tipos e valor;
 
 	
@@ -219,20 +216,15 @@ Productions
 
 Abstract Syntax Tree
 
-	program = id declaracao*; //comando*;
+	program = id declaracao* comando*;
 	
 	declaracao = {variaveis} tipo var+  
 			   | {constante} id valor;
-			   
-	
-//	decl_variavel = {varias} var decl_variavel
-//	 		      | {unica} var ;
-	
-	
-/*
-	comando = {atribuicao} var exp  
+
+	comando = {atribuicao} var exp
 			| {leia} var+
-			;
+			| {escreva} exp+
+			| {se} exp_logica comando+;
 	
 	exp = {add} [esq]:exp [dir]:exp
 		| {sub} [esq]:exp [dir]:exp
@@ -240,9 +232,10 @@ Abstract Syntax Tree
 		| {div} [esq]:exp [dir]:exp
 		| {valor} valor
 		| {var} var
-		| exp
 		;
-*/		
+		
+	exp_logica = booleano; //apenas para teste
+	
 	var = {id_unica} id  
 	    | {vetor} id inteiro
 	    ;

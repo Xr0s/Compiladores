@@ -51,6 +51,14 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     {
         inAProgram(node);
         {
+            List<PComando> copy = new ArrayList<PComando>(node.getComando());
+            Collections.reverse(copy);
+            for(PComando e : copy)
+            {
+                e.apply(this);
+            }
+        }
+        {
             List<PDeclaracao> copy = new ArrayList<PDeclaracao>(node.getDeclaracao());
             Collections.reverse(copy);
             for(PDeclaracao e : copy)
@@ -117,6 +125,273 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
             node.getId().apply(this);
         }
         outAConstanteDeclaracao(node);
+    }
+
+    public void inAAtribuicaoComando(AAtribuicaoComando node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAAtribuicaoComando(AAtribuicaoComando node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAAtribuicaoComando(AAtribuicaoComando node)
+    {
+        inAAtribuicaoComando(node);
+        if(node.getExp() != null)
+        {
+            node.getExp().apply(this);
+        }
+        if(node.getVar() != null)
+        {
+            node.getVar().apply(this);
+        }
+        outAAtribuicaoComando(node);
+    }
+
+    public void inALeiaComando(ALeiaComando node)
+    {
+        defaultIn(node);
+    }
+
+    public void outALeiaComando(ALeiaComando node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseALeiaComando(ALeiaComando node)
+    {
+        inALeiaComando(node);
+        {
+            List<PVar> copy = new ArrayList<PVar>(node.getVar());
+            Collections.reverse(copy);
+            for(PVar e : copy)
+            {
+                e.apply(this);
+            }
+        }
+        outALeiaComando(node);
+    }
+
+    public void inAEscrevaComando(AEscrevaComando node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAEscrevaComando(AEscrevaComando node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAEscrevaComando(AEscrevaComando node)
+    {
+        inAEscrevaComando(node);
+        {
+            List<PExp> copy = new ArrayList<PExp>(node.getExp());
+            Collections.reverse(copy);
+            for(PExp e : copy)
+            {
+                e.apply(this);
+            }
+        }
+        outAEscrevaComando(node);
+    }
+
+    public void inASeComando(ASeComando node)
+    {
+        defaultIn(node);
+    }
+
+    public void outASeComando(ASeComando node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseASeComando(ASeComando node)
+    {
+        inASeComando(node);
+        {
+            List<PComando> copy = new ArrayList<PComando>(node.getComando());
+            Collections.reverse(copy);
+            for(PComando e : copy)
+            {
+                e.apply(this);
+            }
+        }
+        if(node.getExpLogica() != null)
+        {
+            node.getExpLogica().apply(this);
+        }
+        outASeComando(node);
+    }
+
+    public void inAAddExp(AAddExp node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAAddExp(AAddExp node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAAddExp(AAddExp node)
+    {
+        inAAddExp(node);
+        if(node.getDir() != null)
+        {
+            node.getDir().apply(this);
+        }
+        if(node.getEsq() != null)
+        {
+            node.getEsq().apply(this);
+        }
+        outAAddExp(node);
+    }
+
+    public void inASubExp(ASubExp node)
+    {
+        defaultIn(node);
+    }
+
+    public void outASubExp(ASubExp node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseASubExp(ASubExp node)
+    {
+        inASubExp(node);
+        if(node.getDir() != null)
+        {
+            node.getDir().apply(this);
+        }
+        if(node.getEsq() != null)
+        {
+            node.getEsq().apply(this);
+        }
+        outASubExp(node);
+    }
+
+    public void inAMultExp(AMultExp node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAMultExp(AMultExp node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAMultExp(AMultExp node)
+    {
+        inAMultExp(node);
+        if(node.getDir() != null)
+        {
+            node.getDir().apply(this);
+        }
+        if(node.getEsq() != null)
+        {
+            node.getEsq().apply(this);
+        }
+        outAMultExp(node);
+    }
+
+    public void inADivExp(ADivExp node)
+    {
+        defaultIn(node);
+    }
+
+    public void outADivExp(ADivExp node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseADivExp(ADivExp node)
+    {
+        inADivExp(node);
+        if(node.getDir() != null)
+        {
+            node.getDir().apply(this);
+        }
+        if(node.getEsq() != null)
+        {
+            node.getEsq().apply(this);
+        }
+        outADivExp(node);
+    }
+
+    public void inAValorExp(AValorExp node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAValorExp(AValorExp node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAValorExp(AValorExp node)
+    {
+        inAValorExp(node);
+        if(node.getValor() != null)
+        {
+            node.getValor().apply(this);
+        }
+        outAValorExp(node);
+    }
+
+    public void inAVarExp(AVarExp node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAVarExp(AVarExp node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAVarExp(AVarExp node)
+    {
+        inAVarExp(node);
+        if(node.getVar() != null)
+        {
+            node.getVar().apply(this);
+        }
+        outAVarExp(node);
+    }
+
+    public void inAExpLogica(AExpLogica node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAExpLogica(AExpLogica node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAExpLogica(AExpLogica node)
+    {
+        inAExpLogica(node);
+        if(node.getBooleano() != null)
+        {
+            node.getBooleano().apply(this);
+        }
+        outAExpLogica(node);
     }
 
     public void inAIdUnicaVar(AIdUnicaVar node)

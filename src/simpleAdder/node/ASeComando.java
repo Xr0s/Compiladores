@@ -6,26 +6,22 @@ import java.util.*;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AProgram extends PProgram
+public final class ASeComando extends PComando
 {
-    private TId _id_;
-    private final LinkedList<PDeclaracao> _declaracao_ = new LinkedList<PDeclaracao>();
+    private PExpLogica _expLogica_;
     private final LinkedList<PComando> _comando_ = new LinkedList<PComando>();
 
-    public AProgram()
+    public ASeComando()
     {
         // Constructor
     }
 
-    public AProgram(
-        @SuppressWarnings("hiding") TId _id_,
-        @SuppressWarnings("hiding") List<?> _declaracao_,
+    public ASeComando(
+        @SuppressWarnings("hiding") PExpLogica _expLogica_,
         @SuppressWarnings("hiding") List<?> _comando_)
     {
         // Constructor
-        setId(_id_);
-
-        setDeclaracao(_declaracao_);
+        setExpLogica(_expLogica_);
 
         setComando(_comando_);
 
@@ -34,28 +30,27 @@ public final class AProgram extends PProgram
     @Override
     public Object clone()
     {
-        return new AProgram(
-            cloneNode(this._id_),
-            cloneList(this._declaracao_),
+        return new ASeComando(
+            cloneNode(this._expLogica_),
             cloneList(this._comando_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAProgram(this);
+        ((Analysis) sw).caseASeComando(this);
     }
 
-    public TId getId()
+    public PExpLogica getExpLogica()
     {
-        return this._id_;
+        return this._expLogica_;
     }
 
-    public void setId(TId node)
+    public void setExpLogica(PExpLogica node)
     {
-        if(this._id_ != null)
+        if(this._expLogica_ != null)
         {
-            this._id_.parent(null);
+            this._expLogica_.parent(null);
         }
 
         if(node != null)
@@ -68,33 +63,7 @@ public final class AProgram extends PProgram
             node.parent(this);
         }
 
-        this._id_ = node;
-    }
-
-    public LinkedList<PDeclaracao> getDeclaracao()
-    {
-        return this._declaracao_;
-    }
-
-    public void setDeclaracao(List<?> list)
-    {
-        for(PDeclaracao e : this._declaracao_)
-        {
-            e.parent(null);
-        }
-        this._declaracao_.clear();
-
-        for(Object obj_e : list)
-        {
-            PDeclaracao e = (PDeclaracao) obj_e;
-            if(e.parent() != null)
-            {
-                e.parent().removeChild(e);
-            }
-
-            e.parent(this);
-            this._declaracao_.add(e);
-        }
+        this._expLogica_ = node;
     }
 
     public LinkedList<PComando> getComando()
@@ -127,8 +96,7 @@ public final class AProgram extends PProgram
     public String toString()
     {
         return ""
-            + toString(this._id_)
-            + toString(this._declaracao_)
+            + toString(this._expLogica_)
             + toString(this._comando_);
     }
 
@@ -136,14 +104,9 @@ public final class AProgram extends PProgram
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._id_ == child)
+        if(this._expLogica_ == child)
         {
-            this._id_ = null;
-            return;
-        }
-
-        if(this._declaracao_.remove(child))
-        {
+            this._expLogica_ = null;
             return;
         }
 
@@ -159,28 +122,10 @@ public final class AProgram extends PProgram
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._id_ == oldChild)
+        if(this._expLogica_ == oldChild)
         {
-            setId((TId) newChild);
+            setExpLogica((PExpLogica) newChild);
             return;
-        }
-
-        for(ListIterator<PDeclaracao> i = this._declaracao_.listIterator(); i.hasNext();)
-        {
-            if(i.next() == oldChild)
-            {
-                if(newChild != null)
-                {
-                    i.set((PDeclaracao) newChild);
-                    newChild.parent(this);
-                    oldChild.parent(null);
-                    return;
-                }
-
-                i.remove();
-                oldChild.parent(null);
-                return;
-            }
         }
 
         for(ListIterator<PComando> i = this._comando_.listIterator(); i.hasNext();)

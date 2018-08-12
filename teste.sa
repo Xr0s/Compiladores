@@ -1,4 +1,16 @@
 programa teste 
 	inicio
-		inteiro: numero, casa, carro, moto;
+		//casa := 1*1-1;
+		//leia(casa,carro,moto,piscina);
+		//escreva(1+1,(2*5),(2-1));	
+		se(verdadeiro) entao 
+			casa:=1+1;
+			loja:= 2;
+		senao
+			monu:=21;
+			laico:=falso;
+		fim se;
+fim.
 		
+//Duvidas: em relaçao ao senao (ou qualquer 'token') ser considerado na abstrata
+		   em relacao a esse escreva (a virgula que determina tanto se um numero é float, quanto separação de expressoes)
