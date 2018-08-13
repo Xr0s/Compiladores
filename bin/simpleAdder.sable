@@ -112,85 +112,87 @@ Ignored Tokens
 	branco,comment, comentario_de_linha;
 
 Productions 
-
-	 program {-> program} = programa  id  inicio declaracao* comando* fim {-> New program(id,[declaracao], [comando])};
+/*
+	 program {-> program} = programa  id  inicio declaracao* {-> New program(id,[declaracao])};//comando* fim {-> New program(id,[declaracao], [comando])};
 	 
-	 declaracao {-> declaracao} = {variaveis} tipo doispontos decl_variavel pontovirgula  {-> New declaracao.variaveis (tipo, decl_variavel)}  
-	 							| {constante} const id valor pontovirgula	 {-> New declaracao.constante(id, valor)};
+	 declaracao {-> declaracao} = {variaveis} tipo doispontos decl_variavel {-> New declaracao.variaveis(tipo,[decl_variavel.var])}  
+	 							| {constante} const id valor pontovirgula	{-> New declaracao.constante(id, valor)};
 		
-	 decl_variavel {-> decl_variavel} = {varias} var virgula decl_variavel {-> New decl_variavel.varias ( var, decl_variavel)}
-	 					        	  | {unica} var {-> New decl_variavel.unica(var)};
+	 decl_variavel {-> var*} = {varias} var virgula decl_variavel {-> [var, decl_variavel.var]}
+	 					     | {unica} var pontovirgula {-> [var]};
 	
-	 comando {-> comando} = {atribuicao} var atribuicao exp pontovirgula { -> New comando.atribuicao (var,exp)}
-	  			 		  |{leia} leia abre_parentese decl_variavel fecha_parentese pontovirgula { -> New comando.leia( decl_variavel )}      
-						  |{escreva} escreva abre_parentese decl_exp fecha_parentese pontovirgula { -> New comando.escreva ( decl_exp )}
-						  |{se} se abre_parentese exp_logica fecha_parentese entao /*comando+ [senao]:decl_senao? fim_se pontovirgula */ { -> New comando.se (exp_logica )}
-						  ;
-/*						  |{enquanto} enquanto abre_parentese exp_logica fecha_parentese faca comando+ fim_enquanto pontovirgula
+	 comando {-> comando} = {atribuicao} var atribuicao exp pontovirgula { -> New comando.atribuicao (var,exp)};
+	  			 		  |{leia} leia abre_parentese repete_var* var fecha_parentese pontovirgula { -> New comando.leia( repete_var.var, var )}      
+	  			 		  ;
+						  |{escreva} escreva abre_parentese decl_exp fecha_parentese pontovirgula
+						  |{se} se abre_parentese exp_logica fecha_parentese entao comando+ decl_senao? fim_se pontovirgula
+						  |{enquanto} enquanto abre_parentese exp_logica fecha_parentese faca comando+ fim_enquanto pontovirgula
 						  |{repita} repita comando+ ate abre_parentese exp_logica fecha_parentese pontovirgula
 						  |{para_sem_passo} para var de [esquerda]:inteiro ate [direita]:inteiro faca comando+ fim_para pontovirgula
 						  |{para_com_passo} para var de [primeiro]:inteiro passo [segundo]:inteiro 
 						   				   ate [terceiro]:inteiro faca comando+ fim_para pontovirgula
 						 |{avalie} avalie abre_parentese exp fecha_parentese casos*  decl_senao_avalie pontovirgula;
-*/ 	
-	//Estrutura auxiliar para o escreva 
-	decl_exp {-> decl_exp} = {varias} exp virgula decl_exp { -> New decl_exp.varias (exp,decl_exp)} 
-	 		 			   | {unica} exp {-> New decl_exp.unica (exp)}
-	 		 			   ; 
-
+	
+	//Estrutura auxiliar para o leia //e declaracao 		
+	repete_var {-> var} =  var virgula {-> var}; 
 		
 	//Estrutura auxiliar para o se
-//	decl_senao { -> comando} = senao comando+ {-> comando }	;	
-
-
-/*
-	//Estrutura auxiliar para o senao avalie
+	decl_senao = senao comando+;	
+	
+	//Estrutura auxiliar para o senao
 	decl_senao_avalie = {com_opcional} senao doispontos comando+ fim_avalie 
 	   			      | {sem_opcional} fim_avalie;
 	
 	//Estrutura auxiliar para o avalie
 	casos = caso valor doispontos comando+;
 	
-*/
+	//Estrutura auxiliar para o escreva 
+//	decl_exp = {varias_exp} exp virgula decl_exp 
+//	 		 | {unica_exp} exp; 
+
+*/	
 	//Estrutura do exp-logica
 
-	exp_logica {-> exp_logica} = {ou} [esq]:exp_logica ou [dir]:logica_and {-> New exp_logica.ou ( esq.exp_logica, dir.exp_logica) } 
-			   				   | {and} logica_and { -> logica_and.exp_logica};
+	exp_logica {-> exp_logica} = {ou} [esq]:exp_logica ou [dir]:logica_and { -> New exp_logica.ou ( esq.exp_logica, dir.exp_logica)}
+			   				   | {and} logica_and {-> logica_and.exp_logica}
+			   				   ;
 	 		   
-	logica_and {-> exp_logica} = {e} [esq]:logica_and e [dir]:logica_xor {-> New exp_logica.and (esq.exp_logica, dir.exp_logica)} 
-	 		   				   | {xor} logica_xor { -> logica_xor.exp_logica};	
+	logica_and { -> exp_logica} = {e} [esq]:logica_and e [dir]:logica_xor {-> New exp_logica.e(esq.exp_logica , dir.exp_logica) }
+	 		   					| {xor} logica_xor {-> logica_xor.exp_logica}
+	 		   					;	
 
-	logica_xor {-> exp_logica} = {xor} [esq]:logica_xor xor [dir]:logica_neg {-> New exp_logica.xor (esq.exp_logica, dir.exp_logica)} 
-			   				   | {negacao} logica_neg { -> logica_neg.exp_logica};	
+	logica_xor { -> exp_logica} = {xor} [esq]:logica_xor xor [dir]:logica_neg {-> New exp_logica.xor(esq.exp_logica , dir.exp_logica)}
+			   					| {negacao} logica_neg {-> logica_neg.exp_logica}
+			   					;	
 	
-	logica_neg {-> exp_logica} = {negacao} nao logica_neg { -> New exp_logica.negacao (exp_logica)}
-	 		   				   | {igualdade} logica_igualdade { -> logica_igualdade.exp_logica };
+	logica_neg { -> exp_logica} = {negacao} nao logica_neg {-> New exp_logica.negacao(logica_neg.exp_logica)}
+	 		  				 	| {igualdade} logica_igualdade {-> logica_igualdade.exp_logica}
+	 		  				 	;
 	
-	logica_igualdade {-> exp_logica} = {igualdade_exp} [esq]:exp igual [dir]:exp { -> New exp_logica.igualdade_exp (esq.exp, dir.exp) }
-									 | {diferente_exp} [esq]:exp diferente [dir]:exp  {-> New exp_logica.diferente_exp (esq.exp, dir.exp) }
-					 				 | {igualdade_parentese} [esq]:logica_igualdade igual logica_igualdade_part {-> New exp_logica.igualdade_parentese (esq.exp_logica, logica_igualdade_part)}					
-					 				 | {diferente_parentese} [esq]:logica_igualdade diferente logica_igualdade_part {-> New exp_logica.diferente_parentese (esq.exp_logica, logica_igualdade_part)}					
-					 				 | {parentese} parentese_logica { -> parentese_logica.exp_logica };
+	logica_igualdade {-> exp_logica} = {igualdade_exp} [esq]:exp igual [dir]:exp {-> New exp_logica.igualdade_exp(esq.exp , dir.exp)}
+									 | {diferente_exp} [esq]:exp diferente [dir]:exp {-> New exp_logica.diferente_exp(esq.exp , dir.exp)}
+									 | {igualdade_parentese} logica_igualdade igual logica_igualdade_part {-> New exp_logica.igualdade_p(logica_igualdade.exp_logica , logica_igualdade_part)}
+									 | {diferente_parentese} logica_igualdade diferente logica_igualdade_part {-> New exp_logica.igualdade_p(logica_igualdade.exp_logica , logica_igualdade_part)}									   					
+									 | {parentese} parentese_logica {-> parentese_logica.exp_logica}
+									 ;
+									 
+	logica_igualdade_part {-> logica_igualdade_part} = {igual} [l]: abre_parentese [esq]:exp igual [dir]:exp fecha_parentese {-> New logica_igualdade_part.igual(esq.exp , dir.exp)}				 
+					 								 | {dif} [l]: abre_parentese [esq]:exp diferente [dir]:exp fecha_parentese {-> New logica_igualdade_part.dif(esq.exp , dir.exp)}
+					 								 ;				 
+					 		   
+	parentese_logica {-> exp_logica} = {parentese} abre_parentese exp_logica fecha_parentese {-> New exp_logica.parentese (exp_logica)}
+					 				 | {um_relacional} relacionais {-> relacionais.exp_logica}
+					 				 ;
 					 
-	logica_igualdade_part {-> logica_igualdade_part}  = {igual} [l]: abre_parentese [esq]:exp igual [dir]:exp fecha_parentese {-> New logica_igualdade_part.igual( esq.exp, dir.exp) }				 
-					 					   			  | {dif} [l]: abre_parentese [esq]:exp diferente [dir]:exp fecha_parentese {-> New logica_igualdade_part.dif ( esq.exp, dir.exp) } ;
-			   
-	parentese_logica {-> exp_logica}  = {parentese} abre_parentese exp_logica fecha_parentese {-> New exp_logica.parentese (exp_logica) }
-					 				  | {um_relacional} relacionais { -> relacionais.exp_logica} ;
-					 
-	relacionais {-> exp_logica} = {menor} relacionais menor relacionais_part {-> New exp_logica.menor(exp_logica, relacionais_part)}
-								| {maior} relacionais maior relacionais_part {-> New exp_logica.maior(exp_logica, relacionais_part)}
-								| {menorigual} relacionais menorig relacionais_part {-> New exp_logica.menorig(exp_logica, relacionais_part)}
-								| {maiorigual} relacionais maiorig relacionais_part {-> New exp_logica.maiorig(exp_logica, relacionais_part)} 
-								| relacionais_part { -> relacionais_part} 
-								;
-
-	relacionais_part {-> relacionais_part} = {menor} [esq]:exp menor [dir]:exp {-> New relacionais_part.menor(esq.exp, dir.exp)}
-							   			| {maior} [esq]:exp maior [dir]:exp {-> New relacionais_part.maior(esq.exp, dir.exp)}
-										| {menorigual} [esq]:exp menorig [dir]:exp {-> New relacionais_part.menorig(esq.exp, dir.exp)}
-										| {maiorigual} [esq]:exp maiorig [dir]:exp {-> New relacionais_part.maiorig(esq.exp, dir.exp)} 
-										;					
-	   		
+	relacionais {-> exp_logica} = {menor} relacionais menor exp {-> New exp_logica.menor(relacionais.exp_logica , exp)}
+				| {menorigual} relacionais menorig exp {-> New exp_logica.menorigual(relacionais.exp_logica , exp)}
+				| {maiorigual} relacionais maiorig exp {-> New exp_logica.maiorigual(relacionais.exp_logica , exp)}
+				| {maior} relacionais maior exp {-> New exp_logica.maior(relacionais.exp_logica , exp)}
+				| {um_menor} [esq]:exp menor [dir]:exp {-> New exp_logica.um_menor(esq.exp , dir.exp)}
+				| {um_menorig} [esq]:exp menorig [dir]:exp {-> New exp_logica.um_menorig(esq.exp , dir.exp)}
+				| {um_maiorig} [esq]:exp maiorig [dir]:exp {-> New exp_logica.um_maiorig(esq.exp , dir.exp)}
+				| {um_maior} [esq]:exp maior [dir]:exp {-> New exp_logica.um_maior(esq.exp , dir.exp)}
+				;	
 
 	//Estrutura do exp
 	exp {-> exp} = {add} [esq]:exp mais [dir]:termo {-> New exp.add(esq.exp, dir.exp)}
@@ -224,49 +226,41 @@ Productions
 				     | {booleano} booleano {-> New valor.booleano(booleano)};
 
 Abstract Syntax Tree
-
-	program = id declaracao* comando*;
+/*
+	program = id declaracao*; //comando*;
 	
-	declaracao = {variaveis} tipo decl_variavel
+	declaracao = {variaveis} tipo var+  
 			   | {constante} id valor;
-	
-	decl_variavel = {varias} var decl_variavel
-	 		      | {unica} var ;
-	
-	comando = {atribuicao} var exp  
-			| {leia} decl_variavel
-			| {escreva} decl_exp 
-			| {se} exp_logica
-			;
-	
-	decl_exp = {varias} exp decl_exp
-	 		 | {unica} exp ;
-	
-	exp_logica = {ou} [esq]:exp_logica [dir]:exp_logica
-			   | {and} [esq]:exp_logica [dir]:exp_logica
-			   | {xor} [esq]:exp_logica [dir]:exp_logica
-			   | {menor} exp_logica relacionais_part 
-			   | {maior} exp_logica relacionais_part 
- 			   | {menorigual} exp_logica relacionais_part 
-			   | {maiorigual} exp_logica relacionais_part  
-			   | relacionais_part			    
-			   | {igualdade_exp} [esq]:exp [dir]:exp 
-			   | {diferente_exp} [esq]:exp [dir]:exp
-			   | {igualdade_parentese} exp_logica logica_igualdade_part
-			   | {diferente_parentese} exp_logica logica_igualdade_part				
-			   | {parentese} exp_logica 
-			   | {negacao} exp_logica
-			   ;
-					 
-	logica_igualdade_part = {igual} [esq]:exp [dir]:exp  
-					 	  | {dif} [esq]:exp [dir]:exp 
-						  ;
 			   
-	relacionais_part = {menor} [esq]:exp [dir]:exp 
-			   		 | {maior} [esq]:exp [dir]:exp 
-	 			     | {menorigual} [esq]:exp [dir]:exp 
-				     | {maiorigual} [esq]:exp [dir]:exp  
-					 ;	
+
+	comando = {atribuicao} var exp  
+			| {leia} var+
+			;
+*/
+	exp_logica = {ou} [esq]:exp_logica [dir]:exp_logica 
+			   | {e} [esq]:exp_logica [dir]:exp_logica 
+	 		   | {xor} [esq]:exp_logica [dir]:exp_logica 
+			   | {negacao} exp_logica 
+	 		   | {igualdade_exp} [esq]:exp [dir]:exp 
+			   | {diferente_exp} [esq]:exp [dir]:exp 
+			   | {igualdade_p} exp_logica logica_igualdade_part 
+			   | {diferente_p} exp_logica logica_igualdade_part 									   					
+			   | {parentese} exp_logica 
+			   | {menor} exp_logica exp 
+			   | {menorigual} exp_logica exp 
+			   | {maiorigual} exp_logica exp 
+			   | {maior} exp_logica exp
+			   | {um_menor} [esq]:exp [dir]:exp 
+			   | {um_menorig} [esq]:exp [dir]:exp
+			   | {um_maiorig} [esq]:exp [dir]:exp 
+			   | {um_maior} [esq]:exp [dir]:exp 
+			   ;	
+
+	logica_igualdade_part = {igual} [esq]:exp [dir]:exp 			 
+					 	  | {dif} [esq]:exp [dir]:exp 
+					 	  ;				 
+
+	
 	exp = {add} [esq]:exp [dir]:exp
 		| {sub} [esq]:exp [dir]:exp
 		| {mult} [esq]:exp [dir]:exp
