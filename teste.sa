@@ -1,16 +1,50 @@
 programa teste 
 	inicio
-		//casa := 1*1-1;
+		//num := 1*1-1;
 		//leia(casa,carro,moto,piscina);
 		//escreva(1+1,(2*5),(2-1));	
-		se(verdadeiro) entao 
-			casa:=1+1;
+		
+		/*se(verdadeiro) entao 
+			num:=1+1;
 			loja:= 2;
 		senao
 			monu:=21;
 			laico:=falso;
 		fim se;
+		*/	
+	    
+	    /*enquanto(verdadeiro) faca
+			monu:=21;
+		fim enquanto;
+		*/
+		
+		/*repita 
+			casa:=1+1;
+		ate(verdadeiro);
+		*/
+		
+		/*para numero de 0 ate 8 faca
+			numero := 4+2;
+			leia(numero);
+		fim para;
+		*/
+		
+		/*para numero de 0 passo 3 ate 8 faca
+			numero := 4+2;
+			leia(numero);
+		fim para;
+		*/
+		
+		/*avalie(1+2)
+			caso 1: 
+				tentativa := verdadeiro;
+			caso 2:
+				teste := falso;
+			senao:
+				nada := verdadeiro;
+		fim avalie;
+		*/	
 fim.
 		
-//Duvidas: em relaçao ao senao (ou qualquer 'token') ser considerado na abstrata
-		   em relacao a esse escreva (a virgula que determina tanto se um numero é float, quanto separação de expressoes)
+//Duvidas: em relaçao a qualquer token ser considerado na abstrata
+//		   em relacao a esse escreva (a virgula que determina tanto se um numero é float, quanto separação de expressoes)

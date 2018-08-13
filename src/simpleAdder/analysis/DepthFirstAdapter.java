@@ -216,13 +216,207 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getExpLogica().apply(this);
         }
         {
-            List<PComando> copy = new ArrayList<PComando>(node.getComando());
+            List<PComando> copy = new ArrayList<PComando>(node.getObrigat());
+            for(PComando e : copy)
+            {
+                e.apply(this);
+            }
+        }
+        {
+            List<PComando> copy = new ArrayList<PComando>(node.getOpcional());
             for(PComando e : copy)
             {
                 e.apply(this);
             }
         }
         outASeComando(node);
+    }
+
+    public void inAEnquantoComando(AEnquantoComando node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAEnquantoComando(AEnquantoComando node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAEnquantoComando(AEnquantoComando node)
+    {
+        inAEnquantoComando(node);
+        if(node.getExpLogica() != null)
+        {
+            node.getExpLogica().apply(this);
+        }
+        {
+            List<PComando> copy = new ArrayList<PComando>(node.getComando());
+            for(PComando e : copy)
+            {
+                e.apply(this);
+            }
+        }
+        outAEnquantoComando(node);
+    }
+
+    public void inARepitaComando(ARepitaComando node)
+    {
+        defaultIn(node);
+    }
+
+    public void outARepitaComando(ARepitaComando node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseARepitaComando(ARepitaComando node)
+    {
+        inARepitaComando(node);
+        {
+            List<PComando> copy = new ArrayList<PComando>(node.getComando());
+            for(PComando e : copy)
+            {
+                e.apply(this);
+            }
+        }
+        if(node.getExpLogica() != null)
+        {
+            node.getExpLogica().apply(this);
+        }
+        outARepitaComando(node);
+    }
+
+    public void inAParaSemPassoComando(AParaSemPassoComando node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAParaSemPassoComando(AParaSemPassoComando node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAParaSemPassoComando(AParaSemPassoComando node)
+    {
+        inAParaSemPassoComando(node);
+        if(node.getEsq() != null)
+        {
+            node.getEsq().apply(this);
+        }
+        if(node.getDir() != null)
+        {
+            node.getDir().apply(this);
+        }
+        {
+            List<PComando> copy = new ArrayList<PComando>(node.getComando());
+            for(PComando e : copy)
+            {
+                e.apply(this);
+            }
+        }
+        outAParaSemPassoComando(node);
+    }
+
+    public void inAParaComPassoComando(AParaComPassoComando node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAParaComPassoComando(AParaComPassoComando node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAParaComPassoComando(AParaComPassoComando node)
+    {
+        inAParaComPassoComando(node);
+        if(node.getPri() != null)
+        {
+            node.getPri().apply(this);
+        }
+        if(node.getSeg() != null)
+        {
+            node.getSeg().apply(this);
+        }
+        if(node.getTer() != null)
+        {
+            node.getTer().apply(this);
+        }
+        {
+            List<PComando> copy = new ArrayList<PComando>(node.getComando());
+            for(PComando e : copy)
+            {
+                e.apply(this);
+            }
+        }
+        outAParaComPassoComando(node);
+    }
+
+    public void inAAvalieComando(AAvalieComando node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAAvalieComando(AAvalieComando node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAAvalieComando(AAvalieComando node)
+    {
+        inAAvalieComando(node);
+        if(node.getExp() != null)
+        {
+            node.getExp().apply(this);
+        }
+        {
+            List<PCasos> copy = new ArrayList<PCasos>(node.getCasos());
+            for(PCasos e : copy)
+            {
+                e.apply(this);
+            }
+        }
+        {
+            List<PComando> copy = new ArrayList<PComando>(node.getComando());
+            for(PComando e : copy)
+            {
+                e.apply(this);
+            }
+        }
+        outAAvalieComando(node);
+    }
+
+    public void inACasos(ACasos node)
+    {
+        defaultIn(node);
+    }
+
+    public void outACasos(ACasos node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseACasos(ACasos node)
+    {
+        inACasos(node);
+        if(node.getValor() != null)
+        {
+            node.getValor().apply(this);
+        }
+        {
+            List<PComando> copy = new ArrayList<PComando>(node.getComando());
+            for(PComando e : copy)
+            {
+                e.apply(this);
+            }
+        }
+        outACasos(node);
     }
 
     public void inAAddExp(AAddExp node)

@@ -121,17 +121,26 @@ Productions
 	 decl_variavel {-> var*} = {varias} var virgula decl_variavel {-> [var, decl_variavel.var]}
 	 					           | {unica} var {-> [var]};
 	
-	 comando {-> comando} = {atribuicao} var atribuicao exp pontovirgula { -> New comando.atribuicao (var,exp)}
-	  			 		  | {leia} leia abre_parentese decl_variavel fecha_parentese pontovirgula { -> New comando.leia([decl_variavel.var])}      
-						  |{escreva} escreva abre_parentese decl_exp fecha_parentese pontovirgula { -> New comando.escreva([decl_exp.exp])}
-						  |{se} se abre_parentese exp_logica fecha_parentese entao comando+ decl_senao? fim_se pontovirgula { -> New comando.se(exp_logica, [comando, decl_senao.comando])};
-/*						  |{enquanto} enquanto abre_parentese exp_logica fecha_parentese faca comando+ fim_enquanto pontovirgula
-						  |{repita} repita comando+ ate abre_parentese exp_logica fecha_parentese pontovirgula
-						  |{para_sem_passo} para var de [esquerda]:inteiro ate [direita]:inteiro faca comando+ fim_para pontovirgula
-						  |{para_com_passo} para var de [primeiro]:inteiro passo [segundo]:inteiro 
-						   				   ate [terceiro]:inteiro faca comando+ fim_para pontovirgula
-						 |{avalie} avalie abre_parentese exp fecha_parentese casos*  decl_senao_avalie pontovirgula;
-*/
+	 comando {-> comando} = {atribuicao} var atribuicao exp pontovirgula 
+	 						{ -> New comando.atribuicao (var,exp)}
+	  			 		  | {leia} leia abre_parentese decl_variavel fecha_parentese pontovirgula 
+	  			 		  	{ -> New comando.leia([decl_variavel.var])}      
+						  | {escreva} escreva abre_parentese decl_exp fecha_parentese pontovirgula 
+						    { -> New comando.escreva([decl_exp.exp])}
+						  | {se} se abre_parentese exp_logica fecha_parentese entao comando+ decl_senao? fim_se pontovirgula 
+						  	{ -> New comando.se(exp_logica, [comando], [decl_senao.comando])}
+						  | {enquanto} enquanto abre_parentese exp_logica fecha_parentese faca comando+ fim_enquanto pontovirgula 
+						  	{ -> New comando.enquanto(exp_logica, [comando])}
+						  | {repita} repita comando+ ate abre_parentese exp_logica fecha_parentese pontovirgula
+						  	{ -> New comando.repita([comando], exp_logica)}
+						  | {para_sem_passo} para var de [esq]:inteiro ate [dir]:inteiro faca comando+ fim_para pontovirgula
+						    { -> New comando.para_sem_passo(esq, dir, [comando])}
+						  | {para_com_passo} para var de [pri]:inteiro passo [seg]:inteiro 
+						   				   ate [ter]:inteiro faca comando+ fim_para pontovirgula
+						   	{ -> New comando.para_com_passo(pri, seg, ter, [comando])}
+						  | {avalie} avalie abre_parentese exp fecha_parentese casos* decl_senao_avalie? fim_avalie pontovirgula
+						    { -> New comando.avalie(exp, [casos], [decl_senao_avalie.comando])};
+							
 
 	//Estrutura auxiliar para o escreva 
 	decl_exp {-> exp*} = {varias_exp} exp virgula decl_exp {-> [exp, decl_exp.exp]}
@@ -141,14 +150,13 @@ Productions
 	decl_senao {-> comando*} = senao comando+ {-> [comando]};	
 	
 	exp_logica {-> exp_logica} = booleano {-> New exp_logica(booleano)}; //apenas para teste
-/*	
-	//Estrutura auxiliar para o senao do avalie
-	decl_senao_avalie = {com_opcional} senao doispontos comando+ fim_avalie 
-	   			      | {sem_opcional} fim_avalie;
 	
 	//Estrutura auxiliar para o avalie
-	casos = caso valor doispontos comando+;
+	casos {-> casos} = caso valor doispontos comando+ {-> New casos(valor,[comando])};
 	
+	//Estrutura auxiliar para o senao do avalie
+	decl_senao_avalie {-> comando*} = senao doispontos comando+ {-> [comando]};
+/*	
 	//Estrutura do exp-logica
 
 	exp_logica = {ou} exp_logica ou logica_and 
@@ -194,8 +202,7 @@ Productions
 	
 	fator {-> exp} = {exp} abre_parentese exp fecha_parentese {-> exp}
 				   | {valor} valor {-> New exp.valor(valor)}
-				   | {var} var	 {-> New exp.var(var) }
-				   ;
+				   | {var} var	 {-> New exp.var(var)};
 			
 //declaracao de variaveis, tipos e valor;
 
@@ -224,15 +231,21 @@ Abstract Syntax Tree
 	comando = {atribuicao} var exp
 			| {leia} var+
 			| {escreva} exp+
-			| {se} exp_logica comando+;
+			| {se} exp_logica [obrigat]:comando+ [opcional]:comando* 
+			| {enquanto} exp_logica comando+
+			| {repita} comando+ exp_logica
+			| {para_sem_passo} [esq]:inteiro [dir]:inteiro comando+
+			| {para_com_passo} [pri]:inteiro [seg]:inteiro [ter]:inteiro comando+
+			| {avalie} exp casos* comando*;
+	
+	casos = valor comando+;
 	
 	exp = {add} [esq]:exp [dir]:exp
 		| {sub} [esq]:exp [dir]:exp
 		| {mult} [esq]:exp [dir]:exp
 		| {div} [esq]:exp [dir]:exp
 		| {valor} valor
-		| {var} var
-		;
+		| {var} var;
 		
 	exp_logica = booleano; //apenas para teste
 	

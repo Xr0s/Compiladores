@@ -6,44 +6,39 @@ import java.util.*;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ASeComando extends PComando
+public final class AEnquantoComando extends PComando
 {
     private PExpLogica _expLogica_;
-    private final LinkedList<PComando> _obrigat_ = new LinkedList<PComando>();
-    private final LinkedList<PComando> _opcional_ = new LinkedList<PComando>();
+    private final LinkedList<PComando> _comando_ = new LinkedList<PComando>();
 
-    public ASeComando()
+    public AEnquantoComando()
     {
         // Constructor
     }
 
-    public ASeComando(
+    public AEnquantoComando(
         @SuppressWarnings("hiding") PExpLogica _expLogica_,
-        @SuppressWarnings("hiding") List<?> _obrigat_,
-        @SuppressWarnings("hiding") List<?> _opcional_)
+        @SuppressWarnings("hiding") List<?> _comando_)
     {
         // Constructor
         setExpLogica(_expLogica_);
 
-        setObrigat(_obrigat_);
-
-        setOpcional(_opcional_);
+        setComando(_comando_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ASeComando(
+        return new AEnquantoComando(
             cloneNode(this._expLogica_),
-            cloneList(this._obrigat_),
-            cloneList(this._opcional_));
+            cloneList(this._comando_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseASeComando(this);
+        ((Analysis) sw).caseAEnquantoComando(this);
     }
 
     public PExpLogica getExpLogica()
@@ -71,18 +66,18 @@ public final class ASeComando extends PComando
         this._expLogica_ = node;
     }
 
-    public LinkedList<PComando> getObrigat()
+    public LinkedList<PComando> getComando()
     {
-        return this._obrigat_;
+        return this._comando_;
     }
 
-    public void setObrigat(List<?> list)
+    public void setComando(List<?> list)
     {
-        for(PComando e : this._obrigat_)
+        for(PComando e : this._comando_)
         {
             e.parent(null);
         }
-        this._obrigat_.clear();
+        this._comando_.clear();
 
         for(Object obj_e : list)
         {
@@ -93,33 +88,7 @@ public final class ASeComando extends PComando
             }
 
             e.parent(this);
-            this._obrigat_.add(e);
-        }
-    }
-
-    public LinkedList<PComando> getOpcional()
-    {
-        return this._opcional_;
-    }
-
-    public void setOpcional(List<?> list)
-    {
-        for(PComando e : this._opcional_)
-        {
-            e.parent(null);
-        }
-        this._opcional_.clear();
-
-        for(Object obj_e : list)
-        {
-            PComando e = (PComando) obj_e;
-            if(e.parent() != null)
-            {
-                e.parent().removeChild(e);
-            }
-
-            e.parent(this);
-            this._opcional_.add(e);
+            this._comando_.add(e);
         }
     }
 
@@ -128,8 +97,7 @@ public final class ASeComando extends PComando
     {
         return ""
             + toString(this._expLogica_)
-            + toString(this._obrigat_)
-            + toString(this._opcional_);
+            + toString(this._comando_);
     }
 
     @Override
@@ -142,12 +110,7 @@ public final class ASeComando extends PComando
             return;
         }
 
-        if(this._obrigat_.remove(child))
-        {
-            return;
-        }
-
-        if(this._opcional_.remove(child))
+        if(this._comando_.remove(child))
         {
             return;
         }
@@ -165,25 +128,7 @@ public final class ASeComando extends PComando
             return;
         }
 
-        for(ListIterator<PComando> i = this._obrigat_.listIterator(); i.hasNext();)
-        {
-            if(i.next() == oldChild)
-            {
-                if(newChild != null)
-                {
-                    i.set((PComando) newChild);
-                    newChild.parent(this);
-                    oldChild.parent(null);
-                    return;
-                }
-
-                i.remove();
-                oldChild.parent(null);
-                return;
-            }
-        }
-
-        for(ListIterator<PComando> i = this._opcional_.listIterator(); i.hasNext();)
+        for(ListIterator<PComando> i = this._comando_.listIterator(); i.hasNext();)
         {
             if(i.next() == oldChild)
             {
