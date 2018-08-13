@@ -189,7 +189,115 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseAExpLogica(AExpLogica node)
+    public void caseAOuExpLogica(AOuExpLogica node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAEExpLogica(AEExpLogica node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAXorExpLogica(AXorExpLogica node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseANegacaoExpLogica(ANegacaoExpLogica node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAIgualdadeExpExpLogica(AIgualdadeExpExpLogica node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseADiferenteExpExpLogica(ADiferenteExpExpLogica node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAIgualdadePExpLogica(AIgualdadePExpLogica node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseADiferentePExpLogica(ADiferentePExpLogica node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAParenteseExpLogica(AParenteseExpLogica node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAMenorExpLogica(AMenorExpLogica node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAMenorigualExpLogica(AMenorigualExpLogica node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAMaiorigualExpLogica(AMaiorigualExpLogica node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAMaiorExpLogica(AMaiorExpLogica node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAUmMenorExpLogica(AUmMenorExpLogica node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAUmMenorigExpLogica(AUmMenorigExpLogica node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAUmMaiorigExpLogica(AUmMaiorigExpLogica node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAUmMaiorExpLogica(AUmMaiorExpLogica node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAIgualLogicaIgualdadePart(AIgualLogicaIgualdadePart node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseADifLogicaIgualdadePart(ADifLogicaIgualdadePart node)
     {
         defaultCase(node);
     }

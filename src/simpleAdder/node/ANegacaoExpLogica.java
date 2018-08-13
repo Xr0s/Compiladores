@@ -5,46 +5,46 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AExpLogica extends PExpLogica
+public final class ANegacaoExpLogica extends PExpLogica
 {
-    private TBooleano _booleano_;
+    private PExpLogica _expLogica_;
 
-    public AExpLogica()
+    public ANegacaoExpLogica()
     {
         // Constructor
     }
 
-    public AExpLogica(
-        @SuppressWarnings("hiding") TBooleano _booleano_)
+    public ANegacaoExpLogica(
+        @SuppressWarnings("hiding") PExpLogica _expLogica_)
     {
         // Constructor
-        setBooleano(_booleano_);
+        setExpLogica(_expLogica_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AExpLogica(
-            cloneNode(this._booleano_));
+        return new ANegacaoExpLogica(
+            cloneNode(this._expLogica_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAExpLogica(this);
+        ((Analysis) sw).caseANegacaoExpLogica(this);
     }
 
-    public TBooleano getBooleano()
+    public PExpLogica getExpLogica()
     {
-        return this._booleano_;
+        return this._expLogica_;
     }
 
-    public void setBooleano(TBooleano node)
+    public void setExpLogica(PExpLogica node)
     {
-        if(this._booleano_ != null)
+        if(this._expLogica_ != null)
         {
-            this._booleano_.parent(null);
+            this._expLogica_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class AExpLogica extends PExpLogica
             node.parent(this);
         }
 
-        this._booleano_ = node;
+        this._expLogica_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._booleano_);
+            + toString(this._expLogica_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._booleano_ == child)
+        if(this._expLogica_ == child)
         {
-            this._booleano_ = null;
+            this._expLogica_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class AExpLogica extends PExpLogica
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._booleano_ == oldChild)
+        if(this._expLogica_ == oldChild)
         {
-            setBooleano((TBooleano) newChild);
+            setExpLogica((PExpLogica) newChild);
             return;
         }
 

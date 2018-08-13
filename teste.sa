@@ -13,7 +13,7 @@ programa teste
 		fim se;
 		*/	
 	    
-	    /*enquanto(verdadeiro) faca
+	    /*(enquanto(a > b < 3 > 54 > 5) faca
 			monu:=21;
 		fim enquanto;
 		*/
@@ -43,7 +43,10 @@ programa teste
 			senao:
 				nada := verdadeiro;
 		fim avalie;
-		*/	
+		*/
+		
+		
+			
 fim.
 		
 //Duvidas: em relaçao a qualquer token ser considerado na abstrata
