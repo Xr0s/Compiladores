@@ -8,7 +8,6 @@ import simpleAdder.analysis.*;
 @SuppressWarnings("nls")
 public final class AVariaveisDeclaracao extends PDeclaracao
 {
-    private PTipo _tipo_;
     private final LinkedList<PVar> _var_ = new LinkedList<PVar>();
 
     public AVariaveisDeclaracao()
@@ -17,12 +16,9 @@ public final class AVariaveisDeclaracao extends PDeclaracao
     }
 
     public AVariaveisDeclaracao(
-        @SuppressWarnings("hiding") PTipo _tipo_,
         @SuppressWarnings("hiding") List<?> _var_)
     {
         // Constructor
-        setTipo(_tipo_);
-
         setVar(_var_);
 
     }
@@ -31,7 +27,6 @@ public final class AVariaveisDeclaracao extends PDeclaracao
     public Object clone()
     {
         return new AVariaveisDeclaracao(
-            cloneNode(this._tipo_),
             cloneList(this._var_));
     }
 
@@ -39,31 +34,6 @@ public final class AVariaveisDeclaracao extends PDeclaracao
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAVariaveisDeclaracao(this);
-    }
-
-    public PTipo getTipo()
-    {
-        return this._tipo_;
-    }
-
-    public void setTipo(PTipo node)
-    {
-        if(this._tipo_ != null)
-        {
-            this._tipo_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._tipo_ = node;
     }
 
     public LinkedList<PVar> getVar()
@@ -96,7 +66,6 @@ public final class AVariaveisDeclaracao extends PDeclaracao
     public String toString()
     {
         return ""
-            + toString(this._tipo_)
             + toString(this._var_);
     }
 
@@ -104,12 +73,6 @@ public final class AVariaveisDeclaracao extends PDeclaracao
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._tipo_ == child)
-        {
-            this._tipo_ = null;
-            return;
-        }
-
         if(this._var_.remove(child))
         {
             return;
@@ -122,12 +85,6 @@ public final class AVariaveisDeclaracao extends PDeclaracao
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._tipo_ == oldChild)
-        {
-            setTipo((PTipo) newChild);
-            return;
-        }
-
         for(ListIterator<PVar> i = this._var_.listIterator(); i.hasNext();)
         {
             if(i.next() == oldChild)

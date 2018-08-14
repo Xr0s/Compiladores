@@ -85,10 +85,6 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseAVariaveisDeclaracao(AVariaveisDeclaracao node)
     {
         inAVariaveisDeclaracao(node);
-        if(node.getTipo() != null)
-        {
-            node.getTipo().apply(this);
-        }
         {
             List<PVar> copy = new ArrayList<PVar>(node.getVar());
             for(PVar e : copy)
@@ -721,13 +717,13 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseAIgualdadePExpLogica(AIgualdadePExpLogica node)
     {
         inAIgualdadePExpLogica(node);
-        if(node.getExpLogica() != null)
+        if(node.getEsq() != null)
         {
-            node.getExpLogica().apply(this);
+            node.getEsq().apply(this);
         }
-        if(node.getLogicaIgualdadePart() != null)
+        if(node.getDir() != null)
         {
-            node.getLogicaIgualdadePart().apply(this);
+            node.getDir().apply(this);
         }
         outAIgualdadePExpLogica(node);
     }
@@ -746,13 +742,13 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseADiferentePExpLogica(ADiferentePExpLogica node)
     {
         inADiferentePExpLogica(node);
-        if(node.getExpLogica() != null)
+        if(node.getEsq() != null)
         {
-            node.getExpLogica().apply(this);
+            node.getEsq().apply(this);
         }
-        if(node.getLogicaIgualdadePart() != null)
+        if(node.getDir() != null)
         {
-            node.getLogicaIgualdadePart().apply(this);
+            node.getDir().apply(this);
         }
         outADiferentePExpLogica(node);
     }
@@ -978,56 +974,6 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outAUmMaiorExpLogica(node);
     }
 
-    public void inAIgualLogicaIgualdadePart(AIgualLogicaIgualdadePart node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAIgualLogicaIgualdadePart(AIgualLogicaIgualdadePart node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAIgualLogicaIgualdadePart(AIgualLogicaIgualdadePart node)
-    {
-        inAIgualLogicaIgualdadePart(node);
-        if(node.getEsq() != null)
-        {
-            node.getEsq().apply(this);
-        }
-        if(node.getDir() != null)
-        {
-            node.getDir().apply(this);
-        }
-        outAIgualLogicaIgualdadePart(node);
-    }
-
-    public void inADifLogicaIgualdadePart(ADifLogicaIgualdadePart node)
-    {
-        defaultIn(node);
-    }
-
-    public void outADifLogicaIgualdadePart(ADifLogicaIgualdadePart node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseADifLogicaIgualdadePart(ADifLogicaIgualdadePart node)
-    {
-        inADifLogicaIgualdadePart(node);
-        if(node.getEsq() != null)
-        {
-            node.getEsq().apply(this);
-        }
-        if(node.getDir() != null)
-        {
-            node.getDir().apply(this);
-        }
-        outADifLogicaIgualdadePart(node);
-    }
-
     public void inAIdUnicaVar(AIdUnicaVar node)
     {
         defaultIn(node);
@@ -1072,74 +1018,6 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getInteiro().apply(this);
         }
         outAVetorVar(node);
-    }
-
-    public void inARealPalavraTipo(ARealPalavraTipo node)
-    {
-        defaultIn(node);
-    }
-
-    public void outARealPalavraTipo(ARealPalavraTipo node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseARealPalavraTipo(ARealPalavraTipo node)
-    {
-        inARealPalavraTipo(node);
-        outARealPalavraTipo(node);
-    }
-
-    public void inAInteiroPalavraTipo(AInteiroPalavraTipo node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAInteiroPalavraTipo(AInteiroPalavraTipo node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAInteiroPalavraTipo(AInteiroPalavraTipo node)
-    {
-        inAInteiroPalavraTipo(node);
-        outAInteiroPalavraTipo(node);
-    }
-
-    public void inACaracterPalavraTipo(ACaracterPalavraTipo node)
-    {
-        defaultIn(node);
-    }
-
-    public void outACaracterPalavraTipo(ACaracterPalavraTipo node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseACaracterPalavraTipo(ACaracterPalavraTipo node)
-    {
-        inACaracterPalavraTipo(node);
-        outACaracterPalavraTipo(node);
-    }
-
-    public void inABooleanoPalavraTipo(ABooleanoPalavraTipo node)
-    {
-        defaultIn(node);
-    }
-
-    public void outABooleanoPalavraTipo(ABooleanoPalavraTipo node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseABooleanoPalavraTipo(ABooleanoPalavraTipo node)
-    {
-        inABooleanoPalavraTipo(node);
-        outABooleanoPalavraTipo(node);
     }
 
     public void inACharValor(ACharValor node)

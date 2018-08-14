@@ -48,14 +48,8 @@ public interface Analysis extends Switch
     void caseAUmMenorigExpLogica(AUmMenorigExpLogica node);
     void caseAUmMaiorigExpLogica(AUmMaiorigExpLogica node);
     void caseAUmMaiorExpLogica(AUmMaiorExpLogica node);
-    void caseAIgualLogicaIgualdadePart(AIgualLogicaIgualdadePart node);
-    void caseADifLogicaIgualdadePart(ADifLogicaIgualdadePart node);
     void caseAIdUnicaVar(AIdUnicaVar node);
     void caseAVetorVar(AVetorVar node);
-    void caseARealPalavraTipo(ARealPalavraTipo node);
-    void caseAInteiroPalavraTipo(AInteiroPalavraTipo node);
-    void caseACaracterPalavraTipo(ACaracterPalavraTipo node);
-    void caseABooleanoPalavraTipo(ABooleanoPalavraTipo node);
     void caseACharValor(ACharValor node);
     void caseAIntValor(AIntValor node);
     void caseAFloatValor(AFloatValor node);

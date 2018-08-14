@@ -115,7 +115,7 @@ Productions
 
 	 program {-> program} = programa  id  inicio declaracao* comando* fim {-> New program(id,[declaracao], [comando])};
 	 
-	 declaracao {-> declaracao} = {variaveis} tipo doispontos decl_variavel pontovirgula {-> New declaracao.variaveis(tipo,[decl_variavel.var])}  
+	 declaracao {-> declaracao} = {variaveis} tipo doispontos decl_variavel pontovirgula {-> New declaracao.variaveis([decl_variavel.var])}  
 	 							| {constante} const id valor pontovirgula	{-> New declaracao.constante(id, valor)};
 		
 	 decl_variavel {-> var*} = {varias} var virgula decl_variavel {-> [var, decl_variavel.var]}
@@ -175,14 +175,14 @@ Productions
 	
 	logica_igualdade {-> exp_logica} = {igualdade_exp} [esq]:exp igual [dir]:exp {-> New exp_logica.igualdade_exp(esq.exp , dir.exp)}
 									 | {diferente_exp} [esq]:exp diferente [dir]:exp {-> New exp_logica.diferente_exp(esq.exp , dir.exp)}
-									 | {igualdade_parentese} logica_igualdade igual logica_igualdade_part {-> New exp_logica.igualdade_p(logica_igualdade.exp_logica , logica_igualdade_part)}
-									 | {diferente_parentese} logica_igualdade diferente logica_igualdade_part {-> New exp_logica.igualdade_p(logica_igualdade.exp_logica , logica_igualdade_part)}									   					
+									 | {igualdade_parentese} logica_igualdade igual logica_igualdade_part {-> New exp_logica.igualdade_p(logica_igualdade.exp_logica , logica_igualdade_part.exp_logica)}
+									 | {diferente_parentese} logica_igualdade diferente logica_igualdade_part {-> New exp_logica.igualdade_p(logica_igualdade.exp_logica , logica_igualdade_part.exp_logica)}									   					
 									 | {parentese} parentese_logica {-> parentese_logica.exp_logica}
 									 ;
 									 
-	logica_igualdade_part {-> logica_igualdade_part} = {igual} abre_parentese [esq]:exp igual [dir]:exp fecha_parentese {-> New logica_igualdade_part.igual(esq.exp , dir.exp)}				 
-					 								 | {dif} abre_parentese [esq]:exp diferente [dir]:exp fecha_parentese {-> New logica_igualdade_part.dif(esq.exp , dir.exp)}
-					 								 ;				 
+	logica_igualdade_part {-> exp_logica} = {igual} abre_parentese [esq]:exp igual [dir]:exp fecha_parentese {->New exp_logica.igualdade_exp(esq.exp , dir.exp)}				 
+					 					  | {dif} abre_parentese [esq]:exp diferente [dir]:exp fecha_parentese {-> New exp_logica.diferente_exp(esq.exp , dir.exp)}
+					 					  ;				 
 					 		   
 	parentese_logica {-> exp_logica} = {parentese} abre_parentese exp_logica fecha_parentese {-> New exp_logica.parentese (exp_logica)}
 					 				 | {um_relacional} relacionais {-> relacionais.exp_logica}
@@ -219,10 +219,10 @@ Productions
 	    	   	 | {vetor} id abre_colchete inteiro fecha_colchete { -> New var.vetor(id,inteiro)}
 	    	   	 ;	 	 
  
-	tipo {-> tipo} = {real_palavra} real_reservada {-> New tipo.real_palavra()}
-	     		   | {inteiro_palavra} inteiro_reservada {-> New tipo.inteiro_palavra()}
-			       | {caracter_palavra} caractere_reservada {-> New tipo.caracter_palavra()}
-			       | {booleano_palavra} booleano_reservada {-> New tipo.booleano_palavra()};
+	tipo = {real_palavra} real_reservada 
+	     | {inteiro_palavra} inteiro_reservada 
+	     | {caracter_palavra} caractere_reservada 
+	     | {booleano_palavra} booleano_reservada;
 			 
 	valor {-> valor} = {char} caractere {-> New valor.char(caractere)}
 				 	 | {int} inteiro {-> New valor.int(inteiro)}
@@ -233,7 +233,7 @@ Abstract Syntax Tree
 
 	program = id declaracao* comando*;
 	
-	declaracao = {variaveis} tipo var+  
+	declaracao = {variaveis} var+  
 			   | {constante} id valor;
 
 	comando = {atribuicao} var exp
@@ -261,8 +261,8 @@ Abstract Syntax Tree
 			   | {negacao} exp_logica 
 	 		   | {igualdade_exp} [esq]:exp [dir]:exp 
 			   | {diferente_exp} [esq]:exp [dir]:exp 
-			   | {igualdade_p} exp_logica logica_igualdade_part 
-			   | {diferente_p} exp_logica logica_igualdade_part 									   					
+			   | {igualdade_p} [esq]:exp_logica [dir]:exp_logica 
+			   | {diferente_p} [esq]:exp_logica [dir]:exp_logica 									   					
 			   | {parentese} exp_logica 
 			   | {menor} exp_logica exp 
 			   | {menorigual} exp_logica exp 
@@ -274,16 +274,9 @@ Abstract Syntax Tree
 			   | {um_maior} [esq]:exp [dir]:exp 
 			   ;	
 
-	logica_igualdade_part = {igual} [esq]:exp [dir]:exp 			 
-					 	  | {dif} [esq]:exp [dir]:exp ;				 
-	
 	var = {id_unica} id  
 	    | {vetor} id inteiro
 	    ;
-	tipo = {real_palavra}  
-     	 | {inteiro_palavra}  
-		 | {caracter_palavra}  
-		 | {booleano_palavra};
 		 
 	valor = {char} caractere 
 		  | {int} inteiro

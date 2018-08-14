@@ -291,18 +291,6 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseAIgualLogicaIgualdadePart(AIgualLogicaIgualdadePart node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseADifLogicaIgualdadePart(ADifLogicaIgualdadePart node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
     public void caseAIdUnicaVar(AIdUnicaVar node)
     {
         defaultCase(node);
@@ -310,30 +298,6 @@ public class AnalysisAdapter implements Analysis
 
     @Override
     public void caseAVetorVar(AVetorVar node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseARealPalavraTipo(ARealPalavraTipo node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAInteiroPalavraTipo(AInteiroPalavraTipo node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseACaracterPalavraTipo(ACaracterPalavraTipo node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseABooleanoPalavraTipo(ABooleanoPalavraTipo node)
     {
         defaultCase(node);
     }

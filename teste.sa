@@ -1,8 +1,8 @@
 programa teste 
 	inicio
 		//num := 1*1-1;
-		//leia(casa,carro,moto,piscina);
-		//escreva(1+1,(2*5),(2-1));	
+		leia(casa,carro,moto,piscina);
+		//escreva(1+1,2*5,2-1));	
 		
 		/*se(verdadeiro) entao 
 			num:=1+1;
@@ -13,7 +13,8 @@ programa teste
 		fim se;
 		*/	
 	    
-	    /*(enquanto(a > b < 3 > 54 > 5) faca
+	    /*
+	    enquanto((a = b) = (c = d)) faca
 			monu:=21;
 		fim enquanto;
 		*/
@@ -35,7 +36,7 @@ programa teste
 		fim para;
 		*/
 		
-		/*avalie(1+2)
+		avalie(1+2)
 			caso 1: 
 				tentativa := verdadeiro;
 			caso 2:
@@ -43,11 +44,6 @@ programa teste
 			senao:
 				nada := verdadeiro;
 		fim avalie;
-		*/
 		
-		
-			
+					
 fim.
-		
-//Duvidas: em relaçao a qualquer token ser considerado na abstrata
-//		   em relacao a esse escreva (a virgula que determina tanto se um numero é float, quanto separação de expressoes)

@@ -814,20 +814,18 @@ public class Parser
         PDeclaracao pdeclaracaoNode1;
         {
             // Block
-        PTipo ptipoNode2;
-        LinkedList<Object> listNode4 = new LinkedList<Object>();
-        ptipoNode2 = (PTipo)nodeArrayList1.get(0);
+        LinkedList<Object> listNode3 = new LinkedList<Object>();
         {
             // Block
-        LinkedList<Object> listNode3 = new LinkedList<Object>();
-        listNode3 = (LinkedList)nodeArrayList3.get(0);
-	if(listNode3 != null)
+        LinkedList<Object> listNode2 = new LinkedList<Object>();
+        listNode2 = (LinkedList)nodeArrayList3.get(0);
+	if(listNode2 != null)
 	{
-	  listNode4.addAll(listNode3);
+	  listNode3.addAll(listNode2);
 	}
         }
 
-        pdeclaracaoNode1 = new AVariaveisDeclaracao(ptipoNode2, listNode4);
+        pdeclaracaoNode1 = new AVariaveisDeclaracao(listNode3);
         }
 	nodeList.add(pdeclaracaoNode1);
         return nodeList;
@@ -1750,11 +1748,11 @@ public class Parser
         {
             // Block
         PExpLogica pexplogicaNode2;
-        PLogicaIgualdadePart plogicaigualdadepartNode3;
+        PExpLogica pexplogicaNode3;
         pexplogicaNode2 = (PExpLogica)nodeArrayList1.get(0);
-        plogicaigualdadepartNode3 = (PLogicaIgualdadePart)nodeArrayList3.get(0);
+        pexplogicaNode3 = (PExpLogica)nodeArrayList3.get(0);
 
-        pexplogicaNode1 = new AIgualdadePExpLogica(pexplogicaNode2, plogicaigualdadepartNode3);
+        pexplogicaNode1 = new AIgualdadePExpLogica(pexplogicaNode2, pexplogicaNode3);
         }
 	nodeList.add(pexplogicaNode1);
         return nodeList;
@@ -1774,11 +1772,11 @@ public class Parser
         {
             // Block
         PExpLogica pexplogicaNode2;
-        PLogicaIgualdadePart plogicaigualdadepartNode3;
+        PExpLogica pexplogicaNode3;
         pexplogicaNode2 = (PExpLogica)nodeArrayList1.get(0);
-        plogicaigualdadepartNode3 = (PLogicaIgualdadePart)nodeArrayList3.get(0);
+        pexplogicaNode3 = (PExpLogica)nodeArrayList3.get(0);
 
-        pexplogicaNode1 = new AIgualdadePExpLogica(pexplogicaNode2, plogicaigualdadepartNode3);
+        pexplogicaNode1 = new AIgualdadePExpLogica(pexplogicaNode2, pexplogicaNode3);
         }
 	nodeList.add(pexplogicaNode1);
         return nodeList;
@@ -1810,7 +1808,7 @@ public class Parser
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList3 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList2 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList1 = pop();
-        PLogicaIgualdadePart plogicaigualdadepartNode1;
+        PExpLogica pexplogicaNode1;
         {
             // Block
         PExp pexpNode2;
@@ -1818,9 +1816,9 @@ public class Parser
         pexpNode2 = (PExp)nodeArrayList2.get(0);
         pexpNode3 = (PExp)nodeArrayList4.get(0);
 
-        plogicaigualdadepartNode1 = new AIgualLogicaIgualdadePart(pexpNode2, pexpNode3);
+        pexplogicaNode1 = new AIgualdadeExpExpLogica(pexpNode2, pexpNode3);
         }
-	nodeList.add(plogicaigualdadepartNode1);
+	nodeList.add(pexplogicaNode1);
         return nodeList;
     }
 
@@ -1836,7 +1834,7 @@ public class Parser
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList3 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList2 = pop();
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList1 = pop();
-        PLogicaIgualdadePart plogicaigualdadepartNode1;
+        PExpLogica pexplogicaNode1;
         {
             // Block
         PExp pexpNode2;
@@ -1844,9 +1842,9 @@ public class Parser
         pexpNode2 = (PExp)nodeArrayList2.get(0);
         pexpNode3 = (PExp)nodeArrayList4.get(0);
 
-        plogicaigualdadepartNode1 = new ADifLogicaIgualdadePart(pexpNode2, pexpNode3);
+        pexplogicaNode1 = new ADiferenteExpExpLogica(pexpNode2, pexpNode3);
         }
-	nodeList.add(plogicaigualdadepartNode1);
+	nodeList.add(pexplogicaNode1);
         return nodeList;
     }
 
@@ -2311,13 +2309,6 @@ public class Parser
         @SuppressWarnings("hiding") ArrayList<Object> nodeList = new ArrayList<Object>();
 
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList1 = pop();
-        PTipo ptipoNode1;
-        {
-            // Block
-
-        ptipoNode1 = new ARealPalavraTipo();
-        }
-	nodeList.add(ptipoNode1);
         return nodeList;
     }
 
@@ -2329,13 +2320,6 @@ public class Parser
         @SuppressWarnings("hiding") ArrayList<Object> nodeList = new ArrayList<Object>();
 
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList1 = pop();
-        PTipo ptipoNode1;
-        {
-            // Block
-
-        ptipoNode1 = new AInteiroPalavraTipo();
-        }
-	nodeList.add(ptipoNode1);
         return nodeList;
     }
 
@@ -2347,13 +2331,6 @@ public class Parser
         @SuppressWarnings("hiding") ArrayList<Object> nodeList = new ArrayList<Object>();
 
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList1 = pop();
-        PTipo ptipoNode1;
-        {
-            // Block
-
-        ptipoNode1 = new ACaracterPalavraTipo();
-        }
-	nodeList.add(ptipoNode1);
         return nodeList;
     }
 
@@ -2365,13 +2342,6 @@ public class Parser
         @SuppressWarnings("hiding") ArrayList<Object> nodeList = new ArrayList<Object>();
 
         @SuppressWarnings("unused") ArrayList<Object> nodeArrayList1 = pop();
-        PTipo ptipoNode1;
-        {
-            // Block
-
-        ptipoNode1 = new ABooleanoPalavraTipo();
-        }
-	nodeList.add(ptipoNode1);
         return nodeList;
     }
 

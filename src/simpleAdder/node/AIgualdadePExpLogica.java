@@ -7,8 +7,8 @@ import simpleAdder.analysis.*;
 @SuppressWarnings("nls")
 public final class AIgualdadePExpLogica extends PExpLogica
 {
-    private PExpLogica _expLogica_;
-    private PLogicaIgualdadePart _logicaIgualdadePart_;
+    private PExpLogica _esq_;
+    private PExpLogica _dir_;
 
     public AIgualdadePExpLogica()
     {
@@ -16,13 +16,13 @@ public final class AIgualdadePExpLogica extends PExpLogica
     }
 
     public AIgualdadePExpLogica(
-        @SuppressWarnings("hiding") PExpLogica _expLogica_,
-        @SuppressWarnings("hiding") PLogicaIgualdadePart _logicaIgualdadePart_)
+        @SuppressWarnings("hiding") PExpLogica _esq_,
+        @SuppressWarnings("hiding") PExpLogica _dir_)
     {
         // Constructor
-        setExpLogica(_expLogica_);
+        setEsq(_esq_);
 
-        setLogicaIgualdadePart(_logicaIgualdadePart_);
+        setDir(_dir_);
 
     }
 
@@ -30,8 +30,8 @@ public final class AIgualdadePExpLogica extends PExpLogica
     public Object clone()
     {
         return new AIgualdadePExpLogica(
-            cloneNode(this._expLogica_),
-            cloneNode(this._logicaIgualdadePart_));
+            cloneNode(this._esq_),
+            cloneNode(this._dir_));
     }
 
     @Override
@@ -40,16 +40,16 @@ public final class AIgualdadePExpLogica extends PExpLogica
         ((Analysis) sw).caseAIgualdadePExpLogica(this);
     }
 
-    public PExpLogica getExpLogica()
+    public PExpLogica getEsq()
     {
-        return this._expLogica_;
+        return this._esq_;
     }
 
-    public void setExpLogica(PExpLogica node)
+    public void setEsq(PExpLogica node)
     {
-        if(this._expLogica_ != null)
+        if(this._esq_ != null)
         {
-            this._expLogica_.parent(null);
+            this._esq_.parent(null);
         }
 
         if(node != null)
@@ -62,19 +62,19 @@ public final class AIgualdadePExpLogica extends PExpLogica
             node.parent(this);
         }
 
-        this._expLogica_ = node;
+        this._esq_ = node;
     }
 
-    public PLogicaIgualdadePart getLogicaIgualdadePart()
+    public PExpLogica getDir()
     {
-        return this._logicaIgualdadePart_;
+        return this._dir_;
     }
 
-    public void setLogicaIgualdadePart(PLogicaIgualdadePart node)
+    public void setDir(PExpLogica node)
     {
-        if(this._logicaIgualdadePart_ != null)
+        if(this._dir_ != null)
         {
-            this._logicaIgualdadePart_.parent(null);
+            this._dir_.parent(null);
         }
 
         if(node != null)
@@ -87,30 +87,30 @@ public final class AIgualdadePExpLogica extends PExpLogica
             node.parent(this);
         }
 
-        this._logicaIgualdadePart_ = node;
+        this._dir_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._expLogica_)
-            + toString(this._logicaIgualdadePart_);
+            + toString(this._esq_)
+            + toString(this._dir_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._expLogica_ == child)
+        if(this._esq_ == child)
         {
-            this._expLogica_ = null;
+            this._esq_ = null;
             return;
         }
 
-        if(this._logicaIgualdadePart_ == child)
+        if(this._dir_ == child)
         {
-            this._logicaIgualdadePart_ = null;
+            this._dir_ = null;
             return;
         }
 
@@ -121,15 +121,15 @@ public final class AIgualdadePExpLogica extends PExpLogica
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._expLogica_ == oldChild)
+        if(this._esq_ == oldChild)
         {
-            setExpLogica((PExpLogica) newChild);
+            setEsq((PExpLogica) newChild);
             return;
         }
 
-        if(this._logicaIgualdadePart_ == oldChild)
+        if(this._dir_ == oldChild)
         {
-            setLogicaIgualdadePart((PLogicaIgualdadePart) newChild);
+            setDir((PExpLogica) newChild);
             return;
         }
 
