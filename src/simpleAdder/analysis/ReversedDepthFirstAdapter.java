@@ -802,65 +802,65 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseAMenorExpLogica(AMenorExpLogica node)
     {
         inAMenorExpLogica(node);
-        if(node.getExp() != null)
+        if(node.getDir() != null)
         {
-            node.getExp().apply(this);
+            node.getDir().apply(this);
         }
-        if(node.getExpLogica() != null)
+        if(node.getEsq() != null)
         {
-            node.getExpLogica().apply(this);
+            node.getEsq().apply(this);
         }
         outAMenorExpLogica(node);
     }
 
-    public void inAMenorigualExpLogica(AMenorigualExpLogica node)
+    public void inAMenorigExpLogica(AMenorigExpLogica node)
     {
         defaultIn(node);
     }
 
-    public void outAMenorigualExpLogica(AMenorigualExpLogica node)
+    public void outAMenorigExpLogica(AMenorigExpLogica node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAMenorigualExpLogica(AMenorigualExpLogica node)
+    public void caseAMenorigExpLogica(AMenorigExpLogica node)
     {
-        inAMenorigualExpLogica(node);
-        if(node.getExp() != null)
+        inAMenorigExpLogica(node);
+        if(node.getDir() != null)
         {
-            node.getExp().apply(this);
+            node.getDir().apply(this);
         }
-        if(node.getExpLogica() != null)
+        if(node.getEsq() != null)
         {
-            node.getExpLogica().apply(this);
+            node.getEsq().apply(this);
         }
-        outAMenorigualExpLogica(node);
+        outAMenorigExpLogica(node);
     }
 
-    public void inAMaiorigualExpLogica(AMaiorigualExpLogica node)
+    public void inAMaiorigExpLogica(AMaiorigExpLogica node)
     {
         defaultIn(node);
     }
 
-    public void outAMaiorigualExpLogica(AMaiorigualExpLogica node)
+    public void outAMaiorigExpLogica(AMaiorigExpLogica node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAMaiorigualExpLogica(AMaiorigualExpLogica node)
+    public void caseAMaiorigExpLogica(AMaiorigExpLogica node)
     {
-        inAMaiorigualExpLogica(node);
-        if(node.getExp() != null)
+        inAMaiorigExpLogica(node);
+        if(node.getDir() != null)
         {
-            node.getExp().apply(this);
+            node.getDir().apply(this);
         }
-        if(node.getExpLogica() != null)
+        if(node.getEsq() != null)
         {
-            node.getExpLogica().apply(this);
+            node.getEsq().apply(this);
         }
-        outAMaiorigualExpLogica(node);
+        outAMaiorigExpLogica(node);
     }
 
     public void inAMaiorExpLogica(AMaiorExpLogica node)
@@ -877,115 +877,15 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseAMaiorExpLogica(AMaiorExpLogica node)
     {
         inAMaiorExpLogica(node);
-        if(node.getExp() != null)
+        if(node.getDir() != null)
         {
-            node.getExp().apply(this);
+            node.getDir().apply(this);
         }
-        if(node.getExpLogica() != null)
+        if(node.getEsq() != null)
         {
-            node.getExpLogica().apply(this);
+            node.getEsq().apply(this);
         }
         outAMaiorExpLogica(node);
-    }
-
-    public void inAUmMenorExpLogica(AUmMenorExpLogica node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAUmMenorExpLogica(AUmMenorExpLogica node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAUmMenorExpLogica(AUmMenorExpLogica node)
-    {
-        inAUmMenorExpLogica(node);
-        if(node.getDir() != null)
-        {
-            node.getDir().apply(this);
-        }
-        if(node.getEsq() != null)
-        {
-            node.getEsq().apply(this);
-        }
-        outAUmMenorExpLogica(node);
-    }
-
-    public void inAUmMenorigExpLogica(AUmMenorigExpLogica node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAUmMenorigExpLogica(AUmMenorigExpLogica node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAUmMenorigExpLogica(AUmMenorigExpLogica node)
-    {
-        inAUmMenorigExpLogica(node);
-        if(node.getDir() != null)
-        {
-            node.getDir().apply(this);
-        }
-        if(node.getEsq() != null)
-        {
-            node.getEsq().apply(this);
-        }
-        outAUmMenorigExpLogica(node);
-    }
-
-    public void inAUmMaiorigExpLogica(AUmMaiorigExpLogica node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAUmMaiorigExpLogica(AUmMaiorigExpLogica node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAUmMaiorigExpLogica(AUmMaiorigExpLogica node)
-    {
-        inAUmMaiorigExpLogica(node);
-        if(node.getDir() != null)
-        {
-            node.getDir().apply(this);
-        }
-        if(node.getEsq() != null)
-        {
-            node.getEsq().apply(this);
-        }
-        outAUmMaiorigExpLogica(node);
-    }
-
-    public void inAUmMaiorExpLogica(AUmMaiorExpLogica node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAUmMaiorExpLogica(AUmMaiorExpLogica node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAUmMaiorExpLogica(AUmMaiorExpLogica node)
-    {
-        inAUmMaiorExpLogica(node);
-        if(node.getDir() != null)
-        {
-            node.getDir().apply(this);
-        }
-        if(node.getEsq() != null)
-        {
-            node.getEsq().apply(this);
-        }
-        outAUmMaiorExpLogica(node);
     }
 
     public void inAIdUnicaVar(AIdUnicaVar node)

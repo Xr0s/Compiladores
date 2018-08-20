@@ -249,43 +249,19 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseAMenorigualExpLogica(AMenorigualExpLogica node)
+    public void caseAMenorigExpLogica(AMenorigExpLogica node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAMaiorigualExpLogica(AMaiorigualExpLogica node)
+    public void caseAMaiorigExpLogica(AMaiorigExpLogica node)
     {
         defaultCase(node);
     }
 
     @Override
     public void caseAMaiorExpLogica(AMaiorExpLogica node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAUmMenorExpLogica(AUmMenorExpLogica node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAUmMenorigExpLogica(AUmMenorigExpLogica node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAUmMaiorigExpLogica(AUmMaiorigExpLogica node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAUmMaiorExpLogica(AUmMaiorExpLogica node)
     {
         defaultCase(node);
     }

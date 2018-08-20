@@ -7,8 +7,8 @@ import simpleAdder.analysis.*;
 @SuppressWarnings("nls")
 public final class AMaiorExpLogica extends PExpLogica
 {
-    private PExpLogica _expLogica_;
-    private PExp _exp_;
+    private PExp _esq_;
+    private PExp _dir_;
 
     public AMaiorExpLogica()
     {
@@ -16,13 +16,13 @@ public final class AMaiorExpLogica extends PExpLogica
     }
 
     public AMaiorExpLogica(
-        @SuppressWarnings("hiding") PExpLogica _expLogica_,
-        @SuppressWarnings("hiding") PExp _exp_)
+        @SuppressWarnings("hiding") PExp _esq_,
+        @SuppressWarnings("hiding") PExp _dir_)
     {
         // Constructor
-        setExpLogica(_expLogica_);
+        setEsq(_esq_);
 
-        setExp(_exp_);
+        setDir(_dir_);
 
     }
 
@@ -30,8 +30,8 @@ public final class AMaiorExpLogica extends PExpLogica
     public Object clone()
     {
         return new AMaiorExpLogica(
-            cloneNode(this._expLogica_),
-            cloneNode(this._exp_));
+            cloneNode(this._esq_),
+            cloneNode(this._dir_));
     }
 
     @Override
@@ -40,16 +40,16 @@ public final class AMaiorExpLogica extends PExpLogica
         ((Analysis) sw).caseAMaiorExpLogica(this);
     }
 
-    public PExpLogica getExpLogica()
+    public PExp getEsq()
     {
-        return this._expLogica_;
+        return this._esq_;
     }
 
-    public void setExpLogica(PExpLogica node)
+    public void setEsq(PExp node)
     {
-        if(this._expLogica_ != null)
+        if(this._esq_ != null)
         {
-            this._expLogica_.parent(null);
+            this._esq_.parent(null);
         }
 
         if(node != null)
@@ -62,19 +62,19 @@ public final class AMaiorExpLogica extends PExpLogica
             node.parent(this);
         }
 
-        this._expLogica_ = node;
+        this._esq_ = node;
     }
 
-    public PExp getExp()
+    public PExp getDir()
     {
-        return this._exp_;
+        return this._dir_;
     }
 
-    public void setExp(PExp node)
+    public void setDir(PExp node)
     {
-        if(this._exp_ != null)
+        if(this._dir_ != null)
         {
-            this._exp_.parent(null);
+            this._dir_.parent(null);
         }
 
         if(node != null)
@@ -87,30 +87,30 @@ public final class AMaiorExpLogica extends PExpLogica
             node.parent(this);
         }
 
-        this._exp_ = node;
+        this._dir_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._expLogica_)
-            + toString(this._exp_);
+            + toString(this._esq_)
+            + toString(this._dir_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._expLogica_ == child)
+        if(this._esq_ == child)
         {
-            this._expLogica_ = null;
+            this._esq_ = null;
             return;
         }
 
-        if(this._exp_ == child)
+        if(this._dir_ == child)
         {
-            this._exp_ = null;
+            this._dir_ = null;
             return;
         }
 
@@ -121,15 +121,15 @@ public final class AMaiorExpLogica extends PExpLogica
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._expLogica_ == oldChild)
+        if(this._esq_ == oldChild)
         {
-            setExpLogica((PExpLogica) newChild);
+            setEsq((PExp) newChild);
             return;
         }
 
-        if(this._exp_ == oldChild)
+        if(this._dir_ == oldChild)
         {
-            setExp((PExp) newChild);
+            setDir((PExp) newChild);
             return;
         }
 

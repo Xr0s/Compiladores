@@ -1,10 +1,10 @@
 programa teste 
 	inicio
 		//num := 1*1-1;
-		leia(casa,carro,moto,piscina);
+		//leia(casa,carro,moto,piscina);
 		//escreva(1+1,2*5,2-1));	
-		
-		/*se(verdadeiro) entao 
+		/*
+		se(a<c e b>f<d) entao 
 			num:=1+1;
 			loja:= 2;
 		senao
@@ -35,7 +35,7 @@ programa teste
 			leia(numero);
 		fim para;
 		*/
-		
+		/*
 		avalie(1+2)
 			caso 1: 
 				tentativa := verdadeiro;
@@ -44,6 +44,6 @@ programa teste
 			senao:
 				nada := verdadeiro;
 		fim avalie;
-		
+		*/
 					
 fim.

@@ -188,15 +188,11 @@ Productions
 					 				 | {um_relacional} relacionais {-> relacionais.exp_logica}
 					 				 ;
 					 
-	relacionais {-> exp_logica} = {menor} relacionais menor exp {-> New exp_logica.menor(relacionais.exp_logica , exp)}
-				| {menorigual} relacionais menorig exp {-> New exp_logica.menorigual(relacionais.exp_logica , exp)}
-				| {maiorigual} relacionais maiorig exp {-> New exp_logica.maiorigual(relacionais.exp_logica , exp)}
-				| {maior} relacionais maior exp {-> New exp_logica.maior(relacionais.exp_logica , exp)}
-				| {um_menor} [esq]:exp menor [dir]:exp {-> New exp_logica.um_menor(esq.exp , dir.exp)}
-				| {um_menorig} [esq]:exp menorig [dir]:exp {-> New exp_logica.um_menorig(esq.exp , dir.exp)}
-				| {um_maiorig} [esq]:exp maiorig [dir]:exp {-> New exp_logica.um_maiorig(esq.exp , dir.exp)}
-				| {um_maior} [esq]:exp maior [dir]:exp {-> New exp_logica.um_maior(esq.exp , dir.exp)}
-				;	
+	relacionais {-> exp_logica} =  {menor} [esq]:exp menor [dir]:exp {-> New exp_logica.menor(esq.exp , dir.exp)}
+								 | {menorig} [esq]:exp menorig [dir]:exp {-> New exp_logica.menorig(esq.exp , dir.exp)}
+								 | {maiorig} [esq]:exp maiorig [dir]:exp {-> New exp_logica.maiorig(esq.exp , dir.exp)}
+								 | {maior} [esq]:exp maior [dir]:exp {-> New exp_logica.maior(esq.exp , dir.exp)}
+								 ;	
 
 	
 	//Estrutura do exp
@@ -263,15 +259,11 @@ Abstract Syntax Tree
 			   | {diferente_exp} [esq]:exp [dir]:exp 
 			   | {igualdade_p} [esq]:exp_logica [dir]:exp_logica 
 			   | {diferente_p} [esq]:exp_logica [dir]:exp_logica 									   					
-			   | {parentese} exp_logica 
-			   | {menor} exp_logica exp 
-			   | {menorigual} exp_logica exp 
-			   | {maiorigual} exp_logica exp 
-			   | {maior} exp_logica exp
-			   | {um_menor} [esq]:exp [dir]:exp 
-			   | {um_menorig} [esq]:exp [dir]:exp
-			   | {um_maiorig} [esq]:exp [dir]:exp 
-			   | {um_maior} [esq]:exp [dir]:exp 
+			   | {parentese} exp_logica
+			   | {menor} [esq]:exp [dir]:exp 
+			   | {menorig} [esq]:exp [dir]:exp
+			   | {maiorig} [esq]:exp [dir]:exp 
+			   | {maior} [esq]:exp [dir]:exp 
 			   ;	
 
 	var = {id_unica} id  

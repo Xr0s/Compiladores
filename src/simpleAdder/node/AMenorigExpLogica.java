@@ -5,17 +5,17 @@ package simpleAdder.node;
 import simpleAdder.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AUmMaiorExpLogica extends PExpLogica
+public final class AMenorigExpLogica extends PExpLogica
 {
     private PExp _esq_;
     private PExp _dir_;
 
-    public AUmMaiorExpLogica()
+    public AMenorigExpLogica()
     {
         // Constructor
     }
 
-    public AUmMaiorExpLogica(
+    public AMenorigExpLogica(
         @SuppressWarnings("hiding") PExp _esq_,
         @SuppressWarnings("hiding") PExp _dir_)
     {
@@ -29,7 +29,7 @@ public final class AUmMaiorExpLogica extends PExpLogica
     @Override
     public Object clone()
     {
-        return new AUmMaiorExpLogica(
+        return new AMenorigExpLogica(
             cloneNode(this._esq_),
             cloneNode(this._dir_));
     }
@@ -37,7 +37,7 @@ public final class AUmMaiorExpLogica extends PExpLogica
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAUmMaiorExpLogica(this);
+        ((Analysis) sw).caseAMenorigExpLogica(this);
     }
 
     public PExp getEsq()
