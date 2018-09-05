@@ -6,6 +6,7 @@ public class ConteudoID {
 	private boolean valorBool;
 	private double valorReal;
 	private String tipo;
+	private boolean isVector = false;
 	
 	public ConteudoID() {
 		setTipo("");
@@ -51,6 +52,12 @@ public class ConteudoID {
 	}
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+	public boolean getIsVector() {
+		return isVector;
+	}
+	public void setIsVector(boolean bool) {
+		this.isVector = bool;
 	}
 
 }

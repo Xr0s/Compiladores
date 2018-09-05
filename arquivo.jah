@@ -1,8 +1,9 @@
 programa TESTE_Programa
-	inicio
+inicio
 		inteiro: x;
 		caractere: y;
 		const x 10;
 		
+		inteiro: y[10];
 					
 fim.

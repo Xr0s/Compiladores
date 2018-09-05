@@ -3,7 +3,6 @@ package jah.interpret;
 
 import jah.node.* ; 
 import jah.analysis.* ; 
-import java.lang.System;
 import java.util.*;
 
 public class AnalisadorSemantico extends DepthFirstAdapter { 
@@ -20,12 +19,12 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		System.out.println("Rodando analisador Semantico do programa " + id_programa + ".jah. . .\n");
 	}
 */
-	
+
 	public void caseAIdUnicaVar(AIdUnicaVar node) {
-		//		 identifier to be stored in the symbol table
+		// identifier to be stored in the symbol table
 		TId ident = node.getId();
 		//		 name of the identifier to be stored in the table
-		String key = ident.getText().toUpperCase();
+		String key = ident.getText();
 
 		//		 is the identifier in the table?
 		if (tabela_simbolos.containsKey(key)) { // report an error
@@ -50,7 +49,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		//		 identifier to be stored in the symbol table
 		TId ident = node.getId();
 		//		 name of the identifier to be stored in the table
-		String key = ident.getText().toUpperCase();
+		String key = ident.getText();
 
 		//		 is the identifier in the table?
 		if (tabela_simbolos.containsKey(key)) { // report an error
