@@ -1,0 +1,286 @@
+Package jah ; 
+     
+Helpers 
+    /* Our helpers */ 
+    caracteres_permitidos = [[32..126]-39];
+    all = [0 .. 0xffff];
+    numero = ['0' .. '9'] ; 
+   	tab = 9;
+ 	cr = 13; 
+ 	nl = 10;
+ 	eol = nl | cr | cr nl; 
+    sp = 32; /*Espaço */
+	letra = [ ['A' .. 'Z'] + ['a' .. 'z'] ] ;
+    underscore = '_' ;
+    verdadeiro = 'verdadeiro';
+    falso = 'falso';
+    
+States
+  normal,comment;
+
+    
+Tokens 
+    {normal} branco = eol | tab | sp;
+    {normal} tabulacao = tab;
+    {normal} enter = eol;
+    {normal} espaco = sp;
+   
+ /*	Palavras reservadas  */  //palavras reservadas devem vir primeiro que id para evitar conflito 
+ 	{normal} programa = 'programa';
+ 	{normal} se = 'se';
+ 	{normal} senao = 'senao';
+ 	{normal} inicio = 'inicio';
+ 	{normal} fim = 'fim.';
+ 	{normal} enquanto = 'enquanto';
+ 	{normal} para = 'para';
+ 	{normal} avalie = 'avalie';
+ 	{normal} caso = 'caso';
+ 	{normal} leia = 'leia';
+ 	{normal} escreva = 'escreva';
+	{normal} entao = 'entao';
+	{normal} faca = 'faca';
+	{normal} repita = 'repita';
+	{normal} ate = 'ate';
+	{normal} xor = 'xor';
+	{normal} de = 'de';
+	{normal} passo = 'passo';
+	{normal} fim_avalie = 'fim avalie';
+	{normal} fim_se = 'fim se';
+	{normal} fim_para = 'fim para';
+	{normal} fim_enquanto = 'fim enquanto';
+	{normal} const = 'const';
+	
+	//Reservadas com comandos
+	
+  	{normal} inteiro_reservada =  'inteiro';
+ 	{normal} real_reservada =  'real';
+   	{normal} caractere_reservada = 'caractere';
+   	{normal} booleano_reservada = 'booleano';
+   	
+  /* 	Tipos de Comentarios 		*/
+  	{normal} fim_comentario = '*/';
+	{normal} comentario_de_linha = '//'[[[0..9]+[11..12]]+[14..255]]*;  //tudo menos o nl
+  	{normal->comment, comment}
+     comment = '/*';
+	{comment} comment_end = '*/';
+	{comment} comment_body = [all -['*' + '/']]*;
+	{comment} star = '*';
+	{comment} slash = '/';    
+  	
+ /* Operadores aritmeticos*/ 
+	{normal} mais = '+' ; 
+    {normal} menos = '-' ;
+    {normal} mult = '*';
+    {normal} div = '/' ; 
+
+/* 	Operadores relacionais */
+	{normal} igual = '=';
+	{normal} diferente = '<>';
+	{normal} maiorig = '>=';
+	{normal} menorig = '<=';
+	{normal} maior = '>' ;
+	{normal} menor = '<' ;
+	
+/* 	Simbolos			*/
+	{normal} abre_colchete = '[' ;
+	{normal} abre_parentese = '(' ;
+	{normal} fecha_colchete = ']' ;
+	{normal} fecha_parentese = ')' ;
+	{normal} atribuicao = ':=' ;
+    {normal} doispontos = ':' ;
+	{normal} pontovirgula = ';' ;
+    {normal} virgula = ',';
+	
+/* 	Operadores boleanos 		*/
+	{normal} nao = 'nao';
+	{normal} ou = 'ou' ;
+	{normal} e = 'e' ;
+ 
+/*	Tipos de variaveis*/
+	{normal} inteiro =  numero+;
+ 	{normal} real =   numero+ ',' numero+;
+   	{normal} caractere = '''caracteres_permitidos''';
+   	{normal} booleano = verdadeiro | falso;
+	
+// simbolos especiais
+	{normal} string = ''' caracteres_permitidos+ ''';
+	
+//	Identificadores
+	{normal} id = (letra (letra | underscore | numero)* ) | (underscore (letra | underscore | numero)+) ;    
+
+Ignored Tokens
+	branco,comment, comentario_de_linha;
+
+Productions 
+
+	 program {-> program} = programa  id  inicio declaracao* comando* fim {-> New program(id,[declaracao], [comando])};
+	 
+	 declaracao {-> declaracao} = {variaveis} tipo doispontos decl_variavel pontovirgula {-> New declaracao.variaveis(tipo, [decl_variavel.var])}  
+	 							| {constante} const id valor pontovirgula	{-> New declaracao.constante(id, valor)};
+		
+	 decl_variavel {-> var*} = {varias} var virgula decl_variavel {-> [var, decl_variavel.var]}
+	 					     | {unica} var {-> [var]};
+	
+	 comando {-> comando} = {atribuicao} var atribuicao exp pontovirgula 
+	 						{ -> New comando.atribuicao (var,exp)}
+	  			 		  | {leia} leia abre_parentese decl_variavel fecha_parentese pontovirgula 
+	  			 		  	{ -> New comando.leia([decl_variavel.var])}      
+						  | {escreva} escreva abre_parentese decl_exp fecha_parentese pontovirgula 
+						    { -> New comando.escreva([decl_exp.exp])}
+						  | {se} se abre_parentese exp_logica fecha_parentese entao comando+ decl_senao? fim_se pontovirgula 
+						  	{ -> New comando.se(exp_logica, [comando], [decl_senao.comando])}
+						  | {enquanto} enquanto abre_parentese exp_logica fecha_parentese faca comando+ fim_enquanto pontovirgula 
+						  	{ -> New comando.enquanto(exp_logica, [comando])}
+						  | {repita} repita comando+ ate abre_parentese exp_logica fecha_parentese pontovirgula
+						  	{ -> New comando.repita([comando], exp_logica)}
+						  | {para_sem_passo} para var de [esq]:inteiro ate [dir]:inteiro faca comando+ fim_para pontovirgula
+						    { -> New comando.para_sem_passo(esq, dir, [comando])}
+						  | {para_com_passo} para var de [pri]:inteiro passo [seg]:inteiro 
+						   				   ate [ter]:inteiro faca comando+ fim_para pontovirgula
+						   	{ -> New comando.para_com_passo(pri, seg, ter, [comando])}
+						  | {avalie} avalie abre_parentese exp fecha_parentese casos* decl_senao_avalie? fim_avalie pontovirgula
+						    { -> New comando.avalie(exp, [casos], [decl_senao_avalie.comando])};
+							
+
+	//Estrutura auxiliar para o escreva 
+	decl_exp {-> exp*} = {varias_exp} exp virgula decl_exp {-> [exp, decl_exp.exp]}
+	 		 		   | {unica_exp} exp {-> [exp]};
+		
+	//Estrutura auxiliar para o se
+	decl_senao {-> comando*} = senao comando+ {-> [comando]};	
+	
+	//Estrutura auxiliar para o avalie
+	casos {-> casos} = caso valor doispontos comando+ {-> New casos(valor,[comando])};
+	
+	//Estrutura auxiliar para o senao do avalie
+	decl_senao_avalie {-> comando*} = senao doispontos comando+ {-> [comando]};
+
+	//Estrutura do exp-logica
+
+	exp_logica {-> exp_logica} = {ou} [esq]:exp_logica ou [dir]:logica_and { -> New exp_logica.ou ( esq.exp_logica, dir.exp_logica)}
+			   				   | {and} logica_and {-> logica_and.exp_logica}
+			   				   ;
+	 		   
+	logica_and { -> exp_logica} = {e} [esq]:logica_and e [dir]:logica_xor {-> New exp_logica.e(esq.exp_logica , dir.exp_logica) }
+	 		   					| {xor} logica_xor {-> logica_xor.exp_logica}
+	 		   					;	
+
+	logica_xor { -> exp_logica} = {xor} [esq]:logica_xor xor [dir]:logica_neg {-> New exp_logica.xor(esq.exp_logica , dir.exp_logica)}
+			   					| {negacao} logica_neg {-> logica_neg.exp_logica}
+			   					;	
+	
+	logica_neg { -> exp_logica} = {negacao} nao logica_neg {-> New exp_logica.negacao(logica_neg.exp_logica)}
+	 		  				 	| {igualdade} logica_igualdade {-> logica_igualdade.exp_logica}
+	 		  				 	;
+	
+	logica_igualdade {-> exp_logica} = {igualdade_exp} [esq]:exp igual [dir]:exp {-> New exp_logica.igualdade_exp(esq.exp , dir.exp)}
+									 | {diferente_exp} [esq]:exp diferente [dir]:exp {-> New exp_logica.diferente_exp(esq.exp , dir.exp)}
+									 | {igualdade_parentese} logica_igualdade igual logica_igualdade_part {-> New exp_logica.igualdade_p(logica_igualdade.exp_logica , logica_igualdade_part.exp_logica)}
+									 | {diferente_parentese} logica_igualdade diferente logica_igualdade_part {-> New exp_logica.igualdade_p(logica_igualdade.exp_logica , logica_igualdade_part.exp_logica)}									   					
+									 | {parentese} parentese_logica {-> parentese_logica.exp_logica}
+									 ;
+									 
+	logica_igualdade_part {-> exp_logica} = {igual} abre_parentese [esq]:exp igual [dir]:exp fecha_parentese {->New exp_logica.igualdade_exp(esq.exp , dir.exp)}				 
+					 					  | {dif} abre_parentese [esq]:exp diferente [dir]:exp fecha_parentese {-> New exp_logica.diferente_exp(esq.exp , dir.exp)}
+					 					  ;				 
+					 		   
+	parentese_logica {-> exp_logica} = {parentese} abre_parentese exp_logica fecha_parentese {-> New exp_logica.parentese (exp_logica)}
+					 				 | {um_relacional} relacionais {-> relacionais.exp_logica}
+					 				 ;
+					 
+	relacionais {-> exp_logica} =  {menor} [esq]:exp menor [dir]:exp {-> New exp_logica.menor(esq.exp , dir.exp)}
+								 | {menorig} [esq]:exp menorig [dir]:exp {-> New exp_logica.menorig(esq.exp , dir.exp)}
+								 | {maiorig} [esq]:exp maiorig [dir]:exp {-> New exp_logica.maiorig(esq.exp , dir.exp)}
+								 | {maior} [esq]:exp maior [dir]:exp {-> New exp_logica.maior(esq.exp , dir.exp)}
+								 ;	
+
+	
+	//Estrutura do exp
+	exp {-> exp} = {add} [esq]:exp mais [dir]:termo {-> New exp.add(esq.exp, dir.exp)}
+				 | {sub} [esq]:exp menos [dir]:termo {-> New exp.sub(esq.exp, dir.exp)}
+				 | {termo} termo {-> termo.exp};
+
+	termo {-> exp} = {mult} [esq]:termo mult [dir]:fator {-> New exp.mult (esq.exp, dir.exp)} 
+		 		   | {div} [esq]:termo div [dir]:fator {-> New exp.div (esq.exp, dir.exp)} 
+		 		   | fator {-> fator.exp};
+	
+	fator {-> exp} = {exp} abre_parentese exp fecha_parentese {-> exp}
+				   | {valor} valor {-> New exp.valor(valor)}
+				   | {var} var	 {-> New exp.var(var)};
+			
+//declaracao de variaveis, tipos e valor;
+
+	
+	var {-> var} = {id_unica} id {-> New var.id_unica (id)} 
+	    	   	 | {vetor} id abre_colchete inteiro fecha_colchete { -> New var.vetor(id,inteiro)}
+	    	   	 ;	 	 
+ 
+	tipo {-> tipo} = {real_palavra} real_reservada {-> New tipo.real()} 
+				   | {inteiro_palavra} inteiro_reservada {-> New tipo.inteiro()}
+				   | {caracter_palavra} caractere_reservada {-> New tipo.caractere()}
+				   | {booleano_palavra} booleano_reservada {-> New tipo.booleano()}
+				   ;
+			 
+	valor {-> valor} = {char} caractere {-> New valor.char(caractere)}
+				 	 | {int} inteiro {-> New valor.int(inteiro)}
+				     | {float} real {-> New valor.float(real)}
+				     | {booleano} booleano {-> New valor.booleano(booleano)};
+
+Abstract Syntax Tree
+
+	program = id declaracao* comando*;
+	
+	declaracao = {variaveis} tipo var+  
+			   | {constante} id valor;
+	
+	tipo = {real}
+		 | {inteiro}
+		 | {caractere}
+		 | {booleano}
+		 ;
+
+	comando = {atribuicao} var exp
+			| {leia} var+
+			| {escreva} exp+
+			| {se} exp_logica [obrigat]:comando+ [opcional]:comando* 
+			| {enquanto} exp_logica comando+
+			| {repita} comando+ exp_logica
+			| {para_sem_passo} [esq]:inteiro [dir]:inteiro comando+
+			| {para_com_passo} [pri]:inteiro [seg]:inteiro [ter]:inteiro comando+
+			| {avalie} exp casos* comando*;
+	
+	casos = valor comando+;
+	
+	exp = {add} [esq]:exp [dir]:exp
+		| {sub} [esq]:exp [dir]:exp
+		| {mult} [esq]:exp [dir]:exp
+		| {div} [esq]:exp [dir]:exp
+		| {valor} valor
+		| {var} var;
+		
+	exp_logica = {ou} [esq]:exp_logica [dir]:exp_logica 
+			   | {e} [esq]:exp_logica [dir]:exp_logica 
+	 		   | {xor} [esq]:exp_logica [dir]:exp_logica 
+			   | {negacao} exp_logica 
+	 		   | {igualdade_exp} [esq]:exp [dir]:exp 
+			   | {diferente_exp} [esq]:exp [dir]:exp 
+			   | {igualdade_p} [esq]:exp_logica [dir]:exp_logica 
+			   | {diferente_p} [esq]:exp_logica [dir]:exp_logica 									   					
+			   | {parentese} exp_logica
+			   | {menor} [esq]:exp [dir]:exp 
+			   | {menorig} [esq]:exp [dir]:exp
+			   | {maiorig} [esq]:exp [dir]:exp 
+			   | {maior} [esq]:exp [dir]:exp 
+			   ;	
+
+	var = {id_unica} id  
+	    | {vetor} id inteiro
+	    ;
+		 
+	valor = {char} caractere 
+		  | {int} inteiro
+	      | {float} real
+	      | {booleano} booleano;
+
+//Lembrar da exceção de comentario de bloco fim errado caso troque o nome de simpleAdder
+//Explicação a ser lembrada: não pode aumentar prioridade de parentese_logica, devido a regra de cadeia apenas com parentese
