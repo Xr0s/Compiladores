@@ -1,9 +1,11 @@
 programa TESTE_Programa
 inicio
-		inteiro: x;
-		caractere: y;
-		const x 10;
+		inteiro: x,y,z;
+		//caractere: x;
+		const w 10;
+		//inteiro: x[10];
+		x := 'dss';
 		
-		inteiro: y[10];
+
 					
 fim.

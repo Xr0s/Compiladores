@@ -118,7 +118,6 @@ public interface Analysis extends Switch
     void caseTReal(TReal node);
     void caseTCaractere(TCaractere node);
     void caseTBooleano(TBooleano node);
-    void caseTString(TString node);
     void caseTId(TId node);
     void caseEOF(EOF node);
     void caseInvalidToken(InvalidToken node);

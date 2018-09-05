@@ -7,16 +7,26 @@ import jah.analysis.*;
 @SuppressWarnings("nls")
 public final class ABooleanoTipo extends PTipo
 {
+    private TBooleanoReservada _booleanoReservada_;
 
     public ABooleanoTipo()
     {
         // Constructor
     }
 
+    public ABooleanoTipo(
+        @SuppressWarnings("hiding") TBooleanoReservada _booleanoReservada_)
+    {
+        // Constructor
+        setBooleanoReservada(_booleanoReservada_);
+
+    }
+
     @Override
     public Object clone()
     {
-        return new ABooleanoTipo();
+        return new ABooleanoTipo(
+            cloneNode(this._booleanoReservada_));
     }
 
     @Override
@@ -25,16 +35,48 @@ public final class ABooleanoTipo extends PTipo
         ((Analysis) sw).caseABooleanoTipo(this);
     }
 
+    public TBooleanoReservada getBooleanoReservada()
+    {
+        return this._booleanoReservada_;
+    }
+
+    public void setBooleanoReservada(TBooleanoReservada node)
+    {
+        if(this._booleanoReservada_ != null)
+        {
+            this._booleanoReservada_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._booleanoReservada_ = node;
+    }
+
     @Override
     public String toString()
     {
-        return "";
+        return ""
+            + toString(this._booleanoReservada_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
+        if(this._booleanoReservada_ == child)
+        {
+            this._booleanoReservada_ = null;
+            return;
+        }
+
         throw new RuntimeException("Not a child.");
     }
 
@@ -42,6 +84,12 @@ public final class ABooleanoTipo extends PTipo
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
+        if(this._booleanoReservada_ == oldChild)
+        {
+            setBooleanoReservada((TBooleanoReservada) newChild);
+            return;
+        }
+
         throw new RuntimeException("Not a child.");
     }
 }

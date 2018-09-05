@@ -705,12 +705,6 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseTString(TString node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
     public void caseTId(TId node)
     {
         defaultCase(node);

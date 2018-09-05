@@ -102,9 +102,6 @@ Tokens
    	{normal} caractere = '''caracteres_permitidos''';
    	{normal} booleano = verdadeiro | falso;
 	
-// simbolos especiais
-	{normal} string = ''' caracteres_permitidos+ ''';
-	
 //	Identificadores
 	{normal} id = (letra (letra | underscore | numero)* ) | (underscore (letra | underscore | numero)+) ;    
 
@@ -215,10 +212,10 @@ Productions
 	    	   	 | {vetor} id abre_colchete inteiro fecha_colchete { -> New var.vetor(id,inteiro)}
 	    	   	 ;	 	 
  
-	tipo {-> tipo} = {real_palavra} real_reservada {-> New tipo.real()} 
-				   | {inteiro_palavra} inteiro_reservada {-> New tipo.inteiro()}
-				   | {caracter_palavra} caractere_reservada {-> New tipo.caractere()}
-				   | {booleano_palavra} booleano_reservada {-> New tipo.booleano()}
+	tipo {-> tipo} = {real} real_reservada {-> New tipo.real(real_reservada)} 
+				   | {inteiro} inteiro_reservada {-> New tipo.inteiro(inteiro_reservada)}
+				   | {caracter} caractere_reservada {-> New tipo.caractere(caractere_reservada)}
+				   | {booleano} booleano_reservada {-> New tipo.booleano(booleano_reservada)}
 				   ;
 			 
 	valor {-> valor} = {char} caractere {-> New valor.char(caractere)}
@@ -233,10 +230,10 @@ Abstract Syntax Tree
 	declaracao = {variaveis} tipo var+  
 			   | {constante} id valor;
 	
-	tipo = {real}
-		 | {inteiro}
-		 | {caractere}
-		 | {booleano}
+	tipo = {real} real_reservada
+		 | {inteiro} inteiro_reservada
+		 | {caractere} caractere_reservada
+		 | {booleano} booleano_reservada
 		 ;
 
 	comando = {atribuicao} var exp
@@ -282,5 +279,8 @@ Abstract Syntax Tree
 	      | {float} real
 	      | {booleano} booleano;
 
-//Lembrar da exceção de comentario de bloco fim errado caso troque o nome de simpleAdder
+
+//Reais e inteiros não podem ser negativos?
+//criar natural int para o indice Vetor ou tratar semanticamente com if(indice<0): ERRO
+//Lembrar da exceção de comentario de bloco fim errado caso troque o nome de jah
 //Explicação a ser lembrada: não pode aumentar prioridade de parentese_logica, devido a regra de cadeia apenas com parentese

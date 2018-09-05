@@ -141,6 +141,10 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseARealTipo(ARealTipo node)
     {
         inARealTipo(node);
+        if(node.getRealReservada() != null)
+        {
+            node.getRealReservada().apply(this);
+        }
         outARealTipo(node);
     }
 
@@ -158,6 +162,10 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseAInteiroTipo(AInteiroTipo node)
     {
         inAInteiroTipo(node);
+        if(node.getInteiroReservada() != null)
+        {
+            node.getInteiroReservada().apply(this);
+        }
         outAInteiroTipo(node);
     }
 
@@ -175,6 +183,10 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseACaractereTipo(ACaractereTipo node)
     {
         inACaractereTipo(node);
+        if(node.getCaractereReservada() != null)
+        {
+            node.getCaractereReservada().apply(this);
+        }
         outACaractereTipo(node);
     }
 
@@ -192,6 +204,10 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseABooleanoTipo(ABooleanoTipo node)
     {
         inABooleanoTipo(node);
+        if(node.getBooleanoReservada() != null)
+        {
+            node.getBooleanoReservada().apply(this);
+        }
         outABooleanoTipo(node);
     }
 

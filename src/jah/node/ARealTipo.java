@@ -7,16 +7,26 @@ import jah.analysis.*;
 @SuppressWarnings("nls")
 public final class ARealTipo extends PTipo
 {
+    private TRealReservada _realReservada_;
 
     public ARealTipo()
     {
         // Constructor
     }
 
+    public ARealTipo(
+        @SuppressWarnings("hiding") TRealReservada _realReservada_)
+    {
+        // Constructor
+        setRealReservada(_realReservada_);
+
+    }
+
     @Override
     public Object clone()
     {
-        return new ARealTipo();
+        return new ARealTipo(
+            cloneNode(this._realReservada_));
     }
 
     @Override
@@ -25,16 +35,48 @@ public final class ARealTipo extends PTipo
         ((Analysis) sw).caseARealTipo(this);
     }
 
+    public TRealReservada getRealReservada()
+    {
+        return this._realReservada_;
+    }
+
+    public void setRealReservada(TRealReservada node)
+    {
+        if(this._realReservada_ != null)
+        {
+            this._realReservada_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._realReservada_ = node;
+    }
+
     @Override
     public String toString()
     {
-        return "";
+        return ""
+            + toString(this._realReservada_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
+        if(this._realReservada_ == child)
+        {
+            this._realReservada_ = null;
+            return;
+        }
+
         throw new RuntimeException("Not a child.");
     }
 
@@ -42,6 +84,12 @@ public final class ARealTipo extends PTipo
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
+        if(this._realReservada_ == oldChild)
+        {
+            setRealReservada((TRealReservada) newChild);
+            return;
+        }
+
         throw new RuntimeException("Not a child.");
     }
 }
