@@ -12,6 +12,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 	public void outAVariaveisDeclaracao(AVariaveisDeclaracao node){
 		// identifier to be stored in the symbol table
 				TId ident = null;
+				TInteiro identIndiceVetor = null;
 				LinkedList<PVar> listaVar  = node.getVar();
 				for(PVar var: listaVar) {
 					if(var instanceof AIdUnicaVar) {
@@ -20,9 +21,8 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 					}else {
 						AVetorVar acessarToken = (AVetorVar) var;
 						ident = acessarToken.getId();
+						identIndiceVetor = acessarToken.getInteiro();
 					}
-					
-					//FALTA VERIFICAR SE INDICE DO VETOR É NATURAL!!!!!!!!!!!!!!!
 					
 					String key = ident.getText().toUpperCase().trim();
 	//				System.out.println(teste + "  :"+node.getTipo());
@@ -30,20 +30,16 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 	//				System.out.println(key);
 					//		 is the identifier in the table?
 					if (tabela_simbolos.containsKey(key)) { // report an error
-						try {
-							throw new SemanticException(new InvalidToken(
-									ident.getText(),
-									ident.getLine(), 
-									ident.getPos()),
-									"Erro: Variável " + ident.getText() + " já declarada. Linha:"+ ident.getLine()+ "."
-									);
-						} catch (SemanticException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							System.exit(1);
-						}
+						exibirErroVariavelJaDeclarada(ident);
 					}
 					else {
+						if(! (var instanceof AIdUnicaVar)) {
+							int indice = Integer.parseInt(identIndiceVetor.getText().toString());
+							if(indice < 0) {
+								exibirErroIndiceNegativo(identIndiceVetor);
+							}
+						}
+						
 					//	System.out.println(node.getTipo().toString());
 						tabela_simbolos.put(key,node.getTipo().toString());
 					}
@@ -61,18 +57,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 	//			System.out.println(key);
 				//		 is the identifier in the table?
 				if (tabela_simbolos.containsKey(key)) { // report an error
-					try {
-						throw new SemanticException(new InvalidToken(
-								ident.getText(),
-								ident.getLine(), 
-								ident.getPos()),
-								"Erro: Variavel " + ident.getText() + " já declarada. Linha:"+ ident.getLine()+ "."
-								);
-					} catch (SemanticException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-						System.exit(1);
-					}
+					exibirErroVariavelJaDeclarada(ident);
 				}
 				else {
 			//		System.out.println(node.getValor().toString());
@@ -80,6 +65,38 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				}
 	}
 	
+//Funções Auxiliares
+	public void exibirErroIndiceNegativo(TInteiro identIndiceVetor) {
+		try {
+			throw new SemanticException(new InvalidToken(
+					identIndiceVetor.getText(),
+					identIndiceVetor.getLine(), 
+					identIndiceVetor.getPos()),
+					"Erro: O índice de um vetor: [" + identIndiceVetor.getText() + "] não pode "
+					+ "ser negativo. Linha: "
+					+ identIndiceVetor.getLine()+ "."
+					);
+		} catch (SemanticException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.exit(1);
+		}
+	}
+
+	public void exibirErroVariavelJaDeclarada(TId ident) {
+		try {
+			throw new SemanticException(new InvalidToken(
+					ident.getText(),
+					ident.getLine(), 
+					ident.getPos()),
+					"Erro: Variável " + ident.getText() + " já declarada. Linha: "+ ident.getLine()+ "."
+					);
+		} catch (SemanticException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.exit(1);
+		}
+	}
 	
 /* Descoomente isso pra testar
   	public void caseAProgram(AProgram node) { 

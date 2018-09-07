@@ -45,8 +45,8 @@ public class Main {
 					new FileReader(args[0]), 1024)); 	
 
 			//impressaoLexica(lexer); //necessario retirar "branco" dos tokens para nao ignorar o espaco, tab e enter
-			analiseSintatica(lexer); //necessario "branco" sendo o primeiro dos tokens para o funcionamento do Ignored Tokens.
-
+			//analiseSintatica(lexer); //necessario "branco" sendo o primeiro dos tokens para o funcionamento do Ignored Tokens.
+			analiseSemantica(lexer);
 
 		} else { 
 			System.err.println("usage: java jah inputFile"); 
@@ -54,7 +54,7 @@ public class Main {
 		} 
 	}
 
-	public static void analiseSintatica(Comentario_Aninhado lexer) throws ParserException, LexerException, IOException {
+	public static void analiseSemantica(Comentario_Aninhado lexer) throws ParserException, LexerException, IOException {
 		Parser parser = new Parser(lexer); 
 		Start tree = parser.parse();
 		//System.out.println(tree);
@@ -62,7 +62,13 @@ public class Main {
 		AnalisadorSemantico interpretador = new AnalisadorSemantico();
 		tree.apply(interpretador);// da classe interpreter
 	}
-
+	
+	public static void analiseSintatica(Comentario_Aninhado lexer) throws ParserException, LexerException, IOException {
+		Parser parser = new Parser(lexer); 
+		Start tree = parser.parse();
+		System.out.println(tree);
+		//tree.apply(new ASTPrinter());
+	}
 
 	public static void impressaoLexica(Comentario_Aninhado lexer) throws IOException {
 		String token_name = null;

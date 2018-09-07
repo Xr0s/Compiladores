@@ -3,8 +3,8 @@ inicio
 		inteiro: x,y,z;
 		//caractere: x;
 		const w 10;
-		//inteiro: x[10];
-		x := 'dss';
+		inteiro: s[1];
+		//x := 2-1;
 		
 
 					

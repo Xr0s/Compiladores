@@ -97,8 +97,8 @@ Tokens
 	{normal} e = 'e' ;
  
 /*	Tipos de variaveis*/
-	{normal} inteiro =  numero+;
- 	{normal} real =   numero+ ',' numero+;
+	{normal} inteiro = numero+;						//('-'|'+'|) numero+;
+ 	{normal} real = numero+ ',' numero+; 					//('-'|'+'|) numero+ ',' numero+;
    	{normal} caractere = '''caracteres_permitidos''';
    	{normal} booleano = verdadeiro | falso;
 	
@@ -279,8 +279,7 @@ Abstract Syntax Tree
 	      | {float} real
 	      | {booleano} booleano;
 
-
-//Reais e inteiros não podem ser negativos?
+//Dúvida quanto aos operadores (+|-) em inteiro e real
 //criar natural int para o indice Vetor ou tratar semanticamente com if(indice<0): ERRO
 //Lembrar da exceção de comentario de bloco fim errado caso troque o nome de jah
 //Explicação a ser lembrada: não pode aumentar prioridade de parentese_logica, devido a regra de cadeia apenas com parentese
