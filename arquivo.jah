@@ -1,11 +1,7 @@
 programa TESTE_Programa
 inicio
-		inteiro: x,y,z;
-		//caractere: x;
-		const w 10;
-		inteiro: s[1];
-		//x := 2-1;
-		
-
+		inteiro: a;
+		const x 10;
+		a := a + 2;
 					
 fim.
