@@ -1,15 +1,14 @@
 programa TESTE_Programa
 inicio
-		inteiro: a[10];
+		inteiro: a[4], b;
 		const x 10;
 		caractere: y;
 		
-		y := 2;
-		a[1] := 1;
-		a[2] := 1 + a[1] + 2,5;
+		b := -2;
+		a[3] := 1;
+		a[2] := 1 ;
 		
-		
-		para a[1] de  0 passo 1 ate 2 faca 
+		para b de 0 ate 2 faca 
 		 	leia(x);
 		fim para; 
 fim.

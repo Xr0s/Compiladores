@@ -33,7 +33,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 			verificarPosicaoIndevida(vetor,nomeVar);
 			if(vetor != null)
 				if(!tabela_simbolos.containsKey(nomeVar + "_" + vetor.getInteiro().getText().trim())) {
-					//se o vetor na posicao 'indice' foi declarado
+					//se o vetor na posicao 'indice' foi declarad
 					erroPosicaoIndevida(vetor, nomeVar);
 				}
 		}
@@ -794,6 +794,12 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		int line = 0;
 		int pos = 0;
 		
+		if(indiceErro != 8) { 
+			text = tokenComErro.getText();
+			line = tokenComErro.getLine();
+			pos = tokenComErro.getPos();
+		}
+		
 		switch(indiceErro){
 			case 1: //erro IndiceNegativo
 				msg = ": O índice de um vetor: [" + text + "] não pode "
@@ -801,40 +807,39 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				break;
 				
 			case 2://erro variavel já declarada
-				msg = ": Variável '" + text + "' já declarada.";
+				msg = ": Variável " + text + " já declarada.";
 				break;
 				
 			case 3://variável não declarada
-				msg = ": Variável '" + text + "' não declarada.";
+				msg = ": Variável " + text + " não declarada.";
 				break;
 				
 			case 4: //constante não pode ter valor alterado
-				msg = ": Constante '" + text + "' não pode ter valor alterado.";
+				msg = ": Constante " + text + " não pode ter valor alterado.";
 				break;
 			
 			case 5:
-				msg = ": Vetor tentou acessar uma posição"
+				msg = ": Vetor "+ text + " tentou acessar uma posição"
 						+ " indevida.";
 				break;
 				
 			case 6:
-				msg = ": Variavel '" + text + "' deve ser do tipo 'inteiro'.";
+				msg = ": Variavel " + text + " deve ser do tipo inteiro.";
 				break;
 			
 			case 7:
-				msg = ": Vetor '" + text + "' deve vir com o indice.";
+				msg = ": Vetor " + text + " deve vir com o indice.";
 				break;
 			
 			case 8:
 				msg = "Tipos incorretos na expressão.";
 				break;
 		}
-		if(indiceErro != 8) { 
-			text = tokenComErro.getText();
-			line = tokenComErro.getLine();
-			pos = tokenComErro.getPos();
+		
+		if(indiceErro != 8) {
 			msg = "Erro na linha " + line + msg;
 		}
+		
 		try {
 			
 			throw new SemanticException(new InvalidToken(
