@@ -3,10 +3,9 @@ inicio
 		inteiro: a[10];
 		const x 10;
 		caractere: y;
-		
-		a[3] := 'c';
+	
 		a[1] := 1;
-		a[2] := 1+ a[1] + a[3];
+		a[2] := 1 + a[1] + 2,5;
 		
 		
 		para a[1] de  0 passo 1 ate 2 faca 
