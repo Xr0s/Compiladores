@@ -27,21 +27,13 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		}
 
 		if(!tabela_simbolos.containsKey(nomeVar) ) { // não foi declarado
-			if(variavel != null) {//variavel
-				exibirErro(new InvalidToken(variavel.getId().getText(),
-									 variavel.getId().getLine(),
-									 variavel.getId().getPos()
-									 ),
-							3
-						);
-			}
-			else {//vetor
-				exibirErro(new InvalidToken(vetor.getId().getText(),
-											vetor.getId().getLine(),
-											vetor.getId().getPos()
-						 					),
-							3
-						);
+			variavelNaoDeclarada(variavel, vetor);
+		}
+		else{//variavel foi declarada
+			verificarIndiceETamanho(vetor,nomeVar);				
+			if(!tabela_simbolos.containsKey(nomeVar + "_" + vetor.getInteiro().getText().trim())) {
+				//se o vetor na posicao 'indice' foi declarado
+				erroPosicaoIndevida(vetor);
 			}
 		}
 		
@@ -61,43 +53,38 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 	public void outAAtribuicaoComando(AAtribuicaoComando node) {
 		AIdUnicaVar variavel = null;
 		AVetorVar vetor = null;
-		String keyID = "";
+		String nomeVar = "";
 		
 		if( node.getVar() instanceof AIdUnicaVar) {
 			variavel = (AIdUnicaVar) node.getVar();
-			keyID = variavel.getId().getText().trim();
+			nomeVar = variavel.getId().getText().trim();
 		}
 		else {
 			vetor = (AVetorVar) node.getVar();
-			keyID = vetor.getId().getText().trim();
+			nomeVar = vetor.getId().getText().trim();
 		}
 		
-		if(tabela_simbolos.containsKey(keyID) ) {// variavel declarada 
-			System.out.println(keyID + ", tipo: " + tabela_simbolos.get(keyID).trim() + ".");
-			if( !auxChecaTipoValido( keyID ) ) {//variavel é uma constante (erro)
-				exibirErro(new InvalidToken(keyID,0,0) ,4);
+		if(tabela_simbolos.containsKey(nomeVar) ) {// variavel declarada 
+			System.out.println(nomeVar + ", tipo: " + tabela_simbolos.get(nomeVar).trim() + ".");
+			if( !auxChecaTipoValido( nomeVar ) ) {//variavel é uma constante (erro)
+				exibirErro(new InvalidToken(nomeVar,variavel.getId().getLine(),0) ,4);
+			}
+			else {// é uma variavel
+				verificarIndiceETamanho(vetor, nomeVar);
+				//abaixo vai declarar a variavel no indice dado
+				System.out.println("Inserido: " + nomeVar +"_" + vetor.getInteiro().toString().trim());
+				tabela_simbolos.put(nomeVar +"_" + vetor.getInteiro().toString().trim(), 
+						tabela_simbolos.get(nomeVar).trim());
+				
 			}
 		}
 		else {//variavel não declarada
-			if(variavel != null) {//variavel
-				exibirErro(new InvalidToken(variavel.getId().getText(),
-									 variavel.getId().getLine(),
-									 variavel.getId().getPos()
-									 ),
-							3
-						);
-			}
-			else {//vetor
-				exibirErro(new InvalidToken(vetor.getId().getText(),
-											vetor.getId().getLine(),
-											vetor.getId().getPos()
-						 					),
-							3
-						);
-			}
+			variavelNaoDeclarada(variavel, vetor);
 		}
 	
 	}
+
+
 	
 	public void outAVariaveisDeclaracao(AVariaveisDeclaracao node){
 		// identifier to be stored in the symbol table
@@ -115,11 +102,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 			}
 
 			String key = ident.getText().trim();
-			//				System.out.println(teste + "  :"+node.getTipo());
-			//				String key = var.toString().trim();
-			//				System.out.println(key);
-			//		 is the identifier in the table?
-			if (tabela_simbolos.containsKey(key)) { // report an error
+				if (tabela_simbolos.containsKey(key)) { // report an error
 				exibirErro(ident, 2);
 			}
 			else {
@@ -133,33 +116,69 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 					}
 				}
 
-				//	System.out.println(node.getTipo().toString());
 				tabela_simbolos.put(key,node.getTipo().toString());
 			}
 		}
 	}
 
 	public void outAConstanteDeclaracao(AConstanteDeclaracao node){
-		// identifier to be stored in the symbol table
 		TId ident = node.getId();
-		//		System.out.println("Passou por constante declar");
-		//		 name of the identifier to be stored in the table
-
 		String key = ident.getText().trim();
-		//			System.out.println(tabela_simbolos);
-		//			System.out.println(key);
-		//		 is the identifier in the table?
+
 		if (tabela_simbolos.containsKey(key)) { // report an error
 			exibirErro(ident, 2);
 		}
 		else {
-			//		System.out.println(node.getValor().toString());
-			// fazer tipo    node.getValor().toString();
 			tabela_simbolos.put(key,"const_" + node.getValor().toString());
 		}
 	}
 
 	//Funções Auxiliares
+	
+	public void variavelNaoDeclarada(AIdUnicaVar variavel, AVetorVar vetor) {
+		if(variavel != null) {//variavel
+			exibirErro(new InvalidToken(variavel.getId().getText(),
+								 variavel.getId().getLine(),
+								 variavel.getId().getPos()
+								 ),
+						3
+					);
+		}
+		else {//vetor
+			exibirErro(new InvalidToken(vetor.getId().getText(),
+										vetor.getId().getLine(),
+										vetor.getId().getPos()
+					 					),
+						3
+					);
+		}
+	}
+
+	
+	
+	public void verificarIndiceETamanho(AVetorVar vetor, String nomeVar) {
+		if(vetor != null) {//variavel do tipo vetor
+			int indice = Integer.parseInt(vetor.getInteiro().getText() );
+			System.out.println("vetor " + vetor.getId().getText().trim() 
+								+ " " + indice + ".");
+			int tamVetor = Integer.parseInt(tabela_simbolos.get("indice_"+ nomeVar).trim() );
+			if(indice >= tamVetor) {
+				//se o indice utilizado for maior ou igual que o tamVetor
+				erroPosicaoIndevida(vetor);
+			}
+		}
+	}
+
+	public void erroPosicaoIndevida(AVetorVar vetor) {
+		exibirErro(new InvalidToken(
+				vetor.getId().getText(),
+				vetor.getId().getLine(),
+				vetor.getId().getPos()
+				)
+				,
+				5);
+	}
+	
 	public boolean auxChecaTipoValido(String variavel) {
 		if(tabela_simbolos.containsKey(variavel) ) {
 			switch(tabela_simbolos.get(variavel).trim() ) {
@@ -201,8 +220,14 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				break;
 				
 			case 4: //constante não pode ter valor alterado
-				msg = ": Constante '" + tokenComErro.getText() + "' não pode ter valor alterado.";
+				msg = "Erro na linha " + tokenComErro.getLine() +
+				": Constante '" + tokenComErro.getText() + "' não pode ter valor alterado.";
 				break;
+			
+			case 5:
+				msg = "Erro na linha " + tokenComErro.getLine() +
+					": Vetor '" + tokenComErro.getText() + "' tentou acessar uma posição"
+						+ " indevida";
 
 		
 		}
