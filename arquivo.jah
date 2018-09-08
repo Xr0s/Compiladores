@@ -1,6 +1,6 @@
 programa TESTE_Programa
 inicio
-		
+		inteiro: a;
 		const x 10;
 		
 		a := 2;

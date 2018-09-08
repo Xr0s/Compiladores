@@ -128,6 +128,9 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 					if(indice < 0) {
 						exibirErro(identIndiceVetor, 1);
 					}
+					else {
+						tabela_simbolos.put("indice_" + key, "" + indice);
+					}
 				}
 
 				//	System.out.println(node.getTipo().toString());
@@ -151,7 +154,8 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		}
 		else {
 			//		System.out.println(node.getValor().toString());
-			tabela_simbolos.put(key,node.getValor().toString());
+			// fazer tipo    node.getValor().toString();
+			tabela_simbolos.put(key,"const_" + node.getValor().toString());
 		}
 	}
 
