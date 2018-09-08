@@ -47,7 +47,7 @@ public class Main {
 			//impressaoLexica(lexer); //necessario retirar "branco" dos tokens para nao ignorar o espaco, tab e enter
 			//analiseSintatica(lexer); //necessario "branco" sendo o primeiro dos tokens para o funcionamento do Ignored Tokens.
 			analiseSemantica(lexer);
-			System.out.println("Programa compilado com sucesso");
+			System.out.println("Programa compilado com suceso");
 
 		} else { 
 			System.err.println("usage: java jah inputFile"); 

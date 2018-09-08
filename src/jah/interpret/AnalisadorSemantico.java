@@ -30,10 +30,11 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 			variavelNaoDeclarada(variavel, vetor);
 		}
 		else{//variavel foi declarada
-			verificarPosicaoIndevida(vetor,nomeVar);				
+			verificarPosicaoIndevida(vetor,nomeVar);
+			if(vetor != null)
 			if(!tabela_simbolos.containsKey(nomeVar + "_" + vetor.getInteiro().getText().trim())) {
 				//se o vetor na posicao 'indice' foi declarado
-				erroPosicaoIndevida(vetor);
+				erroPosicaoIndevida(vetor, nomeVar);
 			}
 		}
 		
@@ -42,11 +43,111 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 
 	public void outAAddExp(AAddExp node) {
 		
-	//	System.out.println( node.getEsq().toString().trim() + "." + node.getDir() + ".");
-
+		AVarExp varEsq = null,varDir = null;
+		AValorExp valorEsq = null,valorDir = null;
+		AIdUnicaVar variavel = null; 
+		AVetorVar vetor = null;
+		
+		String tipoEsq = "", tipoDir = "";
+		
+		if(node.getDir() instanceof AVarExp) {
+			varDir = (AVarExp) node.getDir();
+			if(varDir.getVar() instanceof AIdUnicaVar) {
+				variavel = (AIdUnicaVar) varDir.getVar();
+				tipoDir = tabela_simbolos.get(variavel.getId().getText().trim()).trim();
+			}
+			else {
+				vetor = (AVetorVar) varDir.getVar();
+				tipoDir = tabela_simbolos.get(vetor.getId().getText().trim()).trim();
+			}
+		//fim do tipo direito	(VAR)
+			if(node.getEsq() instanceof AVarExp) {// var e var
+				varEsq = (AVarExp) node.getEsq();
+				if(varEsq.getVar() instanceof AIdUnicaVar) {
+					variavel = (AIdUnicaVar) varEsq.getVar();
+					tipoEsq = tabela_simbolos.get(variavel.getId().getText().trim()).trim();
+				}
+				else {
+					vetor = (AVetorVar) varEsq.getVar();
+					tipoEsq = tabela_simbolos.get(vetor.getId().getText().trim()).trim();
+				}
+				//fim do tipo esquerdo (VAR)
+				checarTiposCompativeis(tipoEsq,tipoDir,node);
+				
+			}
+			else if(node.getEsq() instanceof AValorExp) {//se for valor e var 
+				valorEsq = (AValorExp) node.getEsq();
+				tipoEsq = retornaTipoValor(valorEsq);
+				checarTiposCompativeis(tipoEsq, tipoDir, node);
+			}
+		}
+		else {//se nó direito é valor
+			if(node.getDir() instanceof AValorExp) {
+				valorDir = (AValorExp) node.getDir();
+				tipoDir = retornaTipoValor(valorDir);
+				//fim do tipo direito (valor)
+				if(node.getEsq() instanceof AValorExp) { // valor e valor
+					valorEsq = (AValorExp) node.getEsq();
+					tipoEsq = retornaTipoValor(valorEsq);
+					checarTiposCompativeis(tipoEsq, tipoDir, node);
+				}
+				else if( node.getEsq() instanceof AVarExp) { // var valor
+					varEsq = (AVarExp) node.getEsq();
+					if(varEsq.getVar() instanceof AIdUnicaVar) {
+						variavel = (AIdUnicaVar) varEsq.getVar();
+						tipoEsq = tabela_simbolos.get(variavel.getId().getText().trim()).trim();
+					}
+					else {
+						vetor = (AVetorVar) varEsq.getVar();
+						tipoEsq = tabela_simbolos.get(vetor.getId().getText().trim()).trim();
+					}
+					//fim do tipo esquerdo (VAR)
+					checarTiposCompativeis(tipoEsq,tipoDir,node);
+				}
+			}
+		}
+		
+		if(!tipoEsq.equals("")) {// esq é o caso base
+			if(!tipoDir.equals("")) {//dir é o caso base
+				tabela_expressoes.put(node.toString().trim() ,//insere um tipo na exp 
+						checarTiposCompativeis(tipoEsq, tipoDir, node)
+						);
+			}else {//direito não é caso base
+				if(contemNaTabelaExp(node.getDir())) {// direito é exp (insere o tipo)
+					tabela_expressoes.put(node.toString().trim() ,//insere um tipo na exp 
+						checarTiposCompativeis(tipoEsq, 
+								tabela_expressoes.get(node.getDir().toString().trim())
+								, node)
+						);
+				}
+			}
+		}//esq não é caso base
+		else {
+			if(contemNaTabelaExp( node.getEsq())){ 
+				if(!tipoDir.equals("")){//direito é caso base
+					tabela_expressoes.put(node.toString().trim() ,//insere um tipo na exp 
+							checarTiposCompativeis( 
+								tabela_expressoes.get(node.getEsq().toString().trim())
+								, tipoDir , node)
+						);
+				}
+				else if(contemNaTabelaExp( node.getDir())) {
+					tabela_expressoes.put(node.toString().trim() ,//insere um tipo na exp 
+							checarTiposCompativeis( 
+								tabela_expressoes.get(node.getEsq().toString().trim())
+								, tabela_expressoes.get(node.getDir().toString().trim()) 
+								, node)
+						);
+				}
+			}
+		}
+	
 
 	}
-	
+
+	public boolean contemNaTabelaExp(PExp pExp) {
+		return tabela_expressoes.containsKey(pExp.toString().trim() );
+	}
 
 	public void outAParaSemPassoComando(AParaSemPassoComando node) {
 		AIdUnicaVar variavel = null;
@@ -222,6 +323,37 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 	}
 
 	//Funções Auxiliares
+		
+	public String retornaTipoValor(AValorExp valorEsq) {
+		if(valorEsq.getValor() instanceof ACharValor)
+			return "caractere";
+		else if(valorEsq.getValor() instanceof AIntValor)
+			return "inteiro";
+		else if(valorEsq.getValor() instanceof AFloatValor)
+			return "real";
+		else if(valorEsq.getValor() instanceof ABooleanoValor)
+			return "booleano";
+		
+		return null;
+	}
+
+	
+	public String checarTiposCompativeis(String tipoEsq, String tipoDir,AAddExp node) {
+		if(! tipoEsq.equals(tipoDir) ) {//se os tipos não forem iguais
+			if( (  (tipoEsq.equals("real") || tipoEsq.equals("inteiro") )
+					&&
+					( tipoDir.equals("real") || tipoDir.equals("inteiro") ) 
+					)
+				) {
+				return "real";
+			}
+			else
+				exibirErro(null, 8);	
+		}
+		
+		return tipoEsq;
+	}
+
 	
 	public void variavelNaoDeclarada(AIdUnicaVar variavel, AVetorVar vetor) {
 		if(variavel != null) {//variavel
@@ -252,14 +384,14 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 			int tamVetor = Integer.parseInt(tabela_simbolos.get("indice_"+ nomeVar).trim() );
 			if(indice >= tamVetor) {
 				//se o indice utilizado for maior ou igual que o tamVetor
-				erroPosicaoIndevida(vetor);
+				erroPosicaoIndevida(vetor, nomeVar);
 			}
 		}
 	}
 
-	public void erroPosicaoIndevida(AVetorVar vetor) {
+	public void erroPosicaoIndevida(AVetorVar vetor, String nomeVar) {
 		exibirErro(new InvalidToken(
-				vetor.getId().getText(),
+				nomeVar,
 				vetor.getId().getLine(),
 				vetor.getId().getPos()
 				)
@@ -287,45 +419,58 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 	
 	public void exibirErro(Token tokenComErro, int indiceErro) {
 		String msg = "";
-
+		String text = "";
+		int line = 0;
+		int pos = 0;
+		
 		switch(indiceErro){
 			case 1: //erro IndiceNegativo
-				msg = ": O índice de um vetor: [" + tokenComErro.getText() + "] não pode "
+				msg = ": O índice de um vetor: [" + text + "] não pode "
 					   + "ser negativo.";
 				break;
 				
 			case 2://erro variavel já declarada
-				msg = ": Variável '" + tokenComErro.getText() + "' já declarada.";
+				msg = ": Variável '" + text + "' já declarada.";
 				break;
 				
 			case 3://variável não declarada
-				msg = ": Variável '" + tokenComErro.getText() + "' não declarada.";
+				msg = ": Variável '" + text + "' não declarada.";
 				break;
 				
 			case 4: //constante não pode ter valor alterado
-				msg = ": Constante '" + tokenComErro.getText() + "' não pode ter valor alterado.";
+				msg = ": Constante '" + text + "' não pode ter valor alterado.";
 				break;
 			
 			case 5:
-				msg = ": Vetor '" + tokenComErro.getText() + "' tentou acessar uma posição"
+				msg = ": Vetor tentou acessar uma posição"
 						+ " indevida.";
 				break;
 				
 			case 6:
-				msg = ": Variavel '" + tokenComErro.getText() + "' deve ser do tipo 'inteiro'.";
+				msg = ": Variavel '" + text + "' deve ser do tipo 'inteiro'.";
 				break;
 			
 			case 7:
-				msg = ": Vetor '" + tokenComErro.getText() + "' deve vir com o indice.";
+				msg = ": Vetor '" + text + "' deve vir com o indice.";
+				break;
+			
+			case 8:
+				msg = "Tipos incorretos na expressão.";
 				break;
 		}
-
+		if(indiceErro != 8) { 
+			text = tokenComErro.getText();
+			line = tokenComErro.getLine();
+			pos = tokenComErro.getPos();
+			msg = "Erro na linha " + line + msg;
+		}
 		try {
+			
 			throw new SemanticException(new InvalidToken(
-					tokenComErro.getText(),
-					tokenComErro.getLine(), 
-					tokenComErro.getPos()),
-					"Erro na linha " + tokenComErro.getLine() + msg 
+					text,
+					line, 
+					pos ),
+					msg 
 					);
 
 
