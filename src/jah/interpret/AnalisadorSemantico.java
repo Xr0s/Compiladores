@@ -30,7 +30,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 			variavelNaoDeclarada(variavel, vetor);
 		}
 		else{//variavel foi declarada
-			verificarIndiceETamanho(vetor,nomeVar);				
+			verificarPosicaoIndevida(vetor,nomeVar);				
 			if(!tabela_simbolos.containsKey(nomeVar + "_" + vetor.getInteiro().getText().trim())) {
 				//se o vetor na posicao 'indice' foi declarado
 				erroPosicaoIndevida(vetor);
@@ -42,14 +42,101 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 
 	public void outAAddExp(AAddExp node) {
 		
-		System.out.println( node.getEsq().toString().trim() + "." + node.getDir() + ".");
+	//	System.out.println( node.getEsq().toString().trim() + "." + node.getDir() + ".");
 
 
 	}
 	
 
+	public void outAParaSemPassoComando(AParaSemPassoComando node) {
+		AIdUnicaVar variavel = null;
+		AVetorVar vetor = null;
+		String nomeVar = "";
+
+		if( node.getVar() instanceof AIdUnicaVar) {
+			variavel = (AIdUnicaVar) node.getVar();
+			nomeVar = variavel.getId().getText().trim();
+		}
+		else {
+			vetor = (AVetorVar) node.getVar();
+			nomeVar = vetor.getId().getText().trim();
+		}
+		if( tabela_simbolos.containsKey(nomeVar)) {
+			String quebra[] = tabela_simbolos.get(nomeVar).trim().split("_");
+			if( !(tabela_simbolos.get(nomeVar).trim() ).equals("inteiro")  ){ 
+				if(!(quebra[0].equals("const"))) { //mudar isso qdo italo atualizar o codigo
+					if(variavel!= null) {//variavel deve ser do tipo inteiro
+						exibirErro(variavel.getId(),6);
+					}
+					else
+						exibirErro(vetor.getId(), 6);
+				}
+				else { //variavel não pode ser constante
+					exibirErro(variavel.getId(), 4);
+				}
+			}
+			else{//variavel é inteiro
+				if(vetor != null) {//variavel só pode ser vetor se tiver com o indice
+					verificarPosicaoIndevida(vetor,nomeVar);//se está acessando posição indevida
+				}
+				else {//se for vetor sem indice dar erro
+					if(tabela_simbolos.containsKey("indice_" + nomeVar)) {
+						exibirErro(variavel.getId(), 7);
+					}
+				}
+			}
+				
+		}
+		else{//variavel nao declarada
+			variavelNaoDeclarada(variavel,vetor);
+		}
+		
+	}
 	
+	public void outAParaComPassoComando(AParaComPassoComando node) {
+		AIdUnicaVar variavel = null;
+		AVetorVar vetor = null;
+		String nomeVar = "";
+
+		if( node.getVar() instanceof AIdUnicaVar) {
+			variavel = (AIdUnicaVar) node.getVar();
+			nomeVar = variavel.getId().getText().trim();
+		}
+		else {
+			vetor = (AVetorVar) node.getVar();
+			nomeVar = vetor.getId().getText().trim();
+		}
+		if( tabela_simbolos.containsKey(nomeVar)) {
+			String quebra[] = tabela_simbolos.get(nomeVar).trim().split("_");
+			if( !(tabela_simbolos.get(nomeVar).trim() ).equals("inteiro")  ){ 
+				if(!(quebra[0].equals("const"))) { //mudar isso qdo italo atualizar o codigo
+					if(variavel!= null) {//variavel deve ser do tipo inteiro
+						exibirErro(variavel.getId(),6);
+					}
+					else
+						exibirErro(vetor.getId(), 6);
+				}
+				else { //variavel não pode ser constante
+					exibirErro(variavel.getId(), 4);
+				}
+			}
+			else{//variavel é inteiro
+				if(vetor != null) {//variavel só pode ser vetor se tiver com o indice
+					verificarPosicaoIndevida(vetor,nomeVar);//se está acessando posição indevida
+				}
+				else {//se for vetor sem indice dar erro
+					if(tabela_simbolos.containsKey("indice_" + nomeVar)) {
+						exibirErro(variavel.getId(), 7);
+					}
+				}
+			}
+				
+		}
+		else{//variavel nao declarada
+			variavelNaoDeclarada(variavel,vetor);
+		}
 	
+	}
 	public void outAAtribuicaoComando(AAtribuicaoComando node) {
 		AIdUnicaVar variavel = null;
 		AVetorVar vetor = null;
@@ -65,14 +152,14 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		}
 		
 		if(tabela_simbolos.containsKey(nomeVar) ) {// variavel declarada 
-			System.out.println(nomeVar + ", tipo: " + tabela_simbolos.get(nomeVar).trim() + ".");
+		//	System.out.println(nomeVar + ", tipo: " + tabela_simbolos.get(nomeVar).trim() + ".");
 			if( !auxChecaTipoValido( nomeVar ) ) {//variavel é uma constante (erro)
 				exibirErro(new InvalidToken(nomeVar,variavel.getId().getLine(),0) ,4);
 			}
 			else {// é uma variavel
-				verificarIndiceETamanho(vetor, nomeVar);
+				verificarPosicaoIndevida(vetor, nomeVar);
 				//abaixo vai declarar a variavel no indice dado
-				System.out.println("Inserido: " + nomeVar +"_" + vetor.getInteiro().toString().trim());
+		//		System.out.println("Inserido: " + nomeVar +"_" + vetor.getInteiro().toString().trim());
 				tabela_simbolos.put(nomeVar +"_" + vetor.getInteiro().toString().trim(), 
 						tabela_simbolos.get(nomeVar).trim());
 				
@@ -129,6 +216,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 			exibirErro(ident, 2);
 		}
 		else {
+		//	System.out.println("inserindo " + key + ".");
 			tabela_simbolos.put(key,"const_" + node.getValor().toString());
 		}
 	}
@@ -156,11 +244,11 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 
 	
 	
-	public void verificarIndiceETamanho(AVetorVar vetor, String nomeVar) {
+	public void verificarPosicaoIndevida(AVetorVar vetor, String nomeVar) {
 		if(vetor != null) {//variavel do tipo vetor
 			int indice = Integer.parseInt(vetor.getInteiro().getText() );
-			System.out.println("vetor " + vetor.getId().getText().trim() 
-								+ " " + indice + ".");
+		//	System.out.println("vetor " + vetor.getId().getText().trim() 
+		 //						+ " " + indice + ".");
 			int tamVetor = Integer.parseInt(tabela_simbolos.get("indice_"+ nomeVar).trim() );
 			if(indice >= tamVetor) {
 				//se o indice utilizado for maior ou igual que o tamVetor
@@ -194,8 +282,6 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				return false;
 			}
 		}
-		else
-			System.out.println("t");
 		return false;
 	}
 	
@@ -204,32 +290,34 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 
 		switch(indiceErro){
 			case 1: //erro IndiceNegativo
-				msg = "Erro na linha " + tokenComErro.getLine() +
-					  ": O índice de um vetor: [" + tokenComErro.getText() + "] não pode "
+				msg = ": O índice de um vetor: [" + tokenComErro.getText() + "] não pode "
 					   + "ser negativo.";
 				break;
 				
 			case 2://erro variavel já declarada
-				msg ="Erro na linha " + tokenComErro.getLine() + 
-					 ": Variável '" + tokenComErro.getText() + "' já declarada.";
+				msg = ": Variável '" + tokenComErro.getText() + "' já declarada.";
 				break;
 				
 			case 3://variável não declarada
-				msg = "Erro na linha " + tokenComErro.getLine() +
-					  ": Variável '" + tokenComErro.getText() + "' não declarada.";
+				msg = ": Variável '" + tokenComErro.getText() + "' não declarada.";
 				break;
 				
 			case 4: //constante não pode ter valor alterado
-				msg = "Erro na linha " + tokenComErro.getLine() +
-				": Constante '" + tokenComErro.getText() + "' não pode ter valor alterado.";
+				msg = ": Constante '" + tokenComErro.getText() + "' não pode ter valor alterado.";
 				break;
 			
 			case 5:
-				msg = "Erro na linha " + tokenComErro.getLine() +
-					": Vetor '" + tokenComErro.getText() + "' tentou acessar uma posição"
-						+ " indevida";
-
-		
+				msg = ": Vetor '" + tokenComErro.getText() + "' tentou acessar uma posição"
+						+ " indevida.";
+				break;
+				
+			case 6:
+				msg = ": Variavel '" + tokenComErro.getText() + "' deve ser do tipo 'inteiro'.";
+				break;
+			
+			case 7:
+				msg = ": Vetor '" + tokenComErro.getText() + "' deve vir com o indice.";
+				break;
 		}
 
 		try {
@@ -237,7 +325,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 					tokenComErro.getText(),
 					tokenComErro.getLine(), 
 					tokenComErro.getPos()),
-					 msg 
+					"Erro na linha " + tokenComErro.getLine() + msg 
 					);
 
 

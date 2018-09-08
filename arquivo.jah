@@ -4,6 +4,10 @@ inicio
 		const x 10;
 		
 		a[1] := 1;
-		x := a[1] -2;
-					
+		a[2] := a[1] -2;
+		
+		
+		para a[1] de  0 passo 1 ate 2 faca 
+		 	leia(x);
+		fim para; 
 fim.
