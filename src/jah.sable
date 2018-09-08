@@ -219,9 +219,12 @@ Productions
 				   ;
 			 
 	valor {-> valor} = {char} caractere {-> New valor.char(caractere)}
-				 	 | {int} inteiro {-> New valor.int(inteiro)}
-				     | {float} real {-> New valor.float(real)}
+				 	 | {int} sinal? inteiro {-> New valor.int(inteiro)}
+				     | {float} sinal? real {-> New valor.float(real)}
 				     | {booleano} booleano {-> New valor.booleano(booleano)};
+	
+	sinal = {mais} mais 
+		  | {menos} menos;
 
 Abstract Syntax Tree
 

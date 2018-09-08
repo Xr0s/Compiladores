@@ -3,6 +3,6 @@ inicio
 		inteiro: a;
 		const x 10;
 		
-		a := 2;
+		a := -2;
 					
 fim.
