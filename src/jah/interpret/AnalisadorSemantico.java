@@ -32,10 +32,10 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		else{//variavel foi declarada
 			verificarPosicaoIndevida(vetor,nomeVar);
 			if(vetor != null)
-			if(!tabela_simbolos.containsKey(nomeVar + "_" + vetor.getInteiro().getText().trim())) {
-				//se o vetor na posicao 'indice' foi declarado
-				erroPosicaoIndevida(vetor, nomeVar);
-			}
+				if(!tabela_simbolos.containsKey(nomeVar + "_" + vetor.getInteiro().getText().trim())) {
+					//se o vetor na posicao 'indice' foi declarado
+					erroPosicaoIndevida(vetor, nomeVar);
+				}
 		}
 		
 
@@ -627,8 +627,18 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 			exibirErro(ident, 2);
 		}
 		else {
-		//	System.out.println("inserindo " + key + ".");
-			tabela_simbolos.put(key,"const_" + node.getValor().toString());
+			
+			
+			if(node.getValor().toString().trim().matches("[0-9]*")) {
+				tabela_simbolos.put(key,"inteiro_" + node.getValor().toString());				
+			}else if(node.getValor().toString().trim().matches("[0-9]*+,+[0-9]*")) {
+				tabela_simbolos.put(key,"real_" + node.getValor().toString());
+			}else if(node.getValor().toString().trim().matches("verdadeiro|falso")) {
+				tabela_simbolos.put(key,"booleano_" + node.getValor().toString());
+			}else {
+				tabela_simbolos.put(key,"caractere_" + node.getValor().toString());
+			}
+
 		}
 	}
 

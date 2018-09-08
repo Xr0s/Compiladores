@@ -3,7 +3,8 @@ inicio
 		inteiro: a[10];
 		const x 10;
 		caractere: y;
-	
+		
+		y := 2;
 		a[1] := 1;
 		a[2] := 1 + a[1] + 2,5;
 		
