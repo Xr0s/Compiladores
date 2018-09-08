@@ -386,6 +386,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseAParaSemPassoComando(AParaSemPassoComando node)
     {
         inAParaSemPassoComando(node);
+        if(node.getVar() != null)
+        {
+            node.getVar().apply(this);
+        }
         if(node.getEsq() != null)
         {
             node.getEsq().apply(this);
@@ -418,6 +422,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseAParaComPassoComando(AParaComPassoComando node)
     {
         inAParaComPassoComando(node);
+        if(node.getVar() != null)
+        {
+            node.getVar().apply(this);
+        }
         if(node.getPri() != null)
         {
             node.getPri().apply(this);

@@ -411,6 +411,10 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getEsq().apply(this);
         }
+        if(node.getVar() != null)
+        {
+            node.getVar().apply(this);
+        }
         outAParaSemPassoComando(node);
     }
 
@@ -447,6 +451,10 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         if(node.getPri() != null)
         {
             node.getPri().apply(this);
+        }
+        if(node.getVar() != null)
+        {
+            node.getVar().apply(this);
         }
         outAParaComPassoComando(node);
     }

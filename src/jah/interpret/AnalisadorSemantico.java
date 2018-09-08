@@ -19,11 +19,11 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 
 		if( node.getVar() instanceof AIdUnicaVar) {
 			variavel = (AIdUnicaVar) node.getVar();
-			nomeVar = variavel.getId().getText().toUpperCase().trim();
+			nomeVar = variavel.getId().getText().trim();
 		}
 		else {
 			vetor = (AVetorVar) node.getVar();
-			nomeVar = vetor.getId().getText().toUpperCase().trim();
+			nomeVar = vetor.getId().getText().trim();
 		}
 
 		if(!tabela_simbolos.containsKey(nomeVar) ) { // não foi declarado
@@ -59,31 +59,44 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 	
 	
 	public void outAAtribuicaoComando(AAtribuicaoComando node) {
-		final String keyID = node.getVar().toString().toUpperCase().trim();
 		AIdUnicaVar variavel = null;
 		AVetorVar vetor = null;
+		String keyID = "";
 		
-		if(tabela_simbolos.contains(keyID) ) {// variavel declarada 
-			if( !auxChecaTipoValido( tabela_simbolos.get(keyID) ) ) {//variavel é uma constante (erro)
+		if( node.getVar() instanceof AIdUnicaVar) {
+			variavel = (AIdUnicaVar) node.getVar();
+			keyID = variavel.getId().getText().trim();
+		}
+		else {
+			vetor = (AVetorVar) node.getVar();
+			keyID = vetor.getId().getText().trim();
+		}
+		
+		if(tabela_simbolos.containsKey(keyID) ) {// variavel declarada 
+			System.out.println(keyID + ", tipo: " + tabela_simbolos.get(keyID).trim() + ".");
+			if( !auxChecaTipoValido( keyID ) ) {//variavel é uma constante (erro)
 				exibirErro(new InvalidToken(keyID,0,0) ,4);
 			}
 		}
-		else {//erro de variavel não declarada
-			if( node.getVar() instanceof AIdUnicaVar) {
-				variavel = (AIdUnicaVar) node.getVar();
+		else {//variavel não declarada
+			if(variavel != null) {//variavel
 				exibirErro(new InvalidToken(variavel.getId().getText(),
-											variavel.getId().getLine(),
-											variavel.getId().getPos() ),
-						5);
+									 variavel.getId().getLine(),
+									 variavel.getId().getPos()
+									 ),
+							3
+						);
 			}
-			else {
-				vetor = (AVetorVar) node.getVar();
+			else {//vetor
 				exibirErro(new InvalidToken(vetor.getId().getText(),
 											vetor.getId().getLine(),
-											vetor.getId().getPos() ),
-						5);
+											vetor.getId().getPos()
+						 					),
+							3
+						);
 			}
 		}
+	
 	}
 	
 	public void outAVariaveisDeclaracao(AVariaveisDeclaracao node){
@@ -101,9 +114,9 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				identIndiceVetor = acessarToken.getInteiro();
 			}
 
-			String key = ident.getText().toUpperCase().trim();
+			String key = ident.getText().trim();
 			//				System.out.println(teste + "  :"+node.getTipo());
-			//				String key = var.toString().toUpperCase().trim();
+			//				String key = var.toString().trim();
 			//				System.out.println(key);
 			//		 is the identifier in the table?
 			if (tabela_simbolos.containsKey(key)) { // report an error
@@ -129,7 +142,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		//		System.out.println("Passou por constante declar");
 		//		 name of the identifier to be stored in the table
 
-		String key = ident.getText().toUpperCase().trim();
+		String key = ident.getText().trim();
 		//			System.out.println(tabela_simbolos);
 		//			System.out.println(key);
 		//		 is the identifier in the table?
@@ -144,7 +157,8 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 
 	//Funções Auxiliares
 	public boolean auxChecaTipoValido(String variavel) {
-		switch(tabela_simbolos.get(variavel) ) {
+		if(tabela_simbolos.containsKey(variavel) ) {
+			switch(tabela_simbolos.get(variavel).trim() ) {
 			case "inteiro":
 				return true;
 			case "caractere":
@@ -155,8 +169,11 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				return true;
 			default:
 				return false;
+			}
 		}
-		
+		else
+			System.out.println("t");
+		return false;
 	}
 	
 	public void exibirErro(Token tokenComErro, int indiceErro) {
@@ -182,12 +199,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 			case 4: //constante não pode ter valor alterado
 				msg = ": Constante '" + tokenComErro.getText() + "' não pode ter valor alterado.";
 				break;
-			
-			case 5:
-				msg = "Erro na linha " + tokenComErro.getLine() +
-				  ": Variável '" + tokenComErro.getText() + "' declarada, mas não foi setada.";
-				break;
-		
+
 		
 		}
 
@@ -229,7 +241,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		TId ident = node.getId();
 		//		 name of the identifier to be stored in the table
 
-		String key = ident.getText().toUpperCase();
+		String key = ident.getText();
 		System.out.println(key);
 		//		 is the identifier in the table?
 		if (tabela_simbolos.containsKey(key)) { // report an error

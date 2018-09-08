@@ -1157,22 +1157,24 @@ public class Parser
         PComando pcomandoNode1;
         {
             // Block
-        TInteiro tinteiroNode2;
+        PVar pvarNode2;
         TInteiro tinteiroNode3;
-        LinkedList<Object> listNode5 = new LinkedList<Object>();
-        tinteiroNode2 = (TInteiro)nodeArrayList4.get(0);
-        tinteiroNode3 = (TInteiro)nodeArrayList6.get(0);
+        TInteiro tinteiroNode4;
+        LinkedList<Object> listNode6 = new LinkedList<Object>();
+        pvarNode2 = (PVar)nodeArrayList2.get(0);
+        tinteiroNode3 = (TInteiro)nodeArrayList4.get(0);
+        tinteiroNode4 = (TInteiro)nodeArrayList6.get(0);
         {
             // Block
-        LinkedList<Object> listNode4 = new LinkedList<Object>();
-        listNode4 = (LinkedList)nodeArrayList8.get(0);
-	if(listNode4 != null)
+        LinkedList<Object> listNode5 = new LinkedList<Object>();
+        listNode5 = (LinkedList)nodeArrayList8.get(0);
+	if(listNode5 != null)
 	{
-	  listNode5.addAll(listNode4);
+	  listNode6.addAll(listNode5);
 	}
         }
 
-        pcomandoNode1 = new AParaSemPassoComando(tinteiroNode2, tinteiroNode3, listNode5);
+        pcomandoNode1 = new AParaSemPassoComando(pvarNode2, tinteiroNode3, tinteiroNode4, listNode6);
         }
 	nodeList.add(pcomandoNode1);
         return nodeList;
@@ -1200,24 +1202,26 @@ public class Parser
         PComando pcomandoNode1;
         {
             // Block
-        TInteiro tinteiroNode2;
+        PVar pvarNode2;
         TInteiro tinteiroNode3;
         TInteiro tinteiroNode4;
-        LinkedList<Object> listNode6 = new LinkedList<Object>();
-        tinteiroNode2 = (TInteiro)nodeArrayList4.get(0);
-        tinteiroNode3 = (TInteiro)nodeArrayList6.get(0);
-        tinteiroNode4 = (TInteiro)nodeArrayList8.get(0);
+        TInteiro tinteiroNode5;
+        LinkedList<Object> listNode7 = new LinkedList<Object>();
+        pvarNode2 = (PVar)nodeArrayList2.get(0);
+        tinteiroNode3 = (TInteiro)nodeArrayList4.get(0);
+        tinteiroNode4 = (TInteiro)nodeArrayList6.get(0);
+        tinteiroNode5 = (TInteiro)nodeArrayList8.get(0);
         {
             // Block
-        LinkedList<Object> listNode5 = new LinkedList<Object>();
-        listNode5 = (LinkedList)nodeArrayList10.get(0);
-	if(listNode5 != null)
+        LinkedList<Object> listNode6 = new LinkedList<Object>();
+        listNode6 = (LinkedList)nodeArrayList10.get(0);
+	if(listNode6 != null)
 	{
-	  listNode6.addAll(listNode5);
+	  listNode7.addAll(listNode6);
 	}
         }
 
-        pcomandoNode1 = new AParaComPassoComando(tinteiroNode2, tinteiroNode3, tinteiroNode4, listNode6);
+        pcomandoNode1 = new AParaComPassoComando(pvarNode2, tinteiroNode3, tinteiroNode4, tinteiroNode5, listNode7);
         }
 	nodeList.add(pcomandoNode1);
         return nodeList;

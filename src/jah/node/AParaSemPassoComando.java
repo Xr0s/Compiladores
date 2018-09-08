@@ -8,6 +8,7 @@ import jah.analysis.*;
 @SuppressWarnings("nls")
 public final class AParaSemPassoComando extends PComando
 {
+    private PVar _var_;
     private TInteiro _esq_;
     private TInteiro _dir_;
     private final LinkedList<PComando> _comando_ = new LinkedList<PComando>();
@@ -18,11 +19,14 @@ public final class AParaSemPassoComando extends PComando
     }
 
     public AParaSemPassoComando(
+        @SuppressWarnings("hiding") PVar _var_,
         @SuppressWarnings("hiding") TInteiro _esq_,
         @SuppressWarnings("hiding") TInteiro _dir_,
         @SuppressWarnings("hiding") List<?> _comando_)
     {
         // Constructor
+        setVar(_var_);
+
         setEsq(_esq_);
 
         setDir(_dir_);
@@ -35,6 +39,7 @@ public final class AParaSemPassoComando extends PComando
     public Object clone()
     {
         return new AParaSemPassoComando(
+            cloneNode(this._var_),
             cloneNode(this._esq_),
             cloneNode(this._dir_),
             cloneList(this._comando_));
@@ -44,6 +49,31 @@ public final class AParaSemPassoComando extends PComando
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAParaSemPassoComando(this);
+    }
+
+    public PVar getVar()
+    {
+        return this._var_;
+    }
+
+    public void setVar(PVar node)
+    {
+        if(this._var_ != null)
+        {
+            this._var_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._var_ = node;
     }
 
     public TInteiro getEsq()
@@ -126,6 +156,7 @@ public final class AParaSemPassoComando extends PComando
     public String toString()
     {
         return ""
+            + toString(this._var_)
             + toString(this._esq_)
             + toString(this._dir_)
             + toString(this._comando_);
@@ -135,6 +166,12 @@ public final class AParaSemPassoComando extends PComando
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
+        if(this._var_ == child)
+        {
+            this._var_ = null;
+            return;
+        }
+
         if(this._esq_ == child)
         {
             this._esq_ = null;
@@ -159,6 +196,12 @@ public final class AParaSemPassoComando extends PComando
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
+        if(this._var_ == oldChild)
+        {
+            setVar((PVar) newChild);
+            return;
+        }
+
         if(this._esq_ == oldChild)
         {
             setEsq((TInteiro) newChild);

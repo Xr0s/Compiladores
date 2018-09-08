@@ -8,6 +8,7 @@ import jah.analysis.*;
 @SuppressWarnings("nls")
 public final class AParaComPassoComando extends PComando
 {
+    private PVar _var_;
     private TInteiro _pri_;
     private TInteiro _seg_;
     private TInteiro _ter_;
@@ -19,12 +20,15 @@ public final class AParaComPassoComando extends PComando
     }
 
     public AParaComPassoComando(
+        @SuppressWarnings("hiding") PVar _var_,
         @SuppressWarnings("hiding") TInteiro _pri_,
         @SuppressWarnings("hiding") TInteiro _seg_,
         @SuppressWarnings("hiding") TInteiro _ter_,
         @SuppressWarnings("hiding") List<?> _comando_)
     {
         // Constructor
+        setVar(_var_);
+
         setPri(_pri_);
 
         setSeg(_seg_);
@@ -39,6 +43,7 @@ public final class AParaComPassoComando extends PComando
     public Object clone()
     {
         return new AParaComPassoComando(
+            cloneNode(this._var_),
             cloneNode(this._pri_),
             cloneNode(this._seg_),
             cloneNode(this._ter_),
@@ -49,6 +54,31 @@ public final class AParaComPassoComando extends PComando
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAParaComPassoComando(this);
+    }
+
+    public PVar getVar()
+    {
+        return this._var_;
+    }
+
+    public void setVar(PVar node)
+    {
+        if(this._var_ != null)
+        {
+            this._var_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._var_ = node;
     }
 
     public TInteiro getPri()
@@ -156,6 +186,7 @@ public final class AParaComPassoComando extends PComando
     public String toString()
     {
         return ""
+            + toString(this._var_)
             + toString(this._pri_)
             + toString(this._seg_)
             + toString(this._ter_)
@@ -166,6 +197,12 @@ public final class AParaComPassoComando extends PComando
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
+        if(this._var_ == child)
+        {
+            this._var_ = null;
+            return;
+        }
+
         if(this._pri_ == child)
         {
             this._pri_ = null;
@@ -196,6 +233,12 @@ public final class AParaComPassoComando extends PComando
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
+        if(this._var_ == oldChild)
+        {
+            setVar((PVar) newChild);
+            return;
+        }
+
         if(this._pri_ == oldChild)
         {
             setPri((TInteiro) newChild);

@@ -131,10 +131,10 @@ Productions
 						  | {repita} repita comando+ ate abre_parentese exp_logica fecha_parentese pontovirgula
 						  	{ -> New comando.repita([comando], exp_logica)}
 						  | {para_sem_passo} para var de [esq]:inteiro ate [dir]:inteiro faca comando+ fim_para pontovirgula
-						    { -> New comando.para_sem_passo(esq, dir, [comando])}
+						    { -> New comando.para_sem_passo(var, esq, dir, [comando])}
 						  | {para_com_passo} para var de [pri]:inteiro passo [seg]:inteiro 
 						   				   ate [ter]:inteiro faca comando+ fim_para pontovirgula
-						   	{ -> New comando.para_com_passo(pri, seg, ter, [comando])}
+						   	{ -> New comando.para_com_passo(var,pri, seg, ter, [comando])}
 						  | {avalie} avalie abre_parentese exp fecha_parentese casos* decl_senao_avalie? fim_avalie pontovirgula
 						    { -> New comando.avalie(exp, [casos], [decl_senao_avalie.comando])};
 							
@@ -242,8 +242,8 @@ Abstract Syntax Tree
 			| {se} exp_logica [obrigat]:comando+ [opcional]:comando* 
 			| {enquanto} exp_logica comando+
 			| {repita} comando+ exp_logica
-			| {para_sem_passo} [esq]:inteiro [dir]:inteiro comando+
-			| {para_com_passo} [pri]:inteiro [seg]:inteiro [ter]:inteiro comando+
+			| {para_sem_passo} var [esq]:inteiro [dir]:inteiro comando+
+			| {para_com_passo} var [pri]:inteiro [seg]:inteiro [ter]:inteiro comando+
 			| {avalie} exp casos* comando*;
 	
 	casos = valor comando+;
