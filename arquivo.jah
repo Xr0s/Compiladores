@@ -4,12 +4,15 @@ inicio
 		inteiro: b;
 
 		
-		inteiro: c;
-		caractere: char;
-		c := b;
+		real: c;
+		caractere: ch;
+		
+		ch := 1 + c + 3;
+		
+		
 		
 		avalie ('c')
-			caso 'a':
+			caso 'c':
 				b := 10;
 			senao:
 				b := 8;
