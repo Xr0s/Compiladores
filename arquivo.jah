@@ -1,14 +1,11 @@
 programa TESTE_Programa
 inicio
 		inteiro: a[4], b;
-		const x 10;
-		caractere: y;
+		const x 10,8;
+		const y 'c';
+		real: z;
+		//checar os tipos é de boas
 		
-		b := -2;
-		a[3] := 1;
-		a[2] := 1 ;
-		
-		para b de 0 ate 2 faca 
-		 	leia(x);
-		fim para; 
+		z := a[1] + 2 + x;
+	// deu ruim
 fim.

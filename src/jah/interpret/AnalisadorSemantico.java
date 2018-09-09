@@ -8,10 +8,10 @@ import java.util.*;
 public class AnalisadorSemantico extends DepthFirstAdapter { 
 
 	Hashtable<String, String> tabela_simbolos = new Hashtable(99999999);
-
 	Hashtable<String, String> tabela_expressoes = new Hashtable(99999999);
-
-
+	private boolean flagLinha = false;
+	private int linha;
+	
 	public void outAVarExp(AVarExp node) {
 		AIdUnicaVar variavel = null;
 		AVetorVar vetor = null;
@@ -30,12 +30,8 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 			variavelNaoDeclarada(variavel, vetor);
 		}
 		else{//variavel foi declarada
-			verificarPosicaoIndevida(vetor,nomeVar);
 			if(vetor != null)
-				if(!tabela_simbolos.containsKey(nomeVar + "_" + vetor.getInteiro().getText().trim())) {
-					//se o vetor na posicao 'indice' foi declarad
-					erroPosicaoIndevida(vetor, nomeVar);
-				}
+				verificarPosicaoIndevida(vetor,nomeVar);
 		}
 		
 
@@ -45,79 +41,67 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		AVarExp varEsq = null,varDir = null;
 		AValorExp valorEsq = null,valorDir = null;
 		String tipoEsq = "", tipoDir = "";
+		int linha = 0;
+		
+		System.out.println("nóesq: "+ node.getEsq().toString().trim()
+						+"\nnódir: " + node.getDir().toString().trim()
+						);
 		
 		if(node.getDir() instanceof AVarExp) {
 			varDir = (AVarExp) node.getDir();
-			tipoDir = getTipo(varDir);
-		//fim do tipo direito	(VAR)
-			if(node.getEsq() instanceof AVarExp) {// var e var
-				varEsq = (AVarExp) node.getEsq();
-				tipoEsq = getTipo(varEsq);
-				//fim do tipo esquerdo (VAR)
-				checarTiposCompativeis(tipoEsq,tipoDir,node);
-				
-			}
-			else if(node.getEsq() instanceof AValorExp) {//se for valor e var 
-				valorEsq = (AValorExp) node.getEsq();
-				tipoEsq = retornaTipoValor(valorEsq);
-				checarTiposCompativeis(tipoEsq, tipoDir, node);
-			}
-		}
-		else {//se nó direito é valor
-			if(node.getDir() instanceof AValorExp) {
-				valorDir = (AValorExp) node.getDir();
-				tipoDir = retornaTipoValor(valorDir);
-				//fim do tipo direito (valor)
-				if(node.getEsq() instanceof AValorExp) { // valor e valor
-					valorEsq = (AValorExp) node.getEsq();
-					tipoEsq = retornaTipoValor(valorEsq);
-					checarTiposCompativeis(tipoEsq, tipoDir, node);
-				}
-				else if( node.getEsq() instanceof AVarExp) { // var valor
-					varEsq = (AVarExp) node.getEsq();
-					tipoEsq = getTipo(varEsq);
-					//fim do tipo esquerdo (VAR)
-					checarTiposCompativeis(tipoEsq,tipoDir,node);
-				}
-			}
+			tipoDir = getTipo(varDir).trim();
+		}else if(node.getDir() instanceof AValorExp){
+			valorDir = (AValorExp) node.getDir();
+			tipoDir = retornaTipoValor(valorDir).trim();
 		}
 		
-		if(!tipoEsq.equals("")) {// esq é o caso base
-			if(!tipoDir.equals("")) {//dir é o caso base
-				tabela_expressoes.put(node.toString().trim() ,//insere um tipo na exp 
-						checarTiposCompativeis(tipoEsq, tipoDir, node)
-						);
-			}else {//direito não é caso base
-				if(contemNaTabelaExp(node.getDir())) {// direito é exp (insere o tipo)
-					tabela_expressoes.put(node.toString().trim() ,//insere um tipo na exp 
-						checarTiposCompativeis(tipoEsq, 
-								tabela_expressoes.get(node.getDir().toString().trim())
-								, node)
-						);
-				}
+		if(node.getEsq() instanceof AVarExp) {
+			varEsq = (AVarExp) node.getEsq();
+			tipoEsq = getTipo(varEsq).trim();
+		}else if(node.getEsq() instanceof AValorExp){
+			valorEsq = (AValorExp) node.getEsq();
+			tipoEsq = retornaTipoValor(valorEsq).trim();
+		}
+		
+		String tipoDaExpressao = "";
+		
+		if(!tipoEsq.equals("")) { //tipo esq caso base (Valor ou Var)
+			if(!tipoDir.equals("")) { //tipo direito caso base (valor ou var)
+				System.out.println(tipoEsq + "\\" + tipoDir);
+				tipoDaExpressao = checarTiposCompativeis(tipoEsq, tipoDir);
+				tabela_expressoes.put(node.toString().trim(),//expressao em si
+								     tipoDaExpressao);	
 			}
-		}//esq não é caso base
-		else {
-			if(contemNaTabelaExp( node.getEsq())){ 
-				if(!tipoDir.equals("")){//direito é caso base
-					tabela_expressoes.put(node.toString().trim() ,//insere um tipo na exp 
-							checarTiposCompativeis( 
-								tabela_expressoes.get(node.getEsq().toString().trim())
-								, tipoDir , node)
-						);
+			else{// esq caso base || dir exp
+				if( tabela_expressoes.containsKey(node.getDir().toString().trim())) {
+					tipoDir = tabela_expressoes.get(node.getDir().toString().trim());
+					tipoDaExpressao = checarTiposCompativeis(tipoEsq, tipoDir);
+					tabela_expressoes.put(node.toString().trim(), 
+							tipoDaExpressao);
+					System.out.println(tipoDaExpressao);
 				}
-				else if(contemNaTabelaExp( node.getDir())) {
-					tabela_expressoes.put(node.toString().trim() ,//insere um tipo na exp 
-							checarTiposCompativeis( 
-								tabela_expressoes.get(node.getEsq().toString().trim())
-								, tabela_expressoes.get(node.getDir().toString().trim()) 
-								, node)
-						);
+				else {
+					System.out.println("Expressao nao encontrada: " + node.getDir().toString().trim() + ".");
 				}
+
 			}
 		}
-	
-
+		else {		
+			if(!tipoDir.equals("")) { // esq exp || dir caso base
+				if( tabela_expressoes.containsKey(node.getEsq().toString().trim())) {
+					tipoEsq = tabela_expressoes.get(node.getEsq().toString().trim());
+					tipoDaExpressao = checarTiposCompativeis(tipoEsq,tipoDir);
+					//descobri
+					tabela_expressoes.put(node.toString().trim(), 
+										tipoDaExpressao);
+				}
+				else {
+					System.out.println("Expressao nao encontrada: " + node.getEsq().toString().trim() + ".");
+				}
+			}
+			
+		}
+		
 	}
 
 	public String getTipo(AVarExp varExp) {
@@ -126,262 +110,13 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		String tipo;
 		if(varExp.getVar() instanceof AIdUnicaVar) {
 			variavel = (AIdUnicaVar) varExp.getVar();
-			tipo = tabela_simbolos.get(variavel.getId().getText().trim()).trim();
+			tipo = tabela_simbolos.get(variavel.getId().getText().trim()).split("_")[0];
 		}
 		else {
 			vetor = (AVetorVar) varExp.getVar();
-			tipo = tabela_simbolos.get(vetor.getId().getText().trim()).trim();
+			tipo = tabela_simbolos.get(vetor.getId().getText().trim()).split("_")[0];
 		}
 		return tipo;
-	}
-
-	public void outASubExp(ASubExp node) {
-		
-		AVarExp varEsq = null,varDir = null;
-		AValorExp valorEsq = null,valorDir = null;
-		AIdUnicaVar variavel = null; 
-		AVetorVar vetor = null;
-		
-		String tipoEsq = "", tipoDir = "";
-		
-		if(node.getDir() instanceof AVarExp) {
-			varDir = (AVarExp) node.getDir();
-			tipoDir = getTipo(varDir);
-		//fim do tipo direito	(VAR)
-			if(node.getEsq() instanceof AVarExp) {// var e var
-				varEsq = (AVarExp) node.getEsq();
-				tipoEsq = getTipo(varEsq);
-				//fim do tipo esquerdo (VAR)
-				checarTiposCompativeis(tipoEsq,tipoDir,node);
-				
-			}
-			else if(node.getEsq() instanceof AValorExp) {//se for valor e var 
-				valorEsq = (AValorExp) node.getEsq();
-				tipoEsq = retornaTipoValor(valorEsq);
-				checarTiposCompativeis(tipoEsq, tipoDir, node);
-			}
-		}
-		else {//se nó direito é valor
-			if(node.getDir() instanceof AValorExp) {
-				valorDir = (AValorExp) node.getDir();
-				tipoDir = retornaTipoValor(valorDir);
-				//fim do tipo direito (valor)
-				if(node.getEsq() instanceof AValorExp) { // valor e valor
-					valorEsq = (AValorExp) node.getEsq();
-					tipoEsq = retornaTipoValor(valorEsq);
-					checarTiposCompativeis(tipoEsq, tipoDir, node);
-				}
-				else if( node.getEsq() instanceof AVarExp) { // var valor
-					varEsq = (AVarExp) node.getEsq();
-					tipoEsq = getTipo(varEsq);
-					//fim do tipo esquerdo (VAR)
-					checarTiposCompativeis(tipoEsq,tipoDir,node);
-				}
-			}
-		}
-		
-		if(!tipoEsq.equals("")) {// esq é o caso base
-			if(!tipoDir.equals("")) {//dir é o caso base
-				tabela_expressoes.put(node.toString().trim() ,//insere um tipo na exp 
-						checarTiposCompativeis(tipoEsq, tipoDir, node)
-						);
-			}else {//direito não é caso base
-				if(contemNaTabelaExp(node.getDir())) {// direito é exp (insere o tipo)
-					tabela_expressoes.put(node.toString().trim() ,//insere um tipo na exp 
-						checarTiposCompativeis(tipoEsq, 
-								tabela_expressoes.get(node.getDir().toString().trim())
-								, node)
-						);
-				}
-			}
-		}//esq não é caso base
-		else {
-			if(contemNaTabelaExp( node.getEsq())){ 
-				if(!tipoDir.equals("")){//direito é caso base
-					tabela_expressoes.put(node.toString().trim() ,//insere um tipo na exp 
-							checarTiposCompativeis( 
-								tabela_expressoes.get(node.getEsq().toString().trim())
-								, tipoDir , node)
-						);
-				}
-				else if(contemNaTabelaExp( node.getDir())) {
-					tabela_expressoes.put(node.toString().trim() ,//insere um tipo na exp 
-							checarTiposCompativeis( 
-								tabela_expressoes.get(node.getEsq().toString().trim())
-								, tabela_expressoes.get(node.getDir().toString().trim()) 
-								, node)
-						);
-				}
-			}
-		}
-	
-
-	}
-
-	public void outAMultExp(AMultExp node) {
-		
-		AVarExp varEsq = null,varDir = null;
-		AValorExp valorEsq = null,valorDir = null;
-		AIdUnicaVar variavel = null; 
-		AVetorVar vetor = null;
-		
-		String tipoEsq = "", tipoDir = "";
-		
-		if(node.getDir() instanceof AVarExp) {
-			varDir = (AVarExp) node.getDir();
-			tipoDir = getTipo(varDir);
-		//fim do tipo direito	(VAR)
-			if(node.getEsq() instanceof AVarExp) {// var e var
-				varEsq = (AVarExp) node.getEsq();
-				tipoEsq = getTipo(varEsq);
-				//fim do tipo esquerdo (VAR)
-				checarTiposCompativeis(tipoEsq,tipoDir,node);
-				
-			}
-			else if(node.getEsq() instanceof AValorExp) {//se for valor e var 
-				valorEsq = (AValorExp) node.getEsq();
-				tipoEsq = retornaTipoValor(valorEsq);
-				checarTiposCompativeis(tipoEsq, tipoDir, node);
-			}
-		}
-		else {//se nó direito é valor
-			if(node.getDir() instanceof AValorExp) {
-				valorDir = (AValorExp) node.getDir();
-				tipoDir = retornaTipoValor(valorDir);
-				//fim do tipo direito (valor)
-				if(node.getEsq() instanceof AValorExp) { // valor e valor
-					valorEsq = (AValorExp) node.getEsq();
-					tipoEsq = retornaTipoValor(valorEsq);
-					checarTiposCompativeis(tipoEsq, tipoDir, node);
-				}
-				else if( node.getEsq() instanceof AVarExp) { // var valor
-					varEsq = (AVarExp) node.getEsq();
-					tipoEsq = getTipo(varEsq);
-					//fim do tipo esquerdo (VAR)
-					checarTiposCompativeis(tipoEsq,tipoDir,node);
-				}
-			}
-		}
-		
-		if(!tipoEsq.equals("")) {// esq é o caso base
-			if(!tipoDir.equals("")) {//dir é o caso base
-				tabela_expressoes.put(node.toString().trim() ,//insere um tipo na exp 
-						checarTiposCompativeis(tipoEsq, tipoDir, node)
-						);
-			}else {//direito não é caso base
-				if(contemNaTabelaExp(node.getDir())) {// direito é exp (insere o tipo)
-					tabela_expressoes.put(node.toString().trim() ,//insere um tipo na exp 
-						checarTiposCompativeis(tipoEsq, 
-								tabela_expressoes.get(node.getDir().toString().trim())
-								, node)
-						);
-				}
-			}
-		}//esq não é caso base
-		else {
-			if(contemNaTabelaExp( node.getEsq())){ 
-				if(!tipoDir.equals("")){//direito é caso base
-					tabela_expressoes.put(node.toString().trim() ,//insere um tipo na exp 
-							checarTiposCompativeis( 
-								tabela_expressoes.get(node.getEsq().toString().trim())
-								, tipoDir , node)
-						);
-				}
-				else if(contemNaTabelaExp( node.getDir())) {
-					tabela_expressoes.put(node.toString().trim() ,//insere um tipo na exp 
-							checarTiposCompativeis( 
-								tabela_expressoes.get(node.getEsq().toString().trim())
-								, tabela_expressoes.get(node.getDir().toString().trim()) 
-								, node)
-						);
-				}
-			}
-		}
-	
-
-	}
-	
-	public void outADivExp(ADivExp node) {
-		
-		AVarExp varEsq = null,varDir = null;
-		AValorExp valorEsq = null,valorDir = null;
-		AIdUnicaVar variavel = null; 
-		AVetorVar vetor = null;
-		
-		String tipoEsq = "", tipoDir = "";
-		
-		if(node.getDir() instanceof AVarExp) {
-			varDir = (AVarExp) node.getDir();
-			tipoDir = getTipo(varDir);
-		//fim do tipo direito	(VAR)
-			if(node.getEsq() instanceof AVarExp) {// var e var
-				varEsq = (AVarExp) node.getEsq();
-				tipoEsq = getTipo(varEsq);
-				//fim do tipo esquerdo (VAR)
-				checarTiposCompativeis(tipoEsq,tipoDir,node);
-				
-			}
-			else if(node.getEsq() instanceof AValorExp) {//se for valor e var 
-				valorEsq = (AValorExp) node.getEsq();
-				tipoEsq = retornaTipoValor(valorEsq);
-				checarTiposCompativeis(tipoEsq, tipoDir, node);
-			}
-		}
-		else {//se nó direito é valor
-			if(node.getDir() instanceof AValorExp) {
-				valorDir = (AValorExp) node.getDir();
-				tipoDir = retornaTipoValor(valorDir);
-				//fim do tipo direito (valor)
-				if(node.getEsq() instanceof AValorExp) { // valor e valor
-					valorEsq = (AValorExp) node.getEsq();
-					tipoEsq = retornaTipoValor(valorEsq);
-					checarTiposCompativeis(tipoEsq, tipoDir, node);
-				}
-				else if( node.getEsq() instanceof AVarExp) { // var valor
-					varEsq = (AVarExp) node.getEsq();
-					tipoEsq = getTipo(varEsq);
-					//fim do tipo esquerdo (VAR)
-					checarTiposCompativeis(tipoEsq,tipoDir,node);
-				}
-			}
-		}
-		
-		if(!tipoEsq.equals("")) {// esq é o caso base
-			if(!tipoDir.equals("")) {//dir é o caso base
-				tabela_expressoes.put(node.toString().trim() ,//insere um tipo na exp 
-						checarTiposCompativeis(tipoEsq, tipoDir, node)
-						);
-			}else {//direito não é caso base
-				if(contemNaTabelaExp(node.getDir())) {// direito é exp (insere o tipo)
-					tabela_expressoes.put(node.toString().trim() ,//insere um tipo na exp 
-						checarTiposCompativeis(tipoEsq, 
-								tabela_expressoes.get(node.getDir().toString().trim())
-								, node)
-						);
-				}
-			}
-		}//esq não é caso base
-		else {
-			if(contemNaTabelaExp( node.getEsq())){ 
-				if(!tipoDir.equals("")){//direito é caso base
-					tabela_expressoes.put(node.toString().trim() ,//insere um tipo na exp 
-							checarTiposCompativeis( 
-								tabela_expressoes.get(node.getEsq().toString().trim())
-								, tipoDir , node)
-						);
-				}
-				else if(contemNaTabelaExp( node.getDir())) {
-					tabela_expressoes.put(node.toString().trim() ,//insere um tipo na exp 
-							checarTiposCompativeis( 
-								tabela_expressoes.get(node.getEsq().toString().trim())
-								, tabela_expressoes.get(node.getDir().toString().trim()) 
-								, node)
-						);
-				}
-			}
-		}
-	
-
 	}
 
 	public void outAParaSemPassoComando(AParaSemPassoComando node) {
@@ -478,19 +213,22 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		AIdUnicaVar variavel = null;
 		AVetorVar vetor = null;
 		String nomeVar = "";
-		
+		String tipoVar = "", tipoExp = "";
+		int linha;
 		if( node.getVar() instanceof AIdUnicaVar) {
 			variavel = (AIdUnicaVar) node.getVar();
 			nomeVar = variavel.getId().getText().trim();
+			linha = variavel.getId().getLine();
 		}
 		else {
 			vetor = (AVetorVar) node.getVar();
 			nomeVar = vetor.getId().getText().trim();
+			linha = vetor.getId().getLine();
 		}
 		
 		if(tabela_simbolos.containsKey(nomeVar) ) {// variavel declarada 
 		//	System.out.println(nomeVar + ", tipo: " + tabela_simbolos.get(nomeVar).trim() + ".");
-			if( !auxChecaTipoValido( nomeVar ) ) {//variavel é uma constante (erro)
+			if( !tabela_simbolos.get(nomeVar).split("_")[1].equals("@") ) {//variavel é uma constante (erro)
 				exibirErro(new InvalidToken(nomeVar,variavel.getId().getLine(),0) ,4);
 			}
 			else {// é uma variavel
@@ -501,6 +239,18 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 					tabela_simbolos.put(nomeVar +"_" + vetor.getInteiro().toString().trim(), 
 							tabela_simbolos.get(nomeVar).trim());
 				}
+				tipoVar = tabela_simbolos.get(nomeVar).split("_")[0].trim();
+				if(tabela_expressoes.containsKey(node.getExp().toString().trim())) {
+					tipoExp = tabela_expressoes.get(node.getExp().toString().trim());
+				}
+				System.out.println("tipovar: " + tipoVar
+								+ "\ntipoExp: " + tipoExp);
+				
+				if(!tipoVar.equals(checarTiposCompativeis(tipoVar,tipoExp)) ) {
+					exibirErro(new InvalidToken(null, linha, 0 )
+							, 8 );	
+				}
+						//GG?	
 			}
 		}
 		else {//variavel não declarada
@@ -541,7 +291,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 					}
 				}
 
-				tabela_simbolos.put(key,node.getTipo().toString());
+				tabela_simbolos.put(key,node.getTipo().toString() + "_@");
 			}
 		}
 	}
@@ -589,7 +339,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 	}
 
 	
-	public String checarTiposCompativeis(String tipoEsq, String tipoDir,AAddExp node) {
+	public String checarTiposCompativeis(String tipoEsq, String tipoDir) {
 		if(! tipoEsq.equals(tipoDir) ) {//se os tipos não forem iguais
 			if( (  (tipoEsq.equals("real") || tipoEsq.equals("inteiro") )
 					&&
@@ -605,53 +355,6 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		return tipoEsq;
 	}
 
-	public String checarTiposCompativeis(String tipoEsq, String tipoDir,ASubExp node) {
-		if(! tipoEsq.equals(tipoDir) ) {//se os tipos não forem iguais
-			if( (  (tipoEsq.equals("real") || tipoEsq.equals("inteiro") )
-					&&
-					( tipoDir.equals("real") || tipoDir.equals("inteiro") ) 
-					)
-				) {
-				return "real";
-			}
-			else
-				exibirErro(null, 8);	
-		}
-		
-		return tipoEsq;
-	}
-
-	public String checarTiposCompativeis(String tipoEsq, String tipoDir,ADivExp node) {
-		if(! tipoEsq.equals(tipoDir) ) {//se os tipos não forem iguais
-			if( (  (tipoEsq.equals("real") || tipoEsq.equals("inteiro") )
-					&&
-					( tipoDir.equals("real") || tipoDir.equals("inteiro") ) 
-					)
-				) {
-				return "real";
-			}
-			else
-				exibirErro(null, 8);	
-		}
-		
-		return tipoEsq;
-	}
-
-	public String checarTiposCompativeis(String tipoEsq, String tipoDir,AMultExp node) {
-		if(! tipoEsq.equals(tipoDir) ) {//se os tipos não forem iguais
-			if( (  (tipoEsq.equals("real") || tipoEsq.equals("inteiro") )
-					&&
-					( tipoDir.equals("real") || tipoDir.equals("inteiro") ) 
-					)
-				) {
-				return "real";
-			}
-			else
-				exibirErro(null, 8);	
-		}
-		
-		return tipoEsq;
-	}
 
 	public void variavelNaoDeclarada(AIdUnicaVar variavel, AVetorVar vetor) {
 		if(variavel != null) {//variavel
@@ -698,22 +401,23 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 	}
 	
 	public boolean auxChecaTipoValido(String variavel) {
-		if(tabela_simbolos.containsKey(variavel) ) {
-			switch(tabela_simbolos.get(variavel).trim() ) {
-			case "inteiro":
-				return true;
-			case "caractere":
-				return true;
-			case "booleano":
-				return true;
-			case "real":
-				return true;
-			default:
-				return false;
+		return true;
+/*		if(tabela_simbolos.containsKey(variavel) ) {
+			switch(tabela_simbolos.get(variavel).trim().split("_")[0] ) {
+				case "inteiro":
+					return true;
+				case "caractere":
+					return true;
+				case "booleano":
+					return true;
+				case "real":
+					return true;
+				default:
+					return false;
 			}
 		}
 		return false;
-	}
+*/	}
 	
 	public void exibirErro(Token tokenComErro, int indiceErro) {
 		String msg = "";
