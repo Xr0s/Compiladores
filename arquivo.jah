@@ -8,7 +8,7 @@ inicio
 		caractere: ch;
 
 //		a[3] := ch;	
-		b := a[2];
+		b := 'c' * 'c';
 /*		ch := (2+1)+(3*3);
 		
 		

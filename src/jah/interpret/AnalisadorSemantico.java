@@ -23,8 +23,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 			tipoDir = tabela_expressoes.get(expDir);
 		}
 		
-		//System.out.println("ExpEsq:" + expEsq + ".Tipo:" + tipoEsq + ".\n"
-		//			+ "ExpDir:" + expDir + ".Tipo:" + tipoDir + ".");
+
 		checarTiposCompativeis(tipoEsq, tipoDir);
 	}
 	
@@ -41,8 +40,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 			tipoDir = tabela_expressoes.get(expDir);
 		}
 		
-		//System.out.println("ExpEsq:" + expEsq + ".Tipo:" + tipoEsq + ".\n"
-	//				+ "ExpDir:" + expDir + ".Tipo:" + tipoDir + ".");
+		
 		checarTiposCompativeis(tipoEsq, tipoDir);
 	}
 	
@@ -59,8 +57,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 			tipoDir = tabela_expressoes.get(expDir);
 		}
 		
-		//System.out.println("ExpEsq:" + expEsq + ".Tipo:" + tipoEsq + ".\n"
-	//				+ "ExpDir:" + expDir + ".Tipo:" + tipoDir + ".");
+	
 		checarTiposCompativeis(tipoEsq, tipoDir);
 	}
 	
@@ -77,8 +74,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 			tipoDir = tabela_expressoes.get(expDir);
 		}
 		
-		//System.out.println("ExpEsq:" + expEsq + ".Tipo:" + tipoEsq + ".\n"
-	//				+ "ExpDir:" + expDir + ".Tipo:" + tipoDir + ".");
+
 		checarTiposCompativeis(tipoEsq, tipoDir);
 	}
 	
@@ -95,8 +91,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 			tipoDir = tabela_expressoes.get(expDir);
 		}
 		
-		//System.out.println("ExpEsq:" + expEsq + ".Tipo:" + tipoEsq + ".\n"
-	//				+ "ExpDir:" + expDir + ".Tipo:" + tipoDir + ".");
+
 		checarTiposCompativeis(tipoEsq, tipoDir);
 	}
 	
@@ -113,8 +108,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 			tipoDir = tabela_expressoes.get(expDir);
 		}
 		
-		//System.out.println("ExpEsq:" + expEsq + ".Tipo:" + tipoEsq + ".\n"
-		//			+ "ExpDir:" + expDir + ".Tipo:" + tipoDir + ".");
+
 		checarTiposCompativeis(tipoEsq, tipoDir);
 	}
 	
@@ -138,8 +132,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		else{//variavel foi declarada
 			if(vetor != null)
 				verificarPosicaoIndevida(vetor,nomeVar);
-//			System.out.println("tipo de '" + nomeVar + "' é:" + 
-//					tabela_simbolos.get(nomeVar.trim()).split("_")[0].trim());
+
 			tabela_expressoes.put(nomeVar.trim(),
 						tabela_simbolos.get(nomeVar.trim()).split("_")[0].trim()
 						);
@@ -328,7 +321,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 			if(!tipoDir.equals("")) { //tipo direito caso base (valor ou var)
 	//			////System.out.println(tipoEsq + "\\" + tipoDir);
 				
-				verificaStringOuChar(tipoEsq,tipoDir,tokenId,12);
+				verificaStringOuChar(tipoEsq,tipoDir,tokenId,13);
 				
 				tipoDaExpressao = checarTiposCompativeis(tipoEsq, tipoDir,tokenId);
 				tabela_expressoes.put(node.toString().trim(),//expressao em si
@@ -338,7 +331,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				if( tabela_expressoes.containsKey(node.getDir().toString().trim())) {
 					tipoDir = tabela_expressoes.get(node.getDir().toString().trim());
 					
-					verificaStringOuChar(tipoEsq,tipoDir,tokenId,12);
+					verificaStringOuChar(tipoEsq,tipoDir,tokenId,13);
 					
 					tipoDaExpressao = checarTiposCompativeis(tipoEsq, tipoDir,tokenId);
 					tabela_expressoes.put(node.toString().trim(), 
@@ -356,7 +349,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				if( tabela_expressoes.containsKey(node.getEsq().toString().trim())) {
 					tipoEsq = tabela_expressoes.get(node.getEsq().toString().trim());
 					
-					verificaStringOuChar(tipoEsq,tipoDir,tokenId,12);
+					verificaStringOuChar(tipoEsq,tipoDir,tokenId,13);
 					
 					tipoDaExpressao = checarTiposCompativeis(tipoEsq,tipoDir,tokenId);
 					//descobri
@@ -414,7 +407,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 			if(!tipoDir.equals("")) { //tipo direito caso base (valor ou var)
 	//			////System.out.println(tipoEsq + "\\" + tipoDir);
 				
-				verificaStringOuChar(tipoEsq,tipoDir,tokenId,12);
+				verificaStringOuChar(tipoEsq,tipoDir,tokenId,14);
 				
 				tipoDaExpressao = checarTiposCompativeis(tipoEsq, tipoDir,tokenId);
 				tabela_expressoes.put(node.toString().trim(),//expressao em si
@@ -424,12 +417,12 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				if( tabela_expressoes.containsKey(node.getDir().toString().trim())) {
 					tipoDir = tabela_expressoes.get(node.getDir().toString().trim());
 					
-					verificaStringOuChar(tipoEsq,tipoDir,tokenId,12);
+					verificaStringOuChar(tipoEsq,tipoDir,tokenId,14);
 					
 					tipoDaExpressao = checarTiposCompativeis(tipoEsq, tipoDir,tokenId);
 					tabela_expressoes.put(node.toString().trim(), 
 							tipoDaExpressao);
-					////System.out.println(tipoDaExpressao);
+
 				}
 				else {
 					////System.out.println("Expressao nao encontrada: " + node.getDir().toString().trim() + ".");
@@ -442,7 +435,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				if( tabela_expressoes.containsKey(node.getEsq().toString().trim())) {
 					tipoEsq = tabela_expressoes.get(node.getEsq().toString().trim());
 					
-					verificaStringOuChar(tipoEsq,tipoDir,tokenId,12);
+					verificaStringOuChar(tipoEsq,tipoDir,tokenId,14);
 					
 					tipoDaExpressao = checarTiposCompativeis(tipoEsq,tipoDir,tokenId);
 					//descobri
@@ -500,7 +493,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 			if(!tipoDir.equals("")) { //tipo direito caso base (valor ou var)
 	//			////System.out.println(tipoEsq + "\\" + tipoDir);
 				
-				verificaStringOuChar(tipoEsq,tipoDir,tokenId,12);
+				verificaStringOuChar(tipoEsq,tipoDir,tokenId,15);
 				
 				tipoDaExpressao = checarTiposCompativeis(tipoEsq, tipoDir,tokenId);
 				tabela_expressoes.put(node.toString().trim(),//expressao em si
@@ -510,7 +503,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				if( tabela_expressoes.containsKey(node.getDir().toString().trim())) {
 					tipoDir = tabela_expressoes.get(node.getDir().toString().trim());
 					
-					verificaStringOuChar(tipoEsq,tipoDir,tokenId,12);
+					verificaStringOuChar(tipoEsq,tipoDir,tokenId,15);
 					
 					tipoDaExpressao = checarTiposCompativeis(tipoEsq, tipoDir,tokenId);
 					tabela_expressoes.put(node.toString().trim(), 
@@ -528,7 +521,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				if( tabela_expressoes.containsKey(node.getEsq().toString().trim())) {
 					tipoEsq = tabela_expressoes.get(node.getEsq().toString().trim());
 					
-					verificaStringOuChar(tipoEsq,tipoDir,tokenId,12);
+					verificaStringOuChar(tipoEsq,tipoDir,tokenId,15);
 					
 					tipoDaExpressao = checarTiposCompativeis(tipoEsq,tipoDir,tokenId);
 					//descobri
@@ -701,7 +694,6 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		}
 		
 		if(tabela_simbolos.containsKey(nomeVar) ) {// variavel declarada 
-//			System.out.println(nomeVar + ", tipo: " + tabela_simbolos.get(nomeVar).trim().split("_")[1] + ".");
 			if( !( tabela_simbolos.get(nomeVar).trim().split("_")[1].equals("@")
 				 ||
 				 tabela_simbolos.get(nomeVar).trim().split("_")[1].equals("!"))) {//tb não é vetor
@@ -715,7 +707,6 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				if(vetor != null){
 					verificarPosicaoIndevida(vetor, nomeVar);
 					//abaixo vai declarar a variavel no indice dado
-			//		////System.out.println("Inserido: " + nomeVar +"_" + vetor.getInteiro().toString().trim());
 					tabela_simbolos.put(nomeVar +"_" + vetor.getInteiro().toString().trim(), 
 							tabela_simbolos.get(nomeVar).trim());
 				}
@@ -746,14 +737,11 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				}
 						
 			}
-			System.out.println("pulou");
 		}
 		else {//variavel não declarada
 			variavelNaoDeclarada(variavel, vetor);
 		}
-		System.out.println("var:"+ nomeVar + ".\tIipo:"+ tipoVar
-				+ ".\nExp:" + node.getExp().toString().trim() + ".\tTipo:"
-				+ tipoExp + ".");
+	
 	
 	}
 
@@ -811,7 +799,6 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				else {//é um vetor
 					tabela_simbolos.put(key,node.getTipo().toString().trim() + "_!");
 				}
-//				System.out.println("Inserido " + key + ".tipo:" + node.getTipo().toString().trim().split("_")[0] + ".");
 			}
 		}
 	}
@@ -981,8 +968,6 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 	public void verificarPosicaoIndevida(AVetorVar vetor, String nomeVar) {
 		if(vetor != null) {//variavel do tipo vetor
 			int indice = Integer.parseInt(vetor.getInteiro().getText() );
-			////System.out.println("vetor " + vetor.getId().getText().trim() 
-		//						+ " " + indice + ".");
 			int tamVetor = Integer.parseInt(tabela_simbolos.get("indice_"+ nomeVar).trim() );
 			if(indice >= tamVetor) {
 				//se o indice utilizado for maior ou igual que o tamVetor
