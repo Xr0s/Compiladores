@@ -4,5 +4,7 @@ inicio
 		real: c;
 		
 		c := a[1] * 2,5 / 1;
-//GG vou botar no git
+
+		leia(z,b);
 fim.
+

@@ -37,6 +37,39 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 
 	}
 
+
+	public void outALeiaComando(ALeiaComando node) {
+		Token ident;
+		AIdUnicaVar variavel = null;
+		AVetorVar vetor = null;
+		int identIndiceVetor;
+		
+		LinkedList<PVar> listaVar  = node.getVar();
+		
+		for(PVar var: listaVar) {
+			if(var instanceof AIdUnicaVar) {
+				if(var instanceof AIdUnicaVar) {
+					variavel = (AIdUnicaVar) var;
+					ident = variavel.getId();
+				}else {
+					vetor = (AVetorVar) var;
+					ident = vetor.getId();
+					//buguei
+					try {
+						identIndiceVetor = Integer.parseInt(vetor.getInteiro().toString().trim());
+						verificarPosicaoIndevida(vetor, ident.getText().trim());
+					} catch (NumberFormatException e) {
+						e.printStackTrace();
+					}
+				}
+
+				String key = ident.getText().trim();
+				if (!tabela_simbolos.containsKey(key)) { // report an error
+					variavelNaoDeclarada(variavel,vetor);
+				}	
+			}
+		}
+	}
 	public void outAAddExp(AAddExp node) {
 		AVarExp varEsq = null,varDir = null;
 		AValorExp valorEsq = null,valorDir = null;
