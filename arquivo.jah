@@ -1,9 +1,9 @@
 programa TESTE_Programa
 inicio
 		inteiro: a[4];
-
-/*
 		inteiro: b;
+
+		
 		inteiro: c;
 		caractere: char;
 		c := b;
@@ -15,7 +15,13 @@ inicio
 				b := 8;
 		fim avalie;	
 		
-*/		
-		leia(a[2],a[10]);
+		
+		leia(a[2],a[1]);
+		
+		se (a +2 > 2 ou b = 1) entao
+			a[2] := 3;
+		fim se;
+		
+		
 fim.
 
