@@ -462,15 +462,23 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				tipoVar = tabela_simbolos.get(nomeVar).split("_")[0].trim();
 				if(tabela_expressoes.containsKey(node.getExp().toString().trim())) {
 					tipoExp = tabela_expressoes.get(node.getExp().toString().trim());
+				}else{
+					
+					if(node.getExp().toString().trim().matches("[0-9]*")) {
+						tipoExp = "inteiro";
+					}else if(node.getExp().toString().trim().matches("[0-9]*+,+[0-9]*")) {
+						tipoExp = "real";
+					}else if(node.getExp().toString().trim().matches("verdadeiro|falso")) {
+						tipoExp = "booleano";
+					}else {
+						tipoExp = "caractere";
+					}
 				}
-				System.out.println("tipovar: " + tipoVar
-								+ "\ntipoExp: " + tipoExp);
-				
 				if(!tipoVar.equals(checarTiposCompativeis(tipoVar,tipoExp)) ) {
 					exibirErro(new InvalidToken(null, linha, 0 )
 							, 8 );	
 				}
-						//GG?	
+						
 			}
 		}
 		else {//variavel não declarada
@@ -698,7 +706,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				break;
 			
 			case 8:
-				msg = "Tipos incorretos na expressão.";
+				msg = "Tipos imcompatíveis na expressão.";
 				break;
 		}
 		

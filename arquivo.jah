@@ -1,10 +1,10 @@
 programa TESTE_Programa
 inicio
 		inteiro: a[4], b;
-		real: c;
+		inteiro: c;
 		
-		c := a[1] * 2,5 / 1;
+		c := 4,2;
 
-		leia(z,b);
+		leia(b);
 fim.
 
