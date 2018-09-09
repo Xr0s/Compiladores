@@ -54,6 +54,7 @@ public interface Analysis extends Switch
     void caseAIntValor(AIntValor node);
     void caseAFloatValor(AFloatValor node);
     void caseABooleanoValor(ABooleanoValor node);
+    void caseAStringValor(AStringValor node);
 
     void caseTBranco(TBranco node);
     void caseTTabulacao(TTabulacao node);
@@ -118,6 +119,7 @@ public interface Analysis extends Switch
     void caseTReal(TReal node);
     void caseTCaractere(TCaractere node);
     void caseTBooleano(TBooleano node);
+    void caseTString(TString node);
     void caseTId(TId node);
     void caseEOF(EOF node);
     void caseInvalidToken(InvalidToken node);

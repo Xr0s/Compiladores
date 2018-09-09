@@ -101,6 +101,7 @@ Tokens
  	{normal} real = numero+ ',' numero+; 					//('-'|'+'|) numero+ ',' numero+;
    	{normal} caractere = '''caracteres_permitidos''';
    	{normal} booleano = verdadeiro | falso;
+   	{normal} string = '''caracteres_permitidos+''';
 	
 //	Identificadores
 	{normal} id = (letra (letra | underscore | numero)* ) | (underscore (letra | underscore | numero)+) ;    
@@ -221,7 +222,8 @@ Productions
 	valor {-> valor} = {char} caractere {-> New valor.char(caractere)}
 				 	 | {int} sinal? inteiro {-> New valor.int(inteiro)}
 				     | {float} sinal? real {-> New valor.float(real)}
-				     | {booleano} booleano {-> New valor.booleano(booleano)};
+				     | {booleano} booleano {-> New valor.booleano(booleano)}
+				     | {string} string {-> New valor.string(string)};
 	
 	sinal = {mais} mais 
 		  | {menos} menos;
@@ -280,7 +282,8 @@ Abstract Syntax Tree
 	valor = {char} caractere 
 		  | {int} inteiro
 	      | {float} real
-	      | {booleano} booleano;
+	      | {booleano} booleano
+	      | {string} string;
 
 //Dúvida quanto aos operadores (+|-) em inteiro e real
 //criar natural int para o indice Vetor ou tratar semanticamente com if(indice<0): ERRO

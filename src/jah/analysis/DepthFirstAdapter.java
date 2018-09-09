@@ -1099,4 +1099,25 @@ public class DepthFirstAdapter extends AnalysisAdapter
         }
         outABooleanoValor(node);
     }
+
+    public void inAStringValor(AStringValor node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAStringValor(AStringValor node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAStringValor(AStringValor node)
+    {
+        inAStringValor(node);
+        if(node.getString() != null)
+        {
+            node.getString().apply(this);
+        }
+        outAStringValor(node);
+    }
 }
