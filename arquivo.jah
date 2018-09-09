@@ -4,7 +4,7 @@ inicio
 		caractere: b;		
 		real: c, d;
 		caractere: ch;
-/*
+
 		a[3] := ch;	
 		b := 'c' * 'c';
 
@@ -21,8 +21,8 @@ inicio
 		
 		
 		leia(a[2],a[1]);
-*/		
-		se (2,3 < 2) entao
+		
+		se (2,3 < 'c' + 2) entao
 			a[2] := 3;
 		fim se;
 		
