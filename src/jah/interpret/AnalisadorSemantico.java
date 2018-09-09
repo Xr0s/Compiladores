@@ -138,6 +138,8 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		else{//variavel foi declarada
 			if(vetor != null)
 				verificarPosicaoIndevida(vetor,nomeVar);
+//			System.out.println("tipo de '" + nomeVar + "' é:" + 
+//					tabela_simbolos.get(nomeVar.trim()).split("_")[0].trim());
 			tabela_expressoes.put(nomeVar.trim(),
 						tabela_simbolos.get(nomeVar.trim()).split("_")[0].trim()
 						);
@@ -699,13 +701,17 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		}
 		
 		if(tabela_simbolos.containsKey(nomeVar) ) {// variavel declarada 
-		//	////System.out.println(nomeVar + ", tipo: " + tabela_simbolos.get(nomeVar).trim() + ".");
-			if( !tabela_simbolos.get(nomeVar).split("_")[1].equals("@")) {//variavel é uma constante (erro)
-				if( !tabela_simbolos.get(nomeVar).split("_")[1].equals("!")) {//tb não é vetor
+//			System.out.println(nomeVar + ", tipo: " + tabela_simbolos.get(nomeVar).trim().split("_")[1] + ".");
+			if( !( tabela_simbolos.get(nomeVar).trim().split("_")[1].equals("@")
+				 ||
+				 tabela_simbolos.get(nomeVar).trim().split("_")[1].equals("!"))) {//tb não é vetor
 					exibirErro(new InvalidToken(nomeVar,variavel.getId().getLine(),0) ,4);
-				}
+				
 			}
-			else {// é uma variavel
+			else if((tabela_simbolos.get(nomeVar).trim().split("_")[1].equals("@") )
+					||
+					(tabela_simbolos.get(nomeVar).trim().split("_")[1].equals("!") )
+					){// é uma variavel
 				if(vetor != null){
 					verificarPosicaoIndevida(vetor, nomeVar);
 					//abaixo vai declarar a variavel no indice dado
@@ -717,11 +723,20 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				if(tabela_expressoes.containsKey(node.getExp().toString().trim())) {
 					tipoExp = tabela_expressoes.get(node.getExp().toString().trim());
 				}else{
-					
-					tipoExp = retornaTipoExp(node.getExp().toString().trim());
-					if(tabela_simbolos.containsKey(node.getExp().toString().trim())){
-					//se o nó exp for uma variavel
-						tipoExp = tabela_simbolos.get(node.getExp().toString().trim()).split("_")[0].trim();
+					if(node.getExp() instanceof AVarExp
+						&&
+					   ((AVarExp) node.getExp()).getVar() instanceof AVetorVar) {
+							String aux = (((AVetorVar)((AVarExp) node.getExp()).
+									  getVar()).getId().getText().trim());
+							if(tabela_simbolos.containsKey(aux)) {
+								tipoExp = tabela_simbolos.get(aux).split("_")[0].trim();
+							}
+					}else {
+						tipoExp = retornaTipoExp(node.getExp().toString().trim());
+						if(tabela_simbolos.containsKey(node.getExp().toString().trim())){
+						//se o nó exp for uma variavel
+							tipoExp = tabela_simbolos.get(node.getExp().toString().trim()).split("_")[0].trim();
+						}
 					}
 					
 				}
@@ -731,10 +746,14 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				}
 						
 			}
+			System.out.println("pulou");
 		}
 		else {//variavel não declarada
 			variavelNaoDeclarada(variavel, vetor);
 		}
+		System.out.println("var:"+ nomeVar + ".\tIipo:"+ tipoVar
+				+ ".\nExp:" + node.getExp().toString().trim() + ".\tTipo:"
+				+ tipoExp + ".");
 	
 	}
 
@@ -788,10 +807,11 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 					}
 				}
 				if(vetor == null)//id unica var
-					tabela_simbolos.put(key,node.getTipo().toString() + "_@");
+					tabela_simbolos.put(key,node.getTipo().toString().trim() + "_@");
 				else {//é um vetor
-					tabela_simbolos.put(key,node.getTipo().toString() + "_!");
+					tabela_simbolos.put(key,node.getTipo().toString().trim() + "_!");
 				}
+//				System.out.println("Inserido " + key + ".tipo:" + node.getTipo().toString().trim().split("_")[0] + ".");
 			}
 		}
 	}
@@ -1074,11 +1094,11 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				break;
 			
 			case 8:
-				msg = "Tipos imcompatíveis na expressão.";
+				msg = "Tipos incompatíveis na expressão.";
 				break;
 			
 			case 9:
-				msg = "Tipos imcompatíveis na expressão.";
+				msg = "Tipos incompatíveis na expressão.";
 				break;	
 				
 			case 10:
@@ -1086,7 +1106,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				break;
 				
 			case 11:
-				msg = "Tipos imcompatíveis na atribuição.";
+				msg = "Tipos incompatíveis na atribuição.";
 				break;
 			case 12:
 				msg = "Caracteres não podem ser somados.";
