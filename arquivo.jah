@@ -1,11 +1,8 @@
 programa TESTE_Programa
 inicio
 		inteiro: a[4], b;
-		const x 10,8;
-		const y 'c';
-		real: z;
-		//checar os tipos é de boas
+		real: c;
 		
-		z := a[1] + 2 + x;
-	// deu ruim
+		c := a[1] * 2,5 / 1;
+//GG vou botar no git
 fim.
