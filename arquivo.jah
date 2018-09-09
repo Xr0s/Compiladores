@@ -1,10 +1,21 @@
 programa TESTE_Programa
 inicio
-		inteiro: a[4], b;
-		inteiro: c;
-		
-		c := 4,2;
+		inteiro: a[4];
 
-		leia(b);
+/*
+		inteiro: b;
+		inteiro: c;
+		caractere: char;
+		c := b;
+		
+		avalie ('c')
+			caso 'a':
+				b := 10;
+			senao:
+				b := 8;
+		fim avalie;	
+		
+*/		
+		leia(a[2],a[10]);
 fim.
 

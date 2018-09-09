@@ -37,39 +37,63 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 
 	}
 
+	public void outAValorExp(AValorExp node) {
+		String expressao = "";
+		
+		if( node.getValor() instanceof ACharValor) {
+			ACharValor valor = (ACharValor) node.getValor();
+			expressao = valor.getCaractere().getText().trim();	
+		
+		}else if( node.getValor() instanceof AIntValor) {
+			AIntValor valor = (AIntValor) node.getValor();
+			expressao = valor.getInteiro().getText().trim();
+		
+		}else if( node.getValor() instanceof AFloatValor) {
+			AFloatValor valor = (AFloatValor) node.getValor();
+			expressao = valor.getReal().getText().trim();
+			
+		}else if( node.getValor() instanceof ABooleanoValor) {
+			ABooleanoValor valor = (ABooleanoValor) node.getValor();
+			expressao = valor.getBooleano().getText().trim();
+		}
+		
+		tabela_expressoes.put(expressao.trim()
+				, retornaTipoExp(expressao.trim()) );
+	}
 
 	public void outALeiaComando(ALeiaComando node) {
-		Token ident;
+		Token tokenId;
 		AIdUnicaVar variavel = null;
 		AVetorVar vetor = null;
-		int identIndiceVetor;
 		
 		LinkedList<PVar> listaVar  = node.getVar();
 		
 		for(PVar var: listaVar) {
 			if(var instanceof AIdUnicaVar) {
-				if(var instanceof AIdUnicaVar) {
-					variavel = (AIdUnicaVar) var;
-					ident = variavel.getId();
-				}else {
-					vetor = (AVetorVar) var;
-					ident = vetor.getId();
-					//buguei
-					try {
-						identIndiceVetor = Integer.parseInt(vetor.getInteiro().toString().trim());
-						verificarPosicaoIndevida(vetor, ident.getText().trim());
-					} catch (NumberFormatException e) {
-						e.printStackTrace();
+				variavel = (AIdUnicaVar) var;
+				tokenId = variavel.getId();
+				if(tabela_simbolos.containsKey(tokenId.getText().trim() )) {
+					if(tabela_simbolos.get( tokenId.getText().trim())
+							.split("_")[1].equals("!") ){
+						//se o que tiver sido declarado for vetor (tiver o '!')
+						exibirErro( tokenId ,7);
 					}
 				}
+			}else {
+				vetor = (AVetorVar) var;
+				tokenId = vetor.getId();
+				System.out.println(tokenId.getText().trim());
+				verificarPosicaoIndevida(vetor, tokenId.getText().trim());
 
-				String key = ident.getText().trim();
-				if (!tabela_simbolos.containsKey(key)) { // report an error
-					variavelNaoDeclarada(variavel,vetor);
-				}	
 			}
+
+			String key = tokenId.getText().trim();
+			if (!tabela_simbolos.containsKey(key)) { // report an error
+				variavelNaoDeclarada(variavel,vetor);
+			}	
 		}
 	}
+	
 	public void outAAddExp(AAddExp node) {
 		AVarExp varEsq = null,varDir = null;
 		AValorExp valorEsq = null,valorDir = null;
@@ -429,6 +453,47 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 	
 	}
 	
+	public void outAAvalieComando(AAvalieComando node) {
+		LinkedList<PCasos> casos = node.getCasos();
+		String Exp = node.getExp().toString().trim();
+		String tipoExp = "";
+		int linha = 0;
+		if(tabela_expressoes.containsKey(Exp)) {
+			tipoExp = tabela_expressoes.get(Exp);
+		}
+		
+		for(PCasos caso: casos) {
+			String tipoCaso = "";
+			
+			if(  caso instanceof ACasos){
+				if( ((ACasos) caso).getValor() instanceof AIntValor) {
+					AIntValor valor = (AIntValor) ((ACasos) caso).getValor();
+					linha = valor.getInteiro().getLine();
+					tipoCaso = retornaTipoExp(valor.getInteiro().toString().trim());
+				}else if( ((ACasos) caso).getValor() instanceof AFloatValor) {
+						AFloatValor valor = (AFloatValor) ((ACasos) caso).getValor();
+						linha = valor.getReal().getLine();
+						tipoCaso = retornaTipoExp(valor.getReal().toString().trim());
+				}else if( ((ACasos) caso).getValor() 
+								instanceof ABooleanoValor) {
+						ABooleanoValor valor = (ABooleanoValor) ((ACasos) caso).getValor();
+						linha = valor.getBooleano().getLine();
+						tipoCaso = retornaTipoExp(valor.getBooleano().toString().trim());
+				}else if( ((ACasos) caso).getValor() instanceof ACharValor) {
+						ACharValor valor = (ACharValor) ((ACasos) caso).getValor();
+						linha = valor.getCaractere().getLine();
+						tipoCaso = retornaTipoExp(valor.getCaractere().toString().trim());
+				}
+				
+
+			}
+			if(!tipoExp.equals(checarTiposCompativeis(tipoExp.trim(),tipoCaso.trim()))) {
+				exibirErro(new InvalidToken(null, linha, 0 )
+						, 10 );	
+			}
+		}
+	}
+	
 	public void outAAtribuicaoComando(AAtribuicaoComando node) {
 		AIdUnicaVar variavel = null;
 		AVetorVar vetor = null;
@@ -448,8 +513,10 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		
 		if(tabela_simbolos.containsKey(nomeVar) ) {// variavel declarada 
 		//	System.out.println(nomeVar + ", tipo: " + tabela_simbolos.get(nomeVar).trim() + ".");
-			if( !tabela_simbolos.get(nomeVar).split("_")[1].equals("@") ) {//variavel é uma constante (erro)
-				exibirErro(new InvalidToken(nomeVar,variavel.getId().getLine(),0) ,4);
+			if( !tabela_simbolos.get(nomeVar).split("_")[1].equals("@")) {//variavel é uma constante (erro)
+				if( !tabela_simbolos.get(nomeVar).split("_")[1].equals("!")) {//tb não é vetor
+					exibirErro(new InvalidToken(nomeVar,variavel.getId().getLine(),0) ,4);
+				}
 			}
 			else {// é uma variavel
 				if(vetor != null){
@@ -464,15 +531,12 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 					tipoExp = tabela_expressoes.get(node.getExp().toString().trim());
 				}else{
 					
-					if(node.getExp().toString().trim().matches("[0-9]*")) {
-						tipoExp = "inteiro";
-					}else if(node.getExp().toString().trim().matches("[0-9]*+,+[0-9]*")) {
-						tipoExp = "real";
-					}else if(node.getExp().toString().trim().matches("verdadeiro|falso")) {
-						tipoExp = "booleano";
-					}else {
-						tipoExp = "caractere";
+					tipoExp = retornaTipoExp(node.getExp().toString().trim());
+					if(tabela_simbolos.containsKey(node.getExp().toString().trim())){
+					//se o nó exp for uma variavel
+						tipoExp = tabela_simbolos.get(node.getExp().toString().trim()).split("_")[0].trim();
 					}
+					
 				}
 				if(!tipoVar.equals(checarTiposCompativeis(tipoVar,tipoExp)) ) {
 					exibirErro(new InvalidToken(null, linha, 0 )
@@ -488,20 +552,38 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 	}
 
 
+	public String retornaTipoExp(String node) {
+		String tipoExp;
+		if(node.matches("[0-9]*")) {
+			tipoExp = "inteiro";
+		}else if(node.matches("[0-9]*+,+[0-9]*")) {
+			tipoExp = "real";
+		}else if(node.matches("verdadeiro|falso")) {
+			tipoExp = "booleano";
+		}else {
+			tipoExp = "caractere";
+		}
+		return tipoExp;
+	}
+
+
 	
 	public void outAVariaveisDeclaracao(AVariaveisDeclaracao node){
 		// identifier to be stored in the symbol table
 		TId ident = null;
 		TInteiro identIndiceVetor = null;
 		LinkedList<PVar> listaVar  = node.getVar();
+		AVetorVar vetor = null;
+		AIdUnicaVar variavel = null;
+		
 		for(PVar var: listaVar) {
 			if(var instanceof AIdUnicaVar) {
-				AIdUnicaVar acessarToken = (AIdUnicaVar) var;
-				ident = acessarToken.getId();
+				variavel = (AIdUnicaVar) var;
+				ident = variavel.getId();
 			}else {
-				AVetorVar acessarToken = (AVetorVar) var;
-				ident = acessarToken.getId();
-				identIndiceVetor = acessarToken.getInteiro();
+				vetor = (AVetorVar) var;
+				ident = vetor.getId();
+				identIndiceVetor = vetor.getInteiro();
 			}
 
 			String key = ident.getText().trim();
@@ -518,8 +600,11 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 						tabela_simbolos.put("indice_" + key, "" + indice);
 					}
 				}
-
-				tabela_simbolos.put(key,node.getTipo().toString() + "_@");
+				if(vetor == null)//id unica var
+					tabela_simbolos.put(key,node.getTipo().toString() + "_@");
+				else {//é um vetor
+					tabela_simbolos.put(key,node.getTipo().toString() + "_!");
+				}
 			}
 		}
 	}
@@ -569,9 +654,9 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 	
 	public String checarTiposCompativeis(String tipoEsq, String tipoDir) {
 		if(! tipoEsq.equals(tipoDir) ) {//se os tipos não forem iguais
-			if( (  (tipoEsq.equals("real") || tipoEsq.equals("inteiro") )
+			if( (  (tipoEsq.trim().equals("real") || tipoEsq.trim().equals("inteiro") )
 					&&
-					( tipoDir.equals("real") || tipoDir.equals("inteiro") ) 
+					( tipoDir.trim().equals("real") || tipoDir.trim().equals("inteiro") ) 
 					)
 				) {
 				return "real";
@@ -608,8 +693,8 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 	public void verificarPosicaoIndevida(AVetorVar vetor, String nomeVar) {
 		if(vetor != null) {//variavel do tipo vetor
 			int indice = Integer.parseInt(vetor.getInteiro().getText() );
-		//	System.out.println("vetor " + vetor.getId().getText().trim() 
-		 //						+ " " + indice + ".");
+			System.out.println("vetor " + vetor.getId().getText().trim() 
+								+ " " + indice + ".");
 			int tamVetor = Integer.parseInt(tabela_simbolos.get("indice_"+ nomeVar).trim() );
 			if(indice >= tamVetor) {
 				//se o indice utilizado for maior ou igual que o tamVetor
@@ -681,19 +766,19 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				break;
 				
 			case 2://erro variavel já declarada
-				msg = ": Variável " + text + " já declarada.";
+				msg = ": Variável '" + text + "' já declarada.";
 				break;
 				
 			case 3://variável não declarada
-				msg = ": Variável " + text + " não declarada.";
+				msg = ": Variável '" + text + "' não declarada.";
 				break;
 				
 			case 4: //constante não pode ter valor alterado
-				msg = ": Constante " + text + " não pode ter valor alterado.";
+				msg = ": Constante '" + text + "' não pode ter valor alterado.";
 				break;
 			
 			case 5:
-				msg = ": Vetor "+ text + " tentou acessar uma posição"
+				msg = ": Vetor '"+ text + "' tentou acessar uma posição"
 						+ " indevida.";
 				break;
 				
@@ -702,16 +787,20 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				break;
 			
 			case 7:
-				msg = ": Vetor " + text + " deve vir com o indice.";
+				msg = ": Vetor '" + text + "' deve vir com o indice.";
 				break;
 			
 			case 8:
 				msg = "Tipos imcompatíveis na expressão.";
 				break;
+				
+			case 10:
+				msg = "Tipos imcompatíveis na expressão.";
+				break;
 		}
 		
 		if(indiceErro != 8) {
-			msg = "Erro na linha " + line + msg;
+			msg = "Erro na linha " + line + ": " + msg;
 		}
 		
 		try {
