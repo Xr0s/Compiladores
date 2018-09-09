@@ -997,22 +997,6 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		return null;
 	}
 	
-	public String checarTiposCompativeis(String tipoEsq, String tipoDir) {
-		if(! tipoEsq.equals(tipoDir) ) {//se os tipos não forem iguais
-			if( (  (tipoEsq.trim().equals("real") || tipoEsq.trim().equals("inteiro") )
-					&&
-					( tipoDir.trim().equals("real") || tipoDir.trim().equals("inteiro") ) 
-					)
-				) {
-				return "real";
-			}
-			else
-				exibirErro(null, 8);	
-		}
-		
-		return tipoEsq;
-	}
-	
 	public void verificaStringOuChar(String tipoEsq, String tipoDir, Token id, int erro) {
 		if(tipoEsq.equals("string") || tipoEsq.equals("caractere") 
 		||	tipoDir.equals("string") || tipoDir.equals("caractere")
