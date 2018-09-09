@@ -42,35 +42,17 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 	}
 
 	public void outAAddExp(AAddExp node) {
-		
 		AVarExp varEsq = null,varDir = null;
 		AValorExp valorEsq = null,valorDir = null;
-		AIdUnicaVar variavel = null; 
-		AVetorVar vetor = null;
-		
 		String tipoEsq = "", tipoDir = "";
 		
 		if(node.getDir() instanceof AVarExp) {
 			varDir = (AVarExp) node.getDir();
-			if(varDir.getVar() instanceof AIdUnicaVar) {
-				variavel = (AIdUnicaVar) varDir.getVar();
-				tipoDir = tabela_simbolos.get(variavel.getId().getText().trim()).trim();
-			}
-			else {
-				vetor = (AVetorVar) varDir.getVar();
-				tipoDir = tabela_simbolos.get(vetor.getId().getText().trim()).trim();
-			}
+			tipoDir = getTipo(varDir);
 		//fim do tipo direito	(VAR)
 			if(node.getEsq() instanceof AVarExp) {// var e var
 				varEsq = (AVarExp) node.getEsq();
-				if(varEsq.getVar() instanceof AIdUnicaVar) {
-					variavel = (AIdUnicaVar) varEsq.getVar();
-					tipoEsq = tabela_simbolos.get(variavel.getId().getText().trim()).trim();
-				}
-				else {
-					vetor = (AVetorVar) varEsq.getVar();
-					tipoEsq = tabela_simbolos.get(vetor.getId().getText().trim()).trim();
-				}
+				tipoEsq = getTipo(varEsq);
 				//fim do tipo esquerdo (VAR)
 				checarTiposCompativeis(tipoEsq,tipoDir,node);
 				
@@ -93,14 +75,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				}
 				else if( node.getEsq() instanceof AVarExp) { // var valor
 					varEsq = (AVarExp) node.getEsq();
-					if(varEsq.getVar() instanceof AIdUnicaVar) {
-						variavel = (AIdUnicaVar) varEsq.getVar();
-						tipoEsq = tabela_simbolos.get(variavel.getId().getText().trim()).trim();
-					}
-					else {
-						vetor = (AVetorVar) varEsq.getVar();
-						tipoEsq = tabela_simbolos.get(vetor.getId().getText().trim()).trim();
-					}
+					tipoEsq = getTipo(varEsq);
 					//fim do tipo esquerdo (VAR)
 					checarTiposCompativeis(tipoEsq,tipoDir,node);
 				}
@@ -145,6 +120,21 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 
 	}
 
+	public String getTipo(AVarExp varExp) {
+		AIdUnicaVar variavel;
+		AVetorVar vetor;
+		String tipo;
+		if(varExp.getVar() instanceof AIdUnicaVar) {
+			variavel = (AIdUnicaVar) varExp.getVar();
+			tipo = tabela_simbolos.get(variavel.getId().getText().trim()).trim();
+		}
+		else {
+			vetor = (AVetorVar) varExp.getVar();
+			tipo = tabela_simbolos.get(vetor.getId().getText().trim()).trim();
+		}
+		return tipo;
+	}
+
 	public void outASubExp(ASubExp node) {
 		
 		AVarExp varEsq = null,varDir = null;
@@ -156,25 +146,11 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		
 		if(node.getDir() instanceof AVarExp) {
 			varDir = (AVarExp) node.getDir();
-			if(varDir.getVar() instanceof AIdUnicaVar) {
-				variavel = (AIdUnicaVar) varDir.getVar();
-				tipoDir = tabela_simbolos.get(variavel.getId().getText().trim()).trim();
-			}
-			else {
-				vetor = (AVetorVar) varDir.getVar();
-				tipoDir = tabela_simbolos.get(vetor.getId().getText().trim()).trim();
-			}
+			tipoDir = getTipo(varDir);
 		//fim do tipo direito	(VAR)
 			if(node.getEsq() instanceof AVarExp) {// var e var
 				varEsq = (AVarExp) node.getEsq();
-				if(varEsq.getVar() instanceof AIdUnicaVar) {
-					variavel = (AIdUnicaVar) varEsq.getVar();
-					tipoEsq = tabela_simbolos.get(variavel.getId().getText().trim()).trim();
-				}
-				else {
-					vetor = (AVetorVar) varEsq.getVar();
-					tipoEsq = tabela_simbolos.get(vetor.getId().getText().trim()).trim();
-				}
+				tipoEsq = getTipo(varEsq);
 				//fim do tipo esquerdo (VAR)
 				checarTiposCompativeis(tipoEsq,tipoDir,node);
 				
@@ -197,14 +173,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				}
 				else if( node.getEsq() instanceof AVarExp) { // var valor
 					varEsq = (AVarExp) node.getEsq();
-					if(varEsq.getVar() instanceof AIdUnicaVar) {
-						variavel = (AIdUnicaVar) varEsq.getVar();
-						tipoEsq = tabela_simbolos.get(variavel.getId().getText().trim()).trim();
-					}
-					else {
-						vetor = (AVetorVar) varEsq.getVar();
-						tipoEsq = tabela_simbolos.get(vetor.getId().getText().trim()).trim();
-					}
+					tipoEsq = getTipo(varEsq);
 					//fim do tipo esquerdo (VAR)
 					checarTiposCompativeis(tipoEsq,tipoDir,node);
 				}
@@ -260,25 +229,11 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		
 		if(node.getDir() instanceof AVarExp) {
 			varDir = (AVarExp) node.getDir();
-			if(varDir.getVar() instanceof AIdUnicaVar) {
-				variavel = (AIdUnicaVar) varDir.getVar();
-				tipoDir = tabela_simbolos.get(variavel.getId().getText().trim()).trim();
-			}
-			else {
-				vetor = (AVetorVar) varDir.getVar();
-				tipoDir = tabela_simbolos.get(vetor.getId().getText().trim()).trim();
-			}
+			tipoDir = getTipo(varDir);
 		//fim do tipo direito	(VAR)
 			if(node.getEsq() instanceof AVarExp) {// var e var
 				varEsq = (AVarExp) node.getEsq();
-				if(varEsq.getVar() instanceof AIdUnicaVar) {
-					variavel = (AIdUnicaVar) varEsq.getVar();
-					tipoEsq = tabela_simbolos.get(variavel.getId().getText().trim()).trim();
-				}
-				else {
-					vetor = (AVetorVar) varEsq.getVar();
-					tipoEsq = tabela_simbolos.get(vetor.getId().getText().trim()).trim();
-				}
+				tipoEsq = getTipo(varEsq);
 				//fim do tipo esquerdo (VAR)
 				checarTiposCompativeis(tipoEsq,tipoDir,node);
 				
@@ -301,14 +256,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				}
 				else if( node.getEsq() instanceof AVarExp) { // var valor
 					varEsq = (AVarExp) node.getEsq();
-					if(varEsq.getVar() instanceof AIdUnicaVar) {
-						variavel = (AIdUnicaVar) varEsq.getVar();
-						tipoEsq = tabela_simbolos.get(variavel.getId().getText().trim()).trim();
-					}
-					else {
-						vetor = (AVetorVar) varEsq.getVar();
-						tipoEsq = tabela_simbolos.get(vetor.getId().getText().trim()).trim();
-					}
+					tipoEsq = getTipo(varEsq);
 					//fim do tipo esquerdo (VAR)
 					checarTiposCompativeis(tipoEsq,tipoDir,node);
 				}
@@ -364,25 +312,11 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		
 		if(node.getDir() instanceof AVarExp) {
 			varDir = (AVarExp) node.getDir();
-			if(varDir.getVar() instanceof AIdUnicaVar) {
-				variavel = (AIdUnicaVar) varDir.getVar();
-				tipoDir = tabela_simbolos.get(variavel.getId().getText().trim()).trim();
-			}
-			else {
-				vetor = (AVetorVar) varDir.getVar();
-				tipoDir = tabela_simbolos.get(vetor.getId().getText().trim()).trim();
-			}
+			tipoDir = getTipo(varDir);
 		//fim do tipo direito	(VAR)
 			if(node.getEsq() instanceof AVarExp) {// var e var
 				varEsq = (AVarExp) node.getEsq();
-				if(varEsq.getVar() instanceof AIdUnicaVar) {
-					variavel = (AIdUnicaVar) varEsq.getVar();
-					tipoEsq = tabela_simbolos.get(variavel.getId().getText().trim()).trim();
-				}
-				else {
-					vetor = (AVetorVar) varEsq.getVar();
-					tipoEsq = tabela_simbolos.get(vetor.getId().getText().trim()).trim();
-				}
+				tipoEsq = getTipo(varEsq);
 				//fim do tipo esquerdo (VAR)
 				checarTiposCompativeis(tipoEsq,tipoDir,node);
 				
@@ -405,14 +339,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				}
 				else if( node.getEsq() instanceof AVarExp) { // var valor
 					varEsq = (AVarExp) node.getEsq();
-					if(varEsq.getVar() instanceof AIdUnicaVar) {
-						variavel = (AIdUnicaVar) varEsq.getVar();
-						tipoEsq = tabela_simbolos.get(variavel.getId().getText().trim()).trim();
-					}
-					else {
-						vetor = (AVetorVar) varEsq.getVar();
-						tipoEsq = tabela_simbolos.get(vetor.getId().getText().trim()).trim();
-					}
+					tipoEsq = getTipo(varEsq);
 					//fim do tipo esquerdo (VAR)
 					checarTiposCompativeis(tipoEsq,tipoDir,node);
 				}
