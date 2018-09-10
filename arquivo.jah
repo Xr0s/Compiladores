@@ -1,5 +1,11 @@
 programa TESTE_Programa
 inicio
+		
+		inteiro: a[4];
+		real: c;
+		c := a[2] + 2;
+		a[1] := 2 + a[2];
+/*	
 		inteiro: a[4];
 		caractere: b;		
 		real: c, d;
@@ -8,7 +14,7 @@ inicio
 	
 		c := a + 2;	
 		a := c + 2;
-	/*
+
 		x := verdadeiro;
 		c := 'T';
 		a[3] := ch;	
@@ -40,6 +46,6 @@ inicio
 				constante := 12 + a ;
 			fim se;
 		fim se;
-		*/
+	*/
 fim.
 

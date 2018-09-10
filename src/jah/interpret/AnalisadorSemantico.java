@@ -333,7 +333,6 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 			varDir = (AVarExp) node.getDir();
 			tipoDir = getTipo(varDir).trim();
 			tokenId = retornaToken(varDir);
-			isVectorWithoutIndex(tokenId);
 		}else if(node.getDir() instanceof AValorExp){
 			valorDir = (AValorExp) node.getDir();
 			tipoDir = retornaTipoValor(valorDir).trim();
@@ -344,7 +343,6 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 			varEsq = (AVarExp) node.getEsq();
 			tipoEsq = getTipo(varEsq).trim();
 			tokenId = retornaToken(varEsq);
-			isVectorWithoutIndex(tokenId);
 		}else if(node.getEsq() instanceof AValorExp){
 			valorEsq = (AValorExp) node.getEsq();
 			tipoEsq = retornaTipoValor(valorEsq).trim();
@@ -1144,11 +1142,13 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		if(varExp.getVar() instanceof AIdUnicaVar) {
 			variavel = (AIdUnicaVar) varExp.getVar();
 			tokenId = variavel.getId();
+			isVectorWithoutIndex(tokenId);
 		}
 		else {
 			vetor = (AVetorVar) varExp.getVar();
 			tokenId = vetor.getId();
 		}
+		
 		return tokenId;
 	}
 	
