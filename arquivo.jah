@@ -3,8 +3,17 @@ inicio
 		
 		inteiro: a[4];
 		real: c;
-		c := a[2] + 2;
+		caractere: d;
+		a[2] := 2 + 8,1;
 		a[1] := 2 + a[2];
+	/*	
+		avalie(b)//a linha do avalie ta errada
+			caso 1:
+				escreva(b);
+			senao:
+				escreva(a[1]);
+		fim avalie;	
+		*/
 /*	
 		inteiro: a[4];
 		caractere: b;		
@@ -29,12 +38,7 @@ inicio
 				escreva(a[1]);
 		fim avalie;		
 		
-		avalie ('c')
-			caso 'c':
-				b := 10;
-			senao:
-				b := 8;
-		fim avalie;	
+
 		
 		
 		leia(a[2],a[1]);

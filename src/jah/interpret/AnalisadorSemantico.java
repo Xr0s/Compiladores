@@ -1036,8 +1036,9 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				) {
 				return "real";
 			}
-			else
-				exibirErro(id,11);	
+			else{
+				exibirErro(id,11);
+			}
 		}
 		
 		return tipoEsq;
@@ -1157,12 +1158,10 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		String text = "";
 		int line = 0;
 		int pos = 0;
-		
-		if(indiceErro != 8) { 
+		 
 			text = tokenComErro.getText();
 			line = tokenComErro.getLine();
 			pos = tokenComErro.getPos();
-		}
 		
 		switch(indiceErro){
 			case 1: //erro IndiceNegativo
@@ -1196,7 +1195,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				break;
 			
 			case 8:
-				msg = "Tipos incompatíveis na expressão.";
+				msg = "Inteiro não pode receber real.";
 				break;
 			
 			case 9:
@@ -1224,9 +1223,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				break;
 		}
 		
-		if(indiceErro != 8) {
 			msg = "Erro na linha " + line + ": " + msg;
-		}
 		
 		try {
 			
