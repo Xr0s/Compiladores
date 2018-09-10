@@ -687,27 +687,29 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		}
 		if( tabela_simbolos.containsKey(nomeVar)) {
 			String quebra[] = tabela_simbolos.get(nomeVar).trim().split("_");
-			if( !(tabela_simbolos.get(nomeVar).trim() ).equals("inteiro")  ){ 
-				if(!(quebra[0].equals("const"))) { //mudar isso qdo italo atualizar o codigo
+			//inteiro_12
+			if( !(quebra[0]).equals("inteiro")  ){ 
 					if(variavel!= null) {//variavel deve ser do tipo inteiro
 						exibirErro(variavel.getId(),6);
 					}
 					else
 						exibirErro(vetor.getId(), 6);
-				}
-				else { //variavel não pode ser constante
-					exibirErro(variavel.getId(), 4);
-				}
 			}
-			else{//variavel é inteiro
-				if(vetor != null) {//variavel só pode ser vetor se tiver com o indice
-					verificarPosicaoIndevida(vetor,nomeVar);//se está acessando posição indevida
-				}
-				else {//se for vetor sem indice dar erro
-					if(tabela_simbolos.containsKey("indice_" + nomeVar)) {
-						exibirErro(variavel.getId(), 7);
+			else{
+				if((	quebra[1].equals("@") || quebra[1].equals("!"))) { 
+					//variavel é inteiro
+					if(vetor != null) {//variavel só pode ser vetor se tiver com o indice
+						verificarPosicaoIndevida(vetor,nomeVar);//se está acessando posição indevida
 					}
+					else {//se for vetor sem indice dar erro
+						if(tabela_simbolos.containsKey("indice_" + nomeVar)) {
+							exibirErro(variavel.getId(), 7);
+						}
+					}	
+				}else {
+						exibirErro(variavel.getId(),4);
 				}
+				
 			}
 				
 		}
@@ -732,34 +734,36 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		}
 		if( tabela_simbolos.containsKey(nomeVar)) {
 			String quebra[] = tabela_simbolos.get(nomeVar).trim().split("_");
-			if( !(tabela_simbolos.get(nomeVar).trim() ).equals("inteiro")  ){ 
-				if(!(quebra[0].equals("const"))) { //mudar isso qdo italo atualizar o codigo
+			//inteiro_12
+			if( !(quebra[0]).equals("inteiro")  ){ 
 					if(variavel!= null) {//variavel deve ser do tipo inteiro
 						exibirErro(variavel.getId(),6);
 					}
 					else
 						exibirErro(vetor.getId(), 6);
-				}
-				else { //variavel não pode ser constante
-					exibirErro(variavel.getId(), 4);
-				}
 			}
-			else{//variavel é inteiro
-				if(vetor != null) {//variavel só pode ser vetor se tiver com o indice
-					verificarPosicaoIndevida(vetor,nomeVar);//se está acessando posição indevida
-				}
-				else {//se for vetor sem indice dar erro
-					if(tabela_simbolos.containsKey("indice_" + nomeVar)) {
-						exibirErro(variavel.getId(), 7);
+			else{
+				if((	quebra[1].equals("@") || quebra[1].equals("!"))) { 
+					//variavel é inteiro
+					if(vetor != null) {//variavel só pode ser vetor se tiver com o indice
+						verificarPosicaoIndevida(vetor,nomeVar);//se está acessando posição indevida
 					}
+					else {//se for vetor sem indice dar erro
+						if(tabela_simbolos.containsKey("indice_" + nomeVar)) {
+							exibirErro(variavel.getId(), 7);
+						}
+					}	
+				}else {
+						exibirErro(variavel.getId(),4);
 				}
+				
 			}
 				
 		}
 		else{//variavel nao declarada
 			variavelNaoDeclarada(variavel,vetor);
 		}
-	
+		
 	}
 	
 	public void outAAvalieComando(AAvalieComando node) {
@@ -898,6 +902,8 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		TId ident = null;
 		TInteiro identIndiceVetor = null;
 		LinkedList<PVar> listaVar  = node.getVar();
+		String sinal = "";
+		
 		AVetorVar vetor = null;
 		AIdUnicaVar variavel = null;
 		
@@ -909,6 +915,12 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				vetor = (AVetorVar) var;
 				ident = vetor.getId();
 				identIndiceVetor = vetor.getInteiro();
+			//	vetor.getSinal();
+				
+				try {
+					sinal = vetor.getSinal().toString().trim();
+				} catch (Exception e) {
+				}
 			}
 
 			String key = ident.getText().trim();
@@ -917,7 +929,8 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 			}
 			else {
 				if(! (var instanceof AIdUnicaVar)) {
-					int indice = Integer.parseInt(identIndiceVetor.getText().toString());
+					int indice = Integer.parseInt(sinal + identIndiceVetor.getText().toString());
+					
 					if(indice < 0) {
 						exibirErro(identIndiceVetor, 1);
 					}
@@ -1082,12 +1095,21 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 	
 	
 	public void verificarPosicaoIndevida(AVetorVar vetor, String nomeVar) {
+		String sinal = "";
 		if(vetor != null) {//variavel do tipo vetor
-			int indice = Integer.parseInt(vetor.getInteiro().getText() );
-			int tamVetor = Integer.parseInt(tabela_simbolos.get("indice_"+ nomeVar).trim() );
-			if(indice >= tamVetor) {
-				//se o indice utilizado for maior ou igual que o tamVetor
-				erroPosicaoIndevida(vetor, nomeVar);
+			try {
+				sinal = vetor.getSinal().toString().trim();
+			} catch (Exception e) {
+			}
+			int indice = Integer.parseInt( sinal + vetor.getInteiro().getText() );
+			if(tabela_simbolos.containsKey("indice_"+ nomeVar)){
+				int tamVetor = Integer.parseInt(tabela_simbolos.get("indice_"+ nomeVar).trim() );
+				if(indice >= tamVetor || indice < 0) {
+					//se o indice utilizado for maior ou igual que o tamVetor
+					erroPosicaoIndevida(vetor, nomeVar);
+				}
+			}else{
+				variavelNaoDeclarada(null, vetor);
 			}
 		}
 	}
@@ -1101,25 +1123,6 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 				,
 				5);
 	}
-	
-	public boolean auxChecaTipoValido(String variavel) {
-		return true;
-/*		if(tabela_simbolos.containsKey(variavel) ) {
-			switch(tabela_simbolos.get(variavel).trim().split("_")[0] ) {
-				case "inteiro":
-					return true;
-				case "caractere":
-					return true;
-				case "booleano":
-					return true;
-				case "real":
-					return true;
-				default:
-					return false;
-			}
-		}
-		return false;
-*/	}
 	
 	public String getTipo(AVarExp varExp) {
 		AIdUnicaVar variavel;
@@ -1165,33 +1168,33 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 		
 		switch(indiceErro){
 			case 1: //erro IndiceNegativo
-				msg = ": O índice de um vetor: [" + text + "] não pode "
+				msg = "O índice de um vetor [-" + text + "] não pode "
 					   + "ser negativo.";
 				break;
 				
 			case 2://erro variavel já declarada
-				msg = ": Variável '" + text + "' já declarada.";
+				msg = "Variável '" + text + "' já declarada.";
 				break;
 				
 			case 3://variável não declarada
-				msg = ": Variável '" + text + "' não declarada.";
+				msg = "Variável '" + text + "' não declarada.";
 				break;
 				
 			case 4: //constante não pode ter valor alterado
-				msg = ": Constante '" + text + "' não pode ter valor alterado.";
+				msg = "Constante '" + text + "' não pode ter valor alterado.";
 				break;
 			
 			case 5:
-				msg = ": Vetor '"+ text + "' tentou acessar uma posição"
+				msg = "Vetor '"+ text + "' tentou acessar uma posição"
 						+ " indevida.";
 				break;
 				
 			case 6:
-				msg = ": Variavel " + text + " deve ser do tipo inteiro.";
+				msg = "Variavel " + text + " deve ser do tipo inteiro.";
 				break;
 			
 			case 7:
-				msg = ": Vetor '" + text + "' deve vir com o indice.";
+				msg = "Vetor '" + text + "' deve vir com o indice.";
 				break;
 			
 			case 8:
@@ -1201,11 +1204,9 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 			case 9:
 				msg = "Tipos incompatíveis na expressão.";
 				break;	
-				
 			case 10:
 				msg = "O tipo do avalie é diferente do tipo do caso.";
 				break;
-				
 			case 11:
 				msg = "Tipos incompatíveis na atribuição.";
 				break;

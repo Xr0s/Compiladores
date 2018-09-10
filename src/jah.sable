@@ -131,10 +131,10 @@ Productions
 						  	{ -> New comando.enquanto(exp_logica, [comando])}
 						  | {repita} repita comando+ ate abre_parentese exp_logica fecha_parentese pontovirgula
 						  	{ -> New comando.repita([comando], exp_logica)}
-						  | {para_sem_passo} para var de [esq]:inteiro ate [dir]:inteiro faca comando+ fim_para pontovirgula
+						  | {para_sem_passo} para var de [sinal1]:sinal? [esq]:inteiro ate [sinal2]:sinal? [dir]:inteiro faca comando+ fim_para pontovirgula
 						    { -> New comando.para_sem_passo(var, esq, dir, [comando])}
-						  | {para_com_passo} para var de [pri]:inteiro passo [seg]:inteiro 
-						   				   ate [ter]:inteiro faca comando+ fim_para pontovirgula
+						  | {para_com_passo} para var de [sinal1]:sinal? [pri]:inteiro passo [sinal2]:sinal? [seg]:inteiro 
+						   				   ate [sinal3]:sinal? [ter]:inteiro faca comando+ fim_para pontovirgula
 						   	{ -> New comando.para_com_passo(var,pri, seg, ter, [comando])}
 						  | {avalie} avalie abre_parentese exp fecha_parentese casos* decl_senao_avalie? fim_avalie pontovirgula
 						    { -> New comando.avalie(exp, [casos], [decl_senao_avalie.comando])};
@@ -210,7 +210,7 @@ Productions
 
 	
 	var {-> var} = {id_unica} id {-> New var.id_unica (id)} 
-	    	   	 | {vetor} id abre_colchete inteiro fecha_colchete { -> New var.vetor(id,inteiro)}
+	    	   	 | {vetor} id abre_colchete sinal? inteiro fecha_colchete { -> New var.vetor(id,sinal,inteiro)}
 	    	   	 ;	 	 
  
 	tipo {-> tipo} = {real} real_reservada {-> New tipo.real(real_reservada)} 
@@ -225,8 +225,8 @@ Productions
 				     | {booleano} booleano {-> New valor.booleano(booleano)}
 				     | {string} string {-> New valor.string(string)};
 	
-	sinal = {mais} mais 
-		  | {menos} menos;
+	sinal {-> sinal} = {mais} mais {-> New sinal.mais(mais)}
+		  | {menos} menos {-> New sinal.menos(menos)};
 
 Abstract Syntax Tree
 
@@ -276,8 +276,11 @@ Abstract Syntax Tree
 			   ;	
 
 	var = {id_unica} id  
-	    | {vetor} id inteiro
+	    | {vetor} id sinal? inteiro
 	    ;
+	    
+	sinal = {mais} mais
+		  | {menos} menos;
 		 
 	valor = {char} caractere 
 		  | {int} inteiro

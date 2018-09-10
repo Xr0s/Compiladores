@@ -8,6 +8,7 @@ import jah.analysis.*;
 public final class AVetorVar extends PVar
 {
     private TId _id_;
+    private PSinal _sinal_;
     private TInteiro _inteiro_;
 
     public AVetorVar()
@@ -17,10 +18,13 @@ public final class AVetorVar extends PVar
 
     public AVetorVar(
         @SuppressWarnings("hiding") TId _id_,
+        @SuppressWarnings("hiding") PSinal _sinal_,
         @SuppressWarnings("hiding") TInteiro _inteiro_)
     {
         // Constructor
         setId(_id_);
+
+        setSinal(_sinal_);
 
         setInteiro(_inteiro_);
 
@@ -31,6 +35,7 @@ public final class AVetorVar extends PVar
     {
         return new AVetorVar(
             cloneNode(this._id_),
+            cloneNode(this._sinal_),
             cloneNode(this._inteiro_));
     }
 
@@ -65,6 +70,31 @@ public final class AVetorVar extends PVar
         this._id_ = node;
     }
 
+    public PSinal getSinal()
+    {
+        return this._sinal_;
+    }
+
+    public void setSinal(PSinal node)
+    {
+        if(this._sinal_ != null)
+        {
+            this._sinal_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._sinal_ = node;
+    }
+
     public TInteiro getInteiro()
     {
         return this._inteiro_;
@@ -95,6 +125,7 @@ public final class AVetorVar extends PVar
     {
         return ""
             + toString(this._id_)
+            + toString(this._sinal_)
             + toString(this._inteiro_);
     }
 
@@ -105,6 +136,12 @@ public final class AVetorVar extends PVar
         if(this._id_ == child)
         {
             this._id_ = null;
+            return;
+        }
+
+        if(this._sinal_ == child)
+        {
+            this._sinal_ = null;
             return;
         }
 
@@ -124,6 +161,12 @@ public final class AVetorVar extends PVar
         if(this._id_ == oldChild)
         {
             setId((TId) newChild);
+            return;
+        }
+
+        if(this._sinal_ == oldChild)
+        {
+            setSinal((PSinal) newChild);
             return;
         }
 

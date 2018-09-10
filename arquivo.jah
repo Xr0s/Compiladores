@@ -1,26 +1,33 @@
 programa TESTE_Programa
 inicio
 		
-		inteiro: a[4];
+		inteiro: a[200], z;
+		real: b[-2];
 		real: c;
-		caractere: d;
+		const constante 10;
+		caractere: d, ch;
+		
+		a[-2] := b[1] + 8,1;
+
 		a[2] := 2 + 8,1;
 		a[1] := 2 + a[2];
-	/*	
-		avalie(b)//a linha do avalie ta errada
+		
+		para d de -3 ate +40 faca
+			c := 2 + 3,1;
+		fim para;
+			
+			
+		avalie(d)
 			caso 1:
 				escreva(b);
+			caso 2:
+				escreva(b);
+			caso 3:
+				escreva(b);
 			senao:
-				escreva(a[1]);
+				escreva(a[4]);
 		fim avalie;	
-		*/
-/*	
-		inteiro: a[4];
-		caractere: b;		
-		real: c, d;
-		caractere: ch;
-		const constante 11;
-	
+			
 		c := a + 2;	
 		a := c + 2;
 
@@ -38,18 +45,15 @@ inicio
 				escreva(a[1]);
 		fim avalie;		
 		
-
-		
-		
 		leia(a[2],a[1]);
 		
-		se (2,3 < 'c' + 2) entao
+		se (2,3 < 'c') entao
 			a[2] := 3;
 		senao
 			se ( (a = constante) = ( c <> d) ) entao
 				constante := 12 + a ;
 			fim se;
 		fim se;
-	*/
+	
 fim.
 

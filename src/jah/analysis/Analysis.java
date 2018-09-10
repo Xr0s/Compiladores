@@ -50,6 +50,8 @@ public interface Analysis extends Switch
     void caseAMaiorExpLogica(AMaiorExpLogica node);
     void caseAIdUnicaVar(AIdUnicaVar node);
     void caseAVetorVar(AVetorVar node);
+    void caseAMaisSinal(AMaisSinal node);
+    void caseAMenosSinal(AMenosSinal node);
     void caseACharValor(ACharValor node);
     void caseAIntValor(AIntValor node);
     void caseAFloatValor(AFloatValor node);

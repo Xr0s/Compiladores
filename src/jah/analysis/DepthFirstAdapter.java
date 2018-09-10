@@ -1009,11 +1009,57 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getId().apply(this);
         }
+        if(node.getSinal() != null)
+        {
+            node.getSinal().apply(this);
+        }
         if(node.getInteiro() != null)
         {
             node.getInteiro().apply(this);
         }
         outAVetorVar(node);
+    }
+
+    public void inAMaisSinal(AMaisSinal node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAMaisSinal(AMaisSinal node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAMaisSinal(AMaisSinal node)
+    {
+        inAMaisSinal(node);
+        if(node.getMais() != null)
+        {
+            node.getMais().apply(this);
+        }
+        outAMaisSinal(node);
+    }
+
+    public void inAMenosSinal(AMenosSinal node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAMenosSinal(AMenosSinal node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAMenosSinal(AMenosSinal node)
+    {
+        inAMenosSinal(node);
+        if(node.getMenos() != null)
+        {
+            node.getMenos().apply(this);
+        }
+        outAMenosSinal(node);
     }
 
     public void inACharValor(ACharValor node)
