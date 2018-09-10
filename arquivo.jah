@@ -4,13 +4,24 @@ inicio
 		caractere: b;		
 		real: c, d;
 		caractere: ch;
-
+		const constante 11;
+	
+		c := a + 2;	
+		a := c + 2;
+	/*
+		x := verdadeiro;
+		c := 'T';
 		a[3] := ch;	
 		b := 'c' * 'c';
 
 		ch := (2+1)+(3*3);
 		
-		
+		avalie(b)
+			caso 1:
+				escreva(b);
+			senao:
+				escreva(a[1]);
+		fim avalie;		
 		
 		avalie ('c')
 			caso 'c':
@@ -24,7 +35,11 @@ inicio
 		
 		se (2,3 < 'c' + 2) entao
 			a[2] := 3;
+		senao
+			se ( (a = constante) = ( c <> d) ) entao
+				constante := 12 + a ;
+			fim se;
 		fim se;
-		
+		*/
 fim.
 
