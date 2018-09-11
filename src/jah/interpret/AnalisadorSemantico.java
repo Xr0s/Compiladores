@@ -9,6 +9,13 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 
 	Hashtable<String, String> tabela_simbolos = new Hashtable<String, String>(99999999);
 	Hashtable<String, String> tabela_expressoes = new Hashtable<String, String>(99999999);
+	String nomeDoPrograma = "";
+	
+	public void outAProgram(AProgram node) {
+		nomeDoPrograma = (node.getId().toString().trim() );
+		tabela_simbolos.put(nomeDoPrograma, "inteiro_@");
+		System.out.println(nomeDoPrograma);
+	}
 	
 	public void outAIgualdadeExpExpLogica(AIgualdadeExpExpLogica node) {
 
@@ -911,6 +918,7 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 			if(var instanceof AIdUnicaVar) {
 				variavel = (AIdUnicaVar) var;
 				ident = variavel.getId();
+				
 			}else {
 				vetor = (AVetorVar) var;
 				ident = vetor.getId();
@@ -924,10 +932,14 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 			}
 
 			String key = ident.getText().trim();
+			System.out.print(nomeDoPrograma + " " + key);
+			if(nomeDoPrograma.trim().equals(key))
+				exibirErro(ident,2);
 				if (tabela_simbolos.containsKey(key)) { // report an error
-				exibirErro(ident, 2);
+					exibirErro(ident, 2);
 			}
 			else {
+				
 				if(! (var instanceof AIdUnicaVar)) {
 					int indice = Integer.parseInt(sinal + identIndiceVetor.getText().toString());
 					
@@ -935,7 +947,11 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 						exibirErro(identIndiceVetor, 1);
 					}
 					else {
-						tabela_simbolos.put("indice_" + key, "" + indice);
+						if(indice == 0) {
+							exibirErro(identIndiceVetor,16);
+						}else {
+							tabela_simbolos.put("indice_" + key, "" + indice);
+						}
 					}
 				}
 				if(vetor == null)//id unica var
@@ -1127,14 +1143,16 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 	public String getTipo(AVarExp varExp) {
 		AIdUnicaVar variavel;
 		AVetorVar vetor;
-		String tipo;
+		String tipo = "";
 		if(varExp.getVar() instanceof AIdUnicaVar) {
 			variavel = (AIdUnicaVar) varExp.getVar();
-			tipo = tabela_simbolos.get(variavel.getId().getText().trim()).split("_")[0];
+			if(tabela_simbolos.containsKey(variavel.getId().getText().trim()))
+				tipo = tabela_simbolos.get(variavel.getId().getText().trim()).split("_")[0];
 		}
 		else {
 			vetor = (AVetorVar) varExp.getVar();
-			tipo = tabela_simbolos.get(vetor.getId().getText().trim()).split("_")[0];
+			if(tabela_simbolos.containsKey(vetor.getId().getText().trim()))	
+				tipo = tabela_simbolos.get(vetor.getId().getText().trim()).split("_")[0];
 		}
 		return tipo;
 	}
@@ -1222,6 +1240,13 @@ public class AnalisadorSemantico extends DepthFirstAdapter {
 			case 15:
 				msg = "Caracteres não podem ser divididos.";
 				break;
+				
+			case 16:
+				msg = "Vetor não pode ter indice 0";
+				break;
+			
+			case 17:
+				msg = "Variavel não pode ter o nome do programa '" + text +  "'";
 		}
 		
 			msg = "Erro na linha " + line + ": " + msg;

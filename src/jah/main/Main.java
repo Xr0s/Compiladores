@@ -60,8 +60,10 @@ public class Main {
 		Start tree = parser.parse();
 		//System.out.println(tree);
 		//tree.apply(new ASTPrinter());
-		AnalisadorSemantico interpretador = new AnalisadorSemantico();
-		tree.apply(interpretador);// da classe interpreter
+		AnalisadorSemantico semantico = new AnalisadorSemantico();
+		tree.apply(semantico);// da classe interpreter
+
+		System.out.println("Foiii!!!");
 	}
 	
 	public static void analiseSintatica(Comentario_Aninhado lexer) throws ParserException, LexerException, IOException {

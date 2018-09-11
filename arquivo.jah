@@ -1,59 +1,13 @@
-programa TESTE_Programa
+programa teste21
 inicio
-		
-		inteiro: a[200], z;
-		real: b[-2];
-		real: c;
-		const constante 10;
-		caractere: d, ch;
-		
-		a[-2] := b[1] + 8,1;
 
-		a[2] := 2 + 8,1;
-		a[1] := 2 + a[2];
+	inteiro: teste21,a;
+	inteiro: b;
+	const PI 2;
 		
-		para d de -3 ate +40 faca
-			c := 2 + 3,1;
-		fim para;
-			
-			
-		avalie(d)
-			caso 1:
-				escreva(b);
-			caso 2:
-				escreva(b);
-			caso 3:
-				escreva(b);
-			senao:
-				escreva(a[4]);
-		fim avalie;	
-			
-		c := a + 2;	
-		a := c + 2;
-
-		x := verdadeiro;
-		c := 'T';
-		a[3] := ch;	
-		b := 'c' * 'c';
-
-		ch := (2+1)+(3*3);
-		
-		avalie(b)
-			caso 1:
-				escreva(b);
-			senao:
-				escreva(a[1]);
-		fim avalie;		
-		
-		leia(a[2],a[1]);
-		
-		se (2,3 < 'c') entao
-			a[2] := 3;
-		senao
-			se ( (a = constante) = ( c <> d) ) entao
-				constante := 12 + a ;
-			fim se;
-		fim se;
+	
+	se ( a+1 = 14 ) entao //Nao funciona
+		escreva('MAIOR');
+	fim se;
 	
 fim.
-
